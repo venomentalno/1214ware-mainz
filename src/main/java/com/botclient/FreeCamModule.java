@@ -50,7 +50,6 @@ import net.minecraft.entity.player.PlayerInventory;
 // Removed: PlayerCapabilities replaced
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 

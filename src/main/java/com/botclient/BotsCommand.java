@@ -112,8 +112,6 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
-import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;

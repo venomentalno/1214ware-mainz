@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 

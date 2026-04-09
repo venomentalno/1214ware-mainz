@@ -70,7 +70,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.CPacketTabComplete;
 // Removed: import net.minecraft.profiler.ISnooperInfo;
 // Removed: import net.minecraft.profiler.Profiler;
 // Removed: import net.minecraft.profiler.Snooper;

@@ -21,7 +21,6 @@ import com.botclient.ServerStatusPinger;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.status.INetHandlerStatusClient;
-import net.minecraft.network.status.client.CPacketPing;
 import net.minecraft.network.status.server.SPacketPong;
 import net.minecraft.network.status.server.SPacketServerInfo;
 import net.minecraft.text.Text;

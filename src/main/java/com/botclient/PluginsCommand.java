@@ -28,7 +28,6 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.CPacketTabComplete;
 import org.apache.commons.lang3.StringUtils;
 
 /*

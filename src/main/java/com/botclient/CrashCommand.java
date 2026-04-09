@@ -43,9 +43,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.c2s.play.CPacketClickWindow;
-import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
-import net.minecraft.network.packet.c2s.play.CPacketTabComplete;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

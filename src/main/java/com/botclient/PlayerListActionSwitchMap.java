@@ -6,7 +6,6 @@
  */
 package com.botclient;
 
-import net.minecraft.network.packet.s2c.play.SPacketPlayerListItem;
 
 /*
  * Exception performing whole class analysis ignored.

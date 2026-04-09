@@ -9,7 +9,6 @@
 package com.botclient;
 
 import com.botclient.CancellableEvent;
-import net.minecraft.network.packet.s2c.play.SPacketPlayerListItem;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

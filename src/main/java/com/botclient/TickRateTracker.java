@@ -18,10 +18,6 @@ import java.util.Arrays;
 import com.botclient.EventTarget;
 import com.botclient.EventBus;
 import com.botclient.PacketReceiveEvent;
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
-import net.minecraft.network.packet.s2c.play.SPacketSetExperience;
-import net.minecraft.network.packet.s2c.play.SPacketTimeUpdate;
-import net.minecraft.network.packet.s2c.play.SPacketUpdateBossInfo;
 import net.minecraft.util.math.MathHelper;
 
 /*

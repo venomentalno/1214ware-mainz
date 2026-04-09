@@ -33,7 +33,6 @@ import com.botclient.MinecraftContext;
 import com.botclient.PacketReceiveEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.packet.s2c.play.SPacketTimeUpdate;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
