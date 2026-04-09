@@ -1,45 +1,39 @@
 ```
-# Gradle
-.gradle/
-
-# Compiled files
+# Compiled and build artifacts
 *.class
 *.o
 *.obj
-*.exe
-*.dll
-*.so
-*.a
 *.out
-
-# Dependencies
 build/
 target/
+
+# Dependencies
+.gradle/
+lib/
+libs/
 
 # Logs and temp files
 *.log
 *.tmp
 *.swp
 
-# Editors
-.vscode/
-.idea/
-
 # Environment
 .env
 .env.local
 *.env.*
 
-# Coverage
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# Python specific (if applicable)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
+# MyPy cache
 .mypy_cache/
+.pytest_cache/
 ```

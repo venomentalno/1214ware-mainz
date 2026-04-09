@@ -1,4 +1,13 @@
-/*
+#!/usr/bin/env python3
+"""
+Port Minecraft mod from old version to 1.21.4 Fabric
+This script will rewrite the main problematic files with proper 1.21.4 code
+"""
+import os
+import re
+
+# PBotPlayer.java - Completely rewritten for 1.21.4
+pbotplayer_content = '''/*
  * PBotPlayer - Ported to Minecraft 1.21.4 Fabric
  */
 package com.botclient;
@@ -296,3 +305,9 @@ public class PBotPlayer extends PlayerEntity {
         return (float) this.getAttributeValue(net.minecraft.entity.attribute.EntityAttributes.GENERIC_MOVEMENT_SPEED);
     }
 }
+'''
+
+with open('/workspace/src/main/java/com/botclient/PBotPlayer.java', 'w') as f:
+    f.write(pbotplayer_content)
+
+print("PBotPlayer.java written successfully")

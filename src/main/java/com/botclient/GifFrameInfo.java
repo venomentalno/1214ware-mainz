@@ -1,44 +1,33 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package com.botclient;
 
-/*
- * Exception performing whole class analysis ignored.
- */
+import java.awt.image.BufferedImage;
+
 public class GifFrameInfo {
-    public final int x;
-    public final int id;
-    public final int y;
-
-    public int getId() {
-        return this.id;
-    }
-
-    private static int getX(GifFrameInfo instance) {
-        return instance.x;
-    }
-
-    public GifFrameInfo(int id, int x, int y) {
-        this.id = id;
+    private final BufferedImage image;
+    private final int x;
+    private final int y;
+    private final int delay;
+    
+    public GifFrameInfo(BufferedImage image, int x, int y, int delay) {
+        this.image = image;
         this.x = x;
         this.y = y;
+        this.delay = delay;
     }
-
-    private static int getId(GifFrameInfo instance) {
-        return instance.id;
+    
+    public BufferedImage getImage() {
+        return this.image;
     }
-
-    private static int getY(GifFrameInfo instance) {
-        return instance.y;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
+    
     public int getX() {
         return this.x;
     }
+    
+    public int getY() {
+        return this.y;
+    }
+    
+    public int getDelay() {
+        return this.delay;
+    }
 }
-
