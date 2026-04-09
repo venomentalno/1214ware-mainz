@@ -184,7 +184,7 @@ public class PBot {
         return this.playerController != null && this.playerController.breakBlock(pos);
     }
     
-    public boolean placeBlock(BlockPos pos, Direction direction, Vec3d hitVec) {
+    public boolean placeBlock(BlockPos pos, Direction direction, net.minecraft.util.math.Vec3d hitVec) {
         return this.playerController != null && this.playerController.processRightClickBlock(pos, direction, hitVec);
     }
     

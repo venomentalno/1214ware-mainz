@@ -2,40 +2,64 @@ package com.botclient;
 
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.ClientConnection;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.*;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.network.NetworkSide;
+import net.minecraft.network.listener.ClientCommonPacketListener;
 
 public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     private final PBot pbot;
     private final ClientConnection netManager;
     private final GameProfile profile;
 
-    public PBotNetHandlerPlayClient(PBot bot, ClientConnection connection) {
-        super(bot.getMinecraft().getMC(), null, connection, null, false);
+    public PBotNetHandlerPlayClient(PBot bot, ClientConnection connection, MinecraftClient client) {
+        super(client, null, connection, null, false);
         this.pbot = bot;
         this.netManager = connection;
         this.profile = bot.getSession().getProfile();
         this.pbot.setPlayHandler(this);
     }
 
+    public PBot getPbot() {
+        return this.pbot;
+    }
+
+    public ClientConnection getConnection() {
+        return this.netManager;
+    }
+
+    public GameProfile getProfile() {
+        return this.profile;
+    }
+
+    // Override key packets for custom handling
+    @Override
+    public void onGameJoin(GameJoinS2CPacket packet) {
+        super.onGameJoin(packet);
+    }
+
+    @Override
+    public void onPlayerPositionLook(PlayerPositionLookS2CPacket packet) {
+        super.onPlayerPositionLook(packet);
+    }
+
+    @Override
+    public void onChatMessage(ChatMessageS2CPacket packet) {
+        super.onChatMessage(packet);
+    }
+
     @Override
     public void onPlayerList(PlayerListS2CPacket packet) {
-        // Handle player list updates
         super.onPlayerList(packet);
     }
 
     @Override
     public void onEntitySpawn(AddEntityS2CPacket packet) {
-        // Handle entity spawn
         super.onEntitySpawn(packet);
-    }
-
-    @Override
-    public void onPlayerSpawnPosition(PlayerSpawnPositionS2CPacket packet) {
-        super.onPlayerSpawnPosition(packet);
     }
 
     @Override
@@ -59,28 +83,8 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onPlayerPositionLook(PlayerPositionLookS2CPacket packet) {
-        super.onPlayerPositionLook(packet);
-    }
-
-    @Override
-    public void onGameJoin(GameJoinS2CPacket packet) {
-        super.onGameJoin(packet);
-    }
-
-    @Override
-    public void onChatMessage(ChatMessageS2CPacket packet) {
-        super.onChatMessage(packet);
-    }
-
-    @Override
     public void onHealthUpdate(HealthUpdateS2CPacket packet) {
         super.onHealthUpdate(packet);
-    }
-
-    @Override
-    public void onExperience(ExperienceOrbSpawnS2CPacket packet) {
-        super.onExperience(packet);
     }
 
     @Override
@@ -134,11 +138,6 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onSetTradeOffers(SetTradeOffersS2CPacket packet) {
-        super.onSetTradeOffers(packet);
-    }
-
-    @Override
     public void onCloseScreen(CloseScreenS2CPacket packet) {
         super.onCloseScreen(packet);
     }
@@ -179,43 +178,23 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onStatistics(StatisticsUpdateS2CPacket packet) {
-        super.onStatistics(packet);
+    public void onPlayerAbilitiesSet(PlayerAbilitiesSetS2CPacket packet) {
+        super.onPlayerAbilitiesSet(packet);
     }
 
     @Override
-    public void onTagsUpdate(TagsUpdateS2CPacket packet) {
-        super.onTagsUpdate(packet);
+    public void onEntityTrackerUpdate(EntityTrackerUpdateS2CPacket packet) {
+        super.onEntityTrackerUpdate(packet);
     }
 
     @Override
-    public void onRecipeBookData(RecipeBookDataS2CPacket packet) {
-        super.onRecipeBookData(packet);
+    public void onPlayerRespawn(PlayerRespawnS2CPacket packet) {
+        super.onPlayerRespawn(packet);
     }
 
     @Override
-    public void onCommandTree(CommandTreeS2CPacket packet) {
-        super.onCommandTree(packet);
-    }
-
-    @Override
-    public void onUnlockRecipes(UnlockRecipesS2CPacket packet) {
-        super.onUnlockRecipes(packet);
-    }
-
-    @Override
-    public void onAdvancementUpdate(AdvancementUpdateS2CPacket packet) {
-        super.onAdvancementUpdate(packet);
-    }
-
-    @Override
-    public void onEntityPassengersSet(EntityPassengersSetS2CPacket packet) {
-        super.onEntityPassengersSet(packet);
-    }
-
-    @Override
-    public void onTitle(TitleS2CPacket packet) {
-        super.onTitle(packet);
+    public void onGameStateChange(GameStateChangeS2CPacket packet) {
+        super.onGameStateChange(packet);
     }
 
     @Override
@@ -224,18 +203,8 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onLightUpdate(LightUpdateS2CPacket packet) {
-        super.onLightUpdate(packet);
-    }
-
-    @Override
     public void onParticle(ParticleS2CPacket packet) {
         super.onParticle(packet);
-    }
-
-    @Override
-    public void onSoundCategory(SoundCategoryS2CPacket packet) {
-        super.onSoundCategory(packet);
     }
 
     @Override
@@ -244,53 +213,8 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onStopSound(StopSoundS2CPacket packet) {
-        super.onStopSound(packet);
-    }
-
-    @Override
     public void onMapData(MapDataS2CPacket packet) {
         super.onMapData(packet);
-    }
-
-    @Override
-    public void onNbtQueryResponse(NbtQueryResponseS2CPacket packet) {
-        super.onNbtQueryResponse(packet);
-    }
-
-    @Override
-    public void onPlayerAbilitiesSet(PlayerAbilitiesSetS2CPacket packet) {
-        super.onPlayerAbilitiesSet(packet);
-    }
-
-    @Override
-    public void onPlayerActionResponse(PlayerActionResponseS2CPacket packet) {
-        super.onPlayerActionResponse(packet);
-    }
-
-    @Override
-    public void onDeath(DeathMessageS2CPacket packet) {
-        super.onDeath(packet);
-    }
-
-    @Override
-    public void onCombatEvent(CombatEventS2CPacket packet) {
-        super.onCombatEvent(packet);
-    }
-
-    @Override
-    public void onHurtAnimation(HurtAnimationS2CPacket packet) {
-        super.onHurtAnimation(packet);
-    }
-
-    @Override
-    public void onCooldownUpdate(CooldownUpdateS2CPacket packet) {
-        super.onCooldownUpdate(packet);
-    }
-
-    @Override
-    public void onBlockBreakingProgress(BlockBreakingProgressS2CPacket packet) {
-        super.onBlockBreakingProgress(packet);
     }
 
     @Override
@@ -314,38 +238,8 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onEntityTrackerUpdate(EntityTrackerUpdateS2CPacket packet) {
-        super.onEntityTrackerUpdate(packet);
-    }
-
-    @Override
-    public void onHeadRotation(HeadRotationS2CPacket packet) {
-        super.onHeadRotation(packet);
-    }
-
-    @Override
-    public void onRotateHead(RotateHeadS2CPacket packet) {
-        super.onRotateHead(packet);
-    }
-
-    @Override
-    public void onLookAt(LookAtS2CPacket packet) {
-        super.onLookAt(packet);
-    }
-
-    @Override
     public void onPlayerRemove(PlayerRemoveS2CPacket packet) {
         super.onPlayerRemove(packet);
-    }
-
-    @Override
-    public void onPlayerRespawn(PlayerRespawnS2CPacket packet) {
-        super.onPlayerRespawn(packet);
-    }
-
-    @Override
-    public void onGameStateChange(GameStateChangeS2CPacket packet) {
-        super.onGameStateChange(packet);
     }
 
     @Override
@@ -354,23 +248,118 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onSubtitle(SubtitleS2CPacket packet) {
-        super.onSubtitle(packet);
-    }
-
-    @Override
     public void onSystemMessage(SystemMessageS2CPacket packet) {
         super.onSystemMessage(packet);
     }
 
     @Override
-    public void onCenterChunk(CenterChunkS2CPacket packet) {
-        super.onCenterChunk(packet);
+    public void onClearTitle(ClearTitleS2CPacket packet) {
+        super.onClearTitle(packet);
     }
 
     @Override
-    public void onClearTitle(ClearTitleS2CPacket packet) {
-        super.onClearTitle(packet);
+    public void onTitle(TitleS2CPacket packet) {
+        super.onTitle(packet);
+    }
+
+    @Override
+    public void onSubtitle(SubtitleS2CPacket packet) {
+        super.onSubtitle(packet);
+    }
+
+    @Override
+    public void onLightUpdate(LightUpdateS2CPacket packet) {
+        super.onLightUpdate(packet);
+    }
+
+    @Override
+    public void onCombatEvent(CombatEventS2CPacket packet) {
+        super.onCombatEvent(packet);
+    }
+
+    @Override
+    public void onDeath(DeathMessageS2CPacket packet) {
+        super.onDeath(packet);
+    }
+
+    @Override
+    public void onCooldownUpdate(CooldownUpdateS2CPacket packet) {
+        super.onCooldownUpdate(packet);
+    }
+
+    @Override
+    public void onBlockBreakingProgress(BlockBreakingProgressS2CPacket packet) {
+        super.onBlockBreakingProgress(packet);
+    }
+
+    @Override
+    public void onEntityPassengersSet(EntityPassengersSetS2CPacket packet) {
+        super.onEntityPassengersSet(packet);
+    }
+
+    @Override
+    public void onAdvancementUpdate(AdvancementUpdateS2CPacket packet) {
+        super.onAdvancementUpdate(packet);
+    }
+
+    @Override
+    public void onCommandTree(CommandTreeS2CPacket packet) {
+        super.onCommandTree(packet);
+    }
+
+    @Override
+    public void onUnlockRecipes(UnlockRecipesS2CPacket packet) {
+        super.onUnlockRecipes(packet);
+    }
+
+    @Override
+    public void onRecipeBookData(RecipeBookDataS2CPacket packet) {
+        super.onRecipeBookData(packet);
+    }
+
+    @Override
+    public void onTagsUpdate(TagsUpdateS2CPacket packet) {
+        super.onTagsUpdate(packet);
+    }
+
+    @Override
+    public void onStatistics(StatisticsUpdateS2CPacket packet) {
+        super.onStatistics(packet);
+    }
+
+    @Override
+    public void onSetTradeOffers(SetTradeOffersS2CPacket packet) {
+        super.onSetTradeOffers(packet);
+    }
+
+    @Override
+    public void onNbtQueryResponse(NbtQueryResponseS2CPacket packet) {
+        super.onNbtQueryResponse(packet);
+    }
+
+    @Override
+    public void onPlayerActionResponse(PlayerActionResponseS2CPacket packet) {
+        super.onPlayerActionResponse(packet);
+    }
+
+    @Override
+    public void onHurtAnimation(HurtAnimationS2CPacket packet) {
+        super.onHurtAnimation(packet);
+    }
+
+    @Override
+    public void onLookAt(LookAtS2CPacket packet) {
+        super.onLookAt(packet);
+    }
+
+    @Override
+    public void onRotateHead(RotateHeadS2CPacket packet) {
+        super.onRotateHead(packet);
+    }
+
+    @Override
+    public void onCenterChunk(CenterChunkS2CPacket packet) {
+        super.onCenterChunk(packet);
     }
 
     @Override
@@ -399,11 +388,6 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onEntitySpawnS2C(AddSpawnedEntityS2CPacket packet) {
-        super.onEntitySpawnS2C(packet);
-    }
-
-    @Override
     public void onGameMessage(GameMessageS2CPacket packet) {
         super.onGameMessage(packet);
     }
@@ -419,8 +403,8 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onMouseButton(MouseClickResponseS2CPacket packet) {
-        super.onMouseButton(packet);
+    public void onMouseClickResponse(MouseClickResponseS2CPacket packet) {
+        super.onMouseClickResponse(packet);
     }
 
     @Override
@@ -439,16 +423,6 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     }
 
     @Override
-    public void onPingedPlayerPing(PingPlayerReportS2CPacket packet) {
-        super.onPingedPlayerPing(packet);
-    }
-
-    @Override
-    public void onPlayerActionFeedback(PlayerActionFeedbackS2CPacket packet) {
-        super.onPlayerActionFeedback(packet);
-    }
-
-    @Override
     public void onPlayerInfoUpdate(PlayerInfoUpdateS2CPacket packet) {
         super.onPlayerInfoUpdate(packet);
     }
@@ -456,11 +430,6 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
     @Override
     public void onPlayerLookAt(PlayerLookAtS2CPacket packet) {
         super.onPlayerLookAt(packet);
-    }
-
-    @Override
-    public void onPlayerPositionLookFlags(PlayerPositionLookFlagsS2CPacket packet) {
-        super.onPlayerPositionLookFlags(packet);
     }
 
     @Override
@@ -515,12 +484,12 @@ public class PBotNetHandlerPlayClient extends ClientPlayNetworkHandler {
 
     @Override
     public void onSoundPlay(SoundPlayS2CPacket packet) {
-        super.onSoundPlay(packet);
+        super.onPlaySound(packet);
     }
 
     @Override
-    public void onSubtitles(SubtitlesS2CPacket packet) {
-        super.onSubtitles(packet);
+    public void onStopSound(StopSoundS2CPacket packet) {
+        super.onStopSound(packet);
     }
 
     @Override

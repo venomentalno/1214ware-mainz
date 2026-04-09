@@ -1,20 +1,20 @@
 package com.botclient;
 
-import net.minecraft.util.Formatting;
-
 public enum AltStatus {
-    Working(Formatting.GREEN + "Working"),
-    Banned(Formatting.RED + "Banned"),
-    Unchecked(Formatting.YELLOW + "Unchecked"),
-    NotWorking(Formatting.RED + "Not Working");
+    PENDING("Pending"),
+    LOGGED_IN("Logged In"),
+    WORKING("Working"),
+    BANNED("Banned"),
+    UNCHECKED("Unchecked"),
+    NOT_WORKING("Not Working");
 
-    public final String formatted;
+    private final String displayName;
 
-    AltStatus(String formatted) {
-        this.formatted = formatted;
+    AltStatus(String displayName) {
+        this.displayName = displayName;
     }
 
-    public String toFormatted() {
-        return this.formatted;
+    public String getDisplayName() {
+        return this.displayName;
     }
 }

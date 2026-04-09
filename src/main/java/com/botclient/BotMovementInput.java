@@ -23,26 +23,26 @@ public class BotMovementInput extends Input {
         this.forwardSpeed = 0f;
         this.sidewaysSpeed = 0f;
 
-        if (this.gameSettings.keyBindForward) {
+        if (this.gameSettings.forwardKeyDown) {
             this.movementForward += 1.0f;
             this.forwardSpeed += 1.0f;
         }
-        if (this.gameSettings.keyBindBack) {
+        if (this.gameSettings.backKeyDown) {
             this.movementForward -= 1.0f;
             this.forwardSpeed -= 1.0f;
         }
-        if (this.gameSettings.keyBindLeft) {
+        if (this.gameSettings.leftKeyDown) {
             this.movementSideways += 1.0f;
             this.sidewaysSpeed += 1.0f;
         }
-        if (this.gameSettings.keyBindRight) {
+        if (this.gameSettings.rightKeyDown) {
             this.movementSideways -= 1.0f;
             this.sidewaysSpeed -= 1.0f;
         }
-        if (this.gameSettings.keyBindJump) {
+        if (this.gameSettings.jumpKeyDown) {
             this.jumping = true;
         }
-        if (this.gameSettings.keyBindSneak) {
+        if (this.gameSettings.sneakKeyDown) {
             this.sneaking = true;
             this.movementSideways *= 0.3f;
             this.movementForward *= 0.3f;
