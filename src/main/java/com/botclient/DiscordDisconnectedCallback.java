@@ -1,0 +1,17 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  com.sun.jna.Callback
+ */
+package com.botclient;
+
+import com.sun.jna.Callback;
+
+public interface DiscordDisconnectedCallback
+extends Callback {
+    public void apply(int var1, String var2);
+}
+
+
+
