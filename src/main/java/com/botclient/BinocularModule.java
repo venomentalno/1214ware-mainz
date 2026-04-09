@@ -7,7 +7,7 @@
  *  neo.deobf.ModuleCategory
  *  neo.deobf.Module
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  *  net.minecraft.client.settings.KeyBinding
  *  org.lwjgl.input.Mouse
  */
@@ -33,14 +33,14 @@ extends Module {
         super("Binocular", ModuleCategory.Player);
     }
 
-    private static GameSettings getGameSettings() {
+    private static GameOptions getGameOptions() {
         return Minecraft.gameSettings;
     }
 
     @EventTarget
     public void onEventUpdate(UpdateEvent e) {
         int kek = GLFW.glfwGetScrollCallback;
-        if (GameSettings.isKeyDown((KeyBinding)(BinocularModule.getGameSettings().ofKeyBindZoom))) {
+        if (GameOptions.isKeyDown((KeyBinding)(BinocularModule.getGameOptions().ofKeyBindZoom))) {
             if (kek >= (1)) {
                 zoom = (float)((double)(zoom) + (GLFW.glfwGetMouseButton(MinecraftClient.getInstance().getWindow().getHandle(), (int)(2)) ? 8.0 : 0.80000000000000004));
             }

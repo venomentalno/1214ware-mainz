@@ -2,7 +2,7 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector2f
+ *  org.joml.Vector2f
  *  neo.deobf.PBot
  *  neo.deobf.PBotPlayer
  *  neo.deobf.BotKeyState
@@ -45,18 +45,18 @@ extends BotTask {
             FollowPosTask.getPlayer4(this.getBot()).rotationYaw = nY;
             FollowPosTask.getPlayer(this.getBot()).rotationPitch = nP;
         }
-        FollowPosTask.getGameSettings2(this.getMc()).keyBindForward = true;
+        FollowPosTask.getGameOptions2(this.getMc()).keyBindForward = true;
         if ((double)distance < 0.20000000000000001) {
             this.getBaritone().setBotFunction(null);
         }
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
     public void onFinish() {
-        FollowPosTask.getGameSettings(this.getMc()).keyBindForward = false;
+        FollowPosTask.getGameOptions(this.getMc()).keyBindForward = false;
         super.onFinish();
     }
 
@@ -80,7 +80,7 @@ extends BotTask {
         }
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 

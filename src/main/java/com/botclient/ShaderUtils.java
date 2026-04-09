@@ -28,7 +28,6 @@ import net.minecraft.client.render.RenderSystem;
 import net.minecraft.client.render.OpenGlHelper;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.Identifier;
-import net.minecraft.client.render.RenderSystem;
 import org.lwjgl.opengl.GL20;
 
 /*

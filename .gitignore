@@ -1,29 +1,32 @@
 ```
-# Gradle
-.gradle/
-
-# Compiled files
+# Java compiled files
 *.class
-*.o
-*.obj
-*.exe
-*.dll
-*.so
-*.a
-*.out
+*.jar
+*.war
+*.ear
+
+# Build directories
+target/
+build/
 
 # Dependencies
-build/
-target/
+.gradle/
+lib/
+libs/
 
-# Logs and temp files
-*.log
-*.tmp
-*.swp
-
-# Editors
-.vscode/
+# IDE files
 .idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.temp
 
 # Environment
 .env
@@ -32,14 +35,5 @@ target/
 
 # Coverage
 coverage/
-htmlcov/
-.coverage
-
-# Python specific (if applicable)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
-.mypy_cache/
+*.coverage
 ```

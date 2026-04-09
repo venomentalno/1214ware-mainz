@@ -74,7 +74,7 @@ extends ButtonWidget {
             RenderSystem.tryBlendFuncSeparate((int)(770), (int)(771), (int)(1), (int)(0));
             RenderSystem.blendFunc((int)(770), (int)(771));
             RoundedUtils.drawRound((float)(this.x), (float)(this.y), (float)(this.width), (float)(this.height), (float)3.0f, (Color)new Color((this.opacity), (this.opacity), (this.opacity), 88));
-            (MinecraftClient.getInstance().fontRenderer).drawCenteredString((this.displayString), (double)((this.x) + (this.width) / (2)), (double)((this.y) + ((this.height) - (2)) / (3)), -1);
+            (MinecraftClient.getInstance().textRenderer).drawCenteredString((this.displayString), (double)((this.x) + (this.width) / (2)), (double)((this.y) + ((this.height) - (2)) / (3)), -1);
             this.mouseDragged(mc, mouseX, mouseY);
         }
     }

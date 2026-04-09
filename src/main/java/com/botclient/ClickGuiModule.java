@@ -29,7 +29,7 @@ extends Module {
     public static BooleanSetting snow;
 public void onEnable() {
         super.onEnable();
-        (mc).displayGuiScreen((GuiScreen)new ClickGuiScreen());
+        (mc).setScreen((GuiScreen)new ClickGuiScreen());
         this.toggle();
     }
 

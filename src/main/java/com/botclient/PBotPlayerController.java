@@ -11,13 +11,13 @@
  *  net.minecraft.block.Block
  *  net.minecraft.block.BlockCommandBlock
  *  net.minecraft.block.BlockStructure
- *  net.minecraft.block.material.Material
+ *  net.minecraft.block.material.MapColor
  *  net.minecraft.block.state.BlockState
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.passive.HorseEntity
  *  net.minecraft.entity.player.PlayerEntity
- *  net.minecraft.entity.player.InventoryPlayer
- *  net.minecraft.entity.player.PlayerCapabilities
+ *  net.minecraft.entity.player.PlayerInventory
+ *  net.minecraft.entity.player.// PlayerCapabilities removed - use GameMode
  *  net.minecraft.init.Blocks
  *  net.minecraft.inventory.ClickType
  *  net.minecraft.screen.ScreenHandler
@@ -43,7 +43,7 @@
  *  net.minecraft.util.math.BlockPos
  *  net.minecraft.util.math.HitResult
  *  net.minecraft.util.math.Vec3d
- *  net.minecraft.world.GameType
+ *  net.minecraft.world.GameMode
  *  net.minecraft.world.World
  */
 package com.botclient;
@@ -57,13 +57,13 @@ import com.botclient.PBotClientWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
 import net.minecraft.block.BlockStructure;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-// Removed: PlayerCapabilities replaced
+// Removed: // PlayerCapabilities removed - use GameMode replaced
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.screen.ScreenHandler;
@@ -74,13 +74,12 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacketTryUseItem;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameType;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 
 /*
@@ -90,7 +89,7 @@ public class PBotPlayerController {
     public boolean isHittingBlock;
     public ItemStack currentItemHittingBlock;
     public float stepSoundTickCounter;
-    public GameType currentGameType;
+    public GameMode currentGameMode;
     public final PBotNetHandlerPlayClient connection;
     private final PBotMinecraft mc;
     public int blockHitDelay;
@@ -99,14 +98,14 @@ public class PBotPlayerController {
     public int currentPlayerItem;
     public BlockPos currentBlock = new BlockPos(-1, -1, -1);
 
-    private static GameType getCurrentGameType(PBotPlayerController instance) {
-        return instance.currentGameType;
+    private static GameMode getCurrentGameMode(PBotPlayerController instance) {
+        return instance.currentGameMode;
     }
 
     public ItemStack windowClick(int windowId, int slotId, int mouseButton, ClickType type, PlayerEntity player) {
         try {
-            short short1 = (player.openContainer).getNextTransactionID((player.inventory));
-            ItemStack itemstack = (player.openContainer).slotClick(slotId, mouseButton, type, player);
+            short short1 = (player.openScreenHandler).getNextTransactionID((player.inventory));
+            ItemStack itemstack = (player.openScreenHandler).slotClick(slotId, mouseButton, type, player);
             (this.connection).sendPacket((Packet)new CPacketClickWindow(windowId, slotId, mouseButton, type, itemstack, short1));
             return itemstack;
         }
@@ -117,11 +116,11 @@ public class PBotPlayerController {
     }
 
     public boolean shouldDrawHUD() {
-        return (this.currentGameType).isSurvivalOrAdventure();
+        return (this.currentGameMode).isSurvivalOrAdventure();
     }
 
     public boolean gameIsSurvivalOrAdventure() {
-        return (this.currentGameType).isSurvivalOrAdventure();
+        return (this.currentGameMode).isSurvivalOrAdventure();
     }
 
     private static float getCurBlockDamageMP(PBotPlayerController instance) {
@@ -152,7 +151,7 @@ public class PBotPlayerController {
     public void attackEntity(PlayerEntity playerIn, Entity targetEntity) {
         this.callGetCurrentItem();
         (this.connection).sendPacket((Packet)new PlayerInteractEntityC2SPacket(targetEntity));
-        if ((this.currentGameType) != (GameType.SPECTATOR)) {
+        if ((this.currentGameMode) != (GameMode.SPECTATOR)) {
             playerIn.attackTargetEntityWithCurrentItem(targetEntity);
             playerIn.resetCooldown();
         }
@@ -188,7 +187,7 @@ public class PBotPlayerController {
         if (!(this.pbot).world.getWorldBorder().contains(pos)) {
             return (ActionResult.FAIL);
         }
-        if ((this.currentGameType) != (GameType.SPECTATOR)) {
+        if ((this.currentGameMode) != (GameMode.SPECTATOR)) {
             ItemBlock itemblock;
             BlockState iblockstate = worldIn.getBlockState(pos);
             if ((!player.isSneaking() || player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty()) && iblockstate.getBlock().onBlockActivated(worldIn, pos, iblockstate, (PlayerEntity)player, hand, direction, f, f1, f2)) {
@@ -199,7 +198,7 @@ public class PBotPlayerController {
             }
         }
         (this.connection).sendPacket((Packet)new PlayerInteractBlockC2SPacket(pos, direction, hand, f, f1, f2));
-        if (flag == 0 && (this.currentGameType) != (GameType.SPECTATOR)) {
+        if (flag == 0 && (this.currentGameMode) != (GameMode.SPECTATOR)) {
             Block block;
             if (itemstack.isEmpty()) {
                 return (ActionResult.PASS);
@@ -210,7 +209,7 @@ public class PBotPlayerController {
             if (itemstack.getItem() instanceof ItemBlock && !player.canUseCommandBlock() && ((block = ((ItemBlock)itemstack.getItem()).getBlock()) instanceof BlockCommandBlock || block instanceof BlockStructure)) {
                 return (ActionResult.FAIL);
             }
-            if ((this.currentGameType).isCreative()) {
+            if ((this.currentGameMode).isCreative()) {
                 int i = itemstack.getMetadata();
                 int j = itemstack.getCount();
                 EnumActionResult enumactionresult = itemstack.onItemUse((PlayerEntity)player, worldIn, pos, hand, direction, f, f1, f2);
@@ -239,14 +238,14 @@ public class PBotPlayerController {
 
     public PBotPlayerController(PBot pbot) {
         this.currentItemHittingBlock = ItemStack.EMPTY;
-        this.currentGameType = GameType.SURVIVAL;
+        this.currentGameMode = GameMode.SURVIVAL;
         this.pbot = pbot;
         this.mc = pbot.mc;
         this.connection = pbot.getPlayHandler();
     }
 
     public boolean isSpectator() {
-        return ((this.currentGameType) == (GameType.SPECTATOR) ? 1 : 0) != 0;
+        return ((this.currentGameMode) == (GameMode.SPECTATOR) ? 1 : 0) != 0;
     }
 
     private static PBot getPbot8(PBotPlayerController instance) {
@@ -262,7 +261,7 @@ public class PBotPlayerController {
     }
 
     public EnumActionResult processRightClick(PlayerEntity player, World worldIn, Hand hand) {
-        if ((this.currentGameType) == (GameType.SPECTATOR)) {
+        if ((this.currentGameMode) == (GameMode.SPECTATOR)) {
             return (ActionResult.PASS);
         }
         this.callGetCurrentItem();
@@ -284,16 +283,16 @@ public class PBotPlayerController {
         return instance.pbot;
     }
 
-    private static InventoryPlayer getInventory(PBotPlayer instance) {
+    private static PlayerInventory getInventory(PBotPlayer instance) {
         return instance.inventory;
     }
 
     public boolean extendedReach() {
-        return (this.currentGameType).isCreative();
+        return (this.currentGameMode).isCreative();
     }
 
     public void sendSlotPacket(ItemStack itemStackIn, int slotId) {
-        if ((this.currentGameType).isCreative()) {
+        if ((this.currentGameMode).isCreative()) {
             (this.connection).sendPacket((Packet)new CreativeInventoryActionC2SPacket(slotId, itemStackIn));
         }
     }
@@ -316,7 +315,7 @@ public class PBotPlayerController {
         }
         this.callGetCurrentItem();
         (this.connection).sendPacket((Packet)new PlayerInteractEntityC2SPacket(target, hand));
-        return (this.currentGameType) == (GameType.SPECTATOR) ? (ActionResult.PASS) : player.interactOn(target, hand);
+        return (this.currentGameMode) == (GameMode.SPECTATOR) ? (ActionResult.PASS) : player.interactOn(target, hand);
     }
 
     private static PBot getPbot14(PBotPlayerController instance) {
@@ -340,7 +339,7 @@ public class PBotPlayerController {
     }
 
     public boolean isNotCreative() {
-        return (!(this.currentGameType).isCreative() ? 1 : 0) != 0;
+        return (!(this.currentGameMode).isCreative() ? 1 : 0) != 0;
     }
 
     private static PBot getPbot18(PBotPlayerController instance) {
@@ -352,7 +351,7 @@ public class PBotPlayerController {
     }
 
     public float getBlockReachDistance() {
-        return (this.currentGameType).isCreative() ? 5.0f : 4.5f;
+        return (this.currentGameMode).isCreative() ? 5.0f : 4.5f;
     }
 
     private static PBotPlayer getPlayer9(PBot instance) {
@@ -364,11 +363,11 @@ public class PBotPlayerController {
     }
 
     public boolean isInCreativeMode() {
-        return (this.currentGameType).isCreative();
+        return (this.currentGameMode).isCreative();
     }
 
     public boolean isSpectatorMode() {
-        return ((this.currentGameType) == (GameType.SPECTATOR) ? 1 : 0) != 0;
+        return ((this.currentGameMode) == (GameMode.SPECTATOR) ? 1 : 0) != 0;
     }
 
     private static Vec3d getHitVec2(HitResult rayTraceResult) {
@@ -376,13 +375,13 @@ public class PBotPlayerController {
     }
 
     public void sendPacketDropItem(ItemStack itemStackIn) {
-        if ((this.currentGameType).isCreative() && !itemStackIn.isEmpty()) {
+        if ((this.currentGameMode).isCreative() && !itemStackIn.isEmpty()) {
             (this.connection).sendPacket((Packet)new CreativeInventoryActionC2SPacket(-1, itemStackIn));
         }
     }
 
-    public GameType getCurrentGameType() {
-        return (this.currentGameType);
+    public GameMode getCurrentGameMode() {
+        return (this.currentGameMode);
     }
 
     private static PBotPlayer getPlayer15(PBot instance) {
@@ -399,8 +398,8 @@ public class PBotPlayerController {
 
     public boolean onPlayerDestroyBlock(BlockPos pos) {
         ItemStack itemstack1;
-        if ((this.currentGameType).equals((Object)(GameType.ADVENTURE))) {
-            if ((this.currentGameType) == (GameType.SPECTATOR)) {
+        if ((this.currentGameMode).equals((Object)(GameMode.ADVENTURE))) {
+            if ((this.currentGameMode) == (GameMode.SPECTATOR)) {
                 return false;
             }
             if (!(PBotPlayerController.getPbot15(this).player).isAllowEdit()) {
@@ -413,7 +412,7 @@ public class PBotPlayerController {
                 }
             }
         }
-        if ((this.currentGameType).isCreative() && !(PBotPlayerController.getPbot31(this).player).getHeldItemMainhand().isEmpty() && (PBotPlayerController.getPbot30(this).player).getHeldItemMainhand().getItem() instanceof ItemSword) {
+        if ((this.currentGameMode).isCreative() && !(PBotPlayerController.getPbot31(this).player).getHeldItemMainhand().isEmpty() && (PBotPlayerController.getPbot30(this).player).getHeldItemMainhand().getItem() instanceof ItemSword) {
             return false;
         }
         PBotClientWorld world = (this.pbot).world;
@@ -422,7 +421,7 @@ public class PBotPlayerController {
         if ((block instanceof BlockCommandBlock || block instanceof BlockStructure) && !(PBotPlayerController.getPbot18(this).player).canUseCommandBlock()) {
             return false;
         }
-        if (iblockstate.getMaterial() == (Material.AIR)) {
+        if (iblockstate.getMapColor() == (MapColor.AIR)) {
             return false;
         }
         world.playEvent(2001, pos, Block.getStateId((BlockState)iblockstate));
@@ -432,7 +431,7 @@ public class PBotPlayerController {
             block.onPlayerDestroy((World)world, pos, iblockstate);
         }
         this.currentBlock = new BlockPos(PBotPlayerController.getCurrentBlock8(this).getX(), -1, PBotPlayerController.getCurrentBlock5(this).getZ());
-        if (!(this.currentGameType).isCreative() && !(itemstack1 = (PBotPlayerController.getPbot24(this).player).getHeldItemMainhand()).isEmpty()) {
+        if (!(this.currentGameMode).isCreative() && !(itemstack1 = (PBotPlayerController.getPbot24(this).player).getHeldItemMainhand()).isEmpty()) {
             itemstack1.onBlockDestroyed((World)world, iblockstate, pos, (PlayerEntity)(PBotPlayerController.getPbot(this).player));
             if (itemstack1.isEmpty()) {
                 (PBotPlayerController.getPbot2(this).player).setHeldItem((Hand.MAIN_HAND), (ItemStack.EMPTY));
@@ -490,8 +489,8 @@ public class PBotPlayerController {
     }
 
     public boolean clickBlock(BlockPos loc, Direction face) {
-        if ((this.currentGameType).equals((Object)(GameType.ADVENTURE))) {
-            if ((this.currentGameType) == (GameType.SPECTATOR)) {
+        if ((this.currentGameMode).equals((Object)(GameMode.ADVENTURE))) {
+            if ((this.currentGameMode) == (GameMode.SPECTATOR)) {
                 return false;
             }
             if (!(PBotPlayerController.getPbot8(this).player).isAllowEdit()) {
@@ -507,7 +506,7 @@ public class PBotPlayerController {
         if (!(this.pbot).world.getWorldBorder().contains(loc)) {
             return false;
         }
-        if ((this.currentGameType).isCreative()) {
+        if ((this.currentGameMode).isCreative()) {
             (this.connection).sendPacket((Packet)new PlayerActionC2SPacket((PlayerActionC2SPacket.Action.START_DESTROY_BLOCK), loc, face));
             this.clickBlockCreative(this, loc, face);
             this.blockHitDelay = 5;
@@ -518,7 +517,7 @@ public class PBotPlayerController {
             }
             BlockState iblockstate = (this.pbot).world.getBlockState(loc);
             (this.connection).sendPacket((Packet)new PlayerActionC2SPacket((PlayerActionC2SPacket.Action.START_DESTROY_BLOCK), loc, face));
-            int n = flag = iblockstate.getMaterial() != (Material.AIR) ? 1 : 0;
+            int n = flag = iblockstate.getMapColor() != (MapColor.AIR) ? 1 : 0;
             if (flag != 0 && (this.curBlockDamageMP) == 0.0f) {
                 iblockstate.getBlock().onBlockClicked((World)(this.pbot).world, loc, (PlayerEntity)(PBotPlayerController.getPbot26(this).player));
             }
@@ -577,7 +576,7 @@ private static PBot getPbot34(PBotPlayerController instance) {
         this.callGetCurrentItem();
         Vec3d vec3d = new Vec3d((PBotPlayerController.getHitVec2(ray).x) - (target.posX), (PBotPlayerController.getHitVec3(ray).y) - (target.posY), (PBotPlayerController.getHitVec(ray).z) - (target.posZ));
         (this.connection).sendPacket((Packet)new PlayerInteractEntityC2SPacket(target, hand, vec3d));
-        return (this.currentGameType) == (GameType.SPECTATOR) ? (ActionResult.PASS) : target.applyPlayerInteraction(player, vec3d, hand);
+        return (this.currentGameMode) == (GameMode.SPECTATOR) ? (ActionResult.PASS) : target.applyPlayerInteraction(player, vec3d, hand);
     }
 
     public boolean onPlayerDamageBlock(BlockPos posBlock, Direction directionFacing) {
@@ -587,7 +586,7 @@ private static PBot getPbot34(PBotPlayerController instance) {
             cQ.blockHitDelay = PBotPlayerController.getBlockHitDelay2(cQ) - (1);
             return true;
         }
-        if ((this.currentGameType).isCreative() && (this.pbot).world.getWorldBorder().contains(posBlock)) {
+        if ((this.currentGameMode).isCreative() && (this.pbot).world.getWorldBorder().contains(posBlock)) {
             this.blockHitDelay = 5;
             (this.connection).sendPacket((Packet)new PlayerActionC2SPacket((PlayerActionC2SPacket.Action.START_DESTROY_BLOCK), posBlock, directionFacing));
             this.clickBlockCreative(this, posBlock, directionFacing);
@@ -596,7 +595,7 @@ private static PBot getPbot34(PBotPlayerController instance) {
         if (this.isHittingPosition(posBlock)) {
             BlockState iblockstate = (this.pbot).world.getBlockState(posBlock);
             Block block = iblockstate.getBlock();
-            if (iblockstate.getMaterial() == (Material.AIR)) {
+            if (iblockstate.getMapColor() == (MapColor.AIR)) {
                 this.isHittingBlock = false;
                 return false;
             }
@@ -629,8 +628,8 @@ private static PBot getPbot34(PBotPlayerController instance) {
         return instance.pbot;
     }
 
-    public void setPlayerCapabilities(PlayerEntity player) {
-        (this.currentGameType).configurePlayerCapabilities((player.capabilities));
+    public void set// PlayerCapabilities removed - use GameMode(PlayerEntity player) {
+        (this.currentGameMode).configure// PlayerCapabilities removed - use GameMode((player.capabilities));
     }
 
     private static PBot getPbot39(PBotPlayerController instance) {
@@ -641,9 +640,9 @@ private static PBot getPbot34(PBotPlayerController instance) {
         return instance.currentBlock;
     }
 
-    public void setGameType(GameType type) {
-        this.currentGameType = type;
-        (this.currentGameType).configurePlayerCapabilities((PBotPlayerController.JqPqglreez(PBotPlayerController.getPbot17(this)).capabilities));
+    public void setGameMode(GameMode type) {
+        this.currentGameMode = type;
+        (this.currentGameMode).configure// PlayerCapabilities removed - use GameMode((PBotPlayerController.JqPqglreez(PBotPlayerController.getPbot17(this)).capabilities));
     }
 
     private static PBotPlayer getPlayer26(PBot instance) {

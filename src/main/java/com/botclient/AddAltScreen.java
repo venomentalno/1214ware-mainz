@@ -58,7 +58,7 @@ extends Screen {
     }
 
     private static TextRenderer getTextRenderer(Minecraft minecraft) {
-        return minecraft.fontRenderer;
+        return minecraft.textRenderer;
     }
 
     private static Minecraft getMc2(AddAltScreen instance) {
@@ -69,14 +69,14 @@ extends Screen {
         DrawUtils.drawRect((float)0.0f, (float)0.0f, (float)(AddAltScreen.getMc5(this).displayWidth), (float)(AddAltScreen.getMc2(this).displayHeight), (Color)new Color(17, 17, 17));
         (this.username).drawTextBox();
         (this.password).drawTextBox();
-        (MinecraftClient.getInstance().fontRenderer).drawCenteredString("Add Account", (double)((float)(this.width) / 2.0f), 15.0, -1);
+        (MinecraftClient.getInstance().textRenderer).drawCenteredString("Add Account", (double)((float)(this.width) / 2.0f), 15.0, -1);
         if ((this.username).getText().isEmpty() && !(this.username).isFocused()) {
-            (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Username / E-Mail", (float)((this.width) / (2) - (96)), 66.0f, -7829368);
+            (MinecraftClient.getInstance().textRenderer).drawStringWithShadow("Username / E-Mail", (float)((this.width) / (2) - (96)), 66.0f, -7829368);
         }
         if ((this.password).getText().isEmpty() && !(this.password).isFocused()) {
-            (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Password", (float)((this.width) / (2) - (96)), 106.0f, -7829368);
+            (MinecraftClient.getInstance().textRenderer).drawStringWithShadow("Password", (float)((this.width) / (2) - (96)), 106.0f, -7829368);
         }
-        (MinecraftClient.getInstance().fontRenderer).drawCenteredString((this.status), (double)((float)(this.width) / 2.0f), 30.0, -1);
+        (MinecraftClient.getInstance().textRenderer).drawCenteredString((this.status), (double)((float)(this.width) / 2.0f), 30.0, -1);
         super.drawScreen(i, j, f);
     }
 
@@ -115,7 +115,7 @@ extends Screen {
                 break;
             }
             case 1: {
-                (this.mc).displayGuiScreen((GuiScreen)(this.manager));
+                (this.mc).setScreen((GuiScreen)(this.manager));
                 break;
             }
             case 2: {
@@ -135,7 +135,7 @@ extends Screen {
     }
 
     private static TextRenderer getTextRenderer5(Minecraft minecraft) {
-        return minecraft.fontRenderer;
+        return minecraft.textRenderer;
     }
 
     private static int getWidth8(AddAltScreen instance) {

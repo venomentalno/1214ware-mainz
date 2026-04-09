@@ -21,7 +21,6 @@ import java.util.Objects;
 import com.botclient.ColorUtils;
 import net.minecraft.client.render.RenderSystem;
 import net.minecraft.client.render.texture.TextureUtil;
-import net.minecraft.client.render.RenderSystem;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

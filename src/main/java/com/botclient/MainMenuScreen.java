@@ -17,7 +17,7 @@
  *  net.minecraft.client.gui.GuiWorldSelection
  *  net.minecraft.client.gui.ScaledResolution
  *  net.minecraft.client.renderer.GlStateManager
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  *  org.lwjgl.opengl.GL11
  *  org.lwjgl.opengl.GL20
  */
@@ -42,7 +42,6 @@ import net.minecraft.client.gui.GuiWorldSelection;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.render.RenderSystem;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.render.RenderSystem;
 import org.lwjgl.opengl.GL20;
 
 /*
@@ -106,19 +105,19 @@ extends Screen {
             if (!button.isHovered(mouseX, mouseY)) continue;
             switch (button.getId()) {
                 case 1: {
-                    (this.mc).displayGuiScreen((GuiScreen)new GuiWorldSelection((GuiScreen)this));
+                    (this.mc).setScreen((GuiScreen)new GuiWorldSelection((GuiScreen)this));
                     break;
                 }
                 case 2: {
-                    (this.mc).displayGuiScreen((GuiScreen)new GuiMultiplayer((GuiScreen)this));
+                    (this.mc).setScreen((GuiScreen)new GuiMultiplayer((GuiScreen)this));
                     break;
                 }
                 case 3: {
-                    (this.mc).displayGuiScreen((GuiScreen)new AltManagerScreen());
+                    (this.mc).setScreen((GuiScreen)new AltManagerScreen());
                     break;
                 }
                 case 4: {
-                    (this.mc).displayGuiScreen((GuiScreen)new GuiOptions((GuiScreen)this, (Minecraft.gameSettings)));
+                    (this.mc).setScreen((GuiScreen)new GuiOptions((GuiScreen)this, (Minecraft.gameSettings)));
                     break;
                 }
                 case 5: {

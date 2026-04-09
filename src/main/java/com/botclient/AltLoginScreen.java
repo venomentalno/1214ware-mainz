@@ -46,7 +46,7 @@ extends Screen {
     public AltLoginThread thread;
 
     private static TextRenderer getTextRenderer(Minecraft minecraft) {
-        return minecraft.fontRenderer;
+        return minecraft.textRenderer;
     }
 
     private static Minecraft getMc(AltLoginScreen instance) {
@@ -114,13 +114,13 @@ extends Screen {
         DrawUtils.drawRect((float)0.0f, (float)0.0f, (float)(this.width), (float)(this.height), (Color)new Color(22, 22, 22, 255));
         (this.username).drawTextBox();
         (this.password).drawTextBox();
-        (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Alt Login", (float)(this.width) / 2.0f - 10.0f, 20.0f, -1);
-        (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow((this.thread) == null ? (TextFormat.GRAY) + "Alts..." : (this.thread).getStatus(), (float)(this.width) / 2.0f, 29.0f, -1);
+        (MinecraftClient.getInstance().textRenderer).drawStringWithShadow("Alt Login", (float)(this.width) / 2.0f - 10.0f, 20.0f, -1);
+        (MinecraftClient.getInstance().textRenderer).drawStringWithShadow((this.thread) == null ? (TextFormat.GRAY) + "Alts..." : (this.thread).getStatus(), (float)(this.width) / 2.0f, 29.0f, -1);
         if ((this.username).getText().isEmpty() && !(this.username).isFocused()) {
-            (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Username / E-Mail", (float)((this.width) / (2) - (96)), 66.0f, -7829368);
+            (MinecraftClient.getInstance().textRenderer).drawStringWithShadow("Username / E-Mail", (float)((this.width) / (2) - (96)), 66.0f, -7829368);
         }
         if ((this.password).getText().isEmpty() && !(this.password).isFocused()) {
-            (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Password", (float)((this.width) / (2) - (96)), 106.0f, -7829368);
+            (MinecraftClient.getInstance().textRenderer).drawStringWithShadow("Password", (float)((this.width) / (2) - (96)), 106.0f, -7829368);
         }
         super.drawScreen(x, y, z);
     }
@@ -139,7 +139,7 @@ extends Screen {
                     break;
                 }
                 case 1: {
-                    (this.mc).displayGuiScreen((this.previousScreen));
+                    (this.mc).setScreen((this.previousScreen));
                     break;
                 }
                 case 2: {
@@ -157,7 +157,7 @@ extends Screen {
     }
 
     private static TextRenderer getTextRenderer5(Minecraft minecraft) {
-        return minecraft.fontRenderer;
+        return minecraft.textRenderer;
     }
 
     public AltLoginScreen(GuiScreen previousScreen) {

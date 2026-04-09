@@ -2,7 +2,7 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector3i
+ *  org.joml.Vector3i
  *  neo.deobf.PBot
  *  neo.deobf.PBotPlayer
  *  neo.deobf.PathScanner
@@ -12,7 +12,7 @@
  */
 package com.botclient;
 
-import javax.vecmath.Vector3i;
+import org.joml.Vector3i;
 import com.botclient.PBot;
 import com.botclient.PBotPlayer;
 import com.botclient.PathScanner;

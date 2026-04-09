@@ -14,40 +14,40 @@
  *  net.minecraft.block.state.BlockState
  *  net.minecraft.client.network.PlayerListEntry
  *  net.minecraft.entity.Entity
- *  net.minecraft.entity.IJumpingMount
+ *  net.minecraft.entity.// IJumpingMount removed
  *  net.minecraft.village.Merchant
- *  net.minecraft.entity.MoverType
+ *  net.minecraft.entity.MovementType
  *  net.minecraft.entity.BoatEntity
  *  net.minecraft.entity.item.EntityItem
  *  net.minecraft.entity.passive.HorseEntity
  *  net.minecraft.entity.player.PlayerEntity
  *  net.minecraft.entity.player.PlayerEntity$EnumChatVisibility
- *  net.minecraft.entity.player.EnumPlayerModelParts
- *  net.minecraft.entity.player.InventoryPlayer
- *  net.minecraft.entity.player.PlayerCapabilities
+ *  net.minecraft.entity.player.PlayerModelPart
+ *  net.minecraft.entity.player.PlayerInventory
+ *  net.minecraft.entity.player.// PlayerCapabilities removed - use GameMode
  *  net.minecraft.init.Items
  *  net.minecraft.init.MobEffects
  *  net.minecraft.screen.ScreenHandler
- *  net.minecraft.screen.ScreenHandlerBeacon
- *  net.minecraft.screen.ScreenHandlerBrewingStand
- *  net.minecraft.screen.ScreenHandlerChest
- *  net.minecraft.screen.ScreenHandlerDispenser
- *  net.minecraft.screen.ScreenHandlerEnchantment
- *  net.minecraft.screen.ScreenHandlerFurnace
- *  net.minecraft.screen.ScreenHandlerHopper
- *  net.minecraft.screen.ScreenHandlerHorseInventory
- *  net.minecraft.screen.ScreenHandlerMerchant
+ *  net.minecraft.screen.BeaconScreenHandler
+ *  net.minecraft.screen.BrewingStandScreenHandler
+ *  net.minecraft.screen.GenericScreenHandlerScreenHandler
+ *  net.minecraft.screen.DispenserScreenHandler
+ *  net.minecraft.screen.EnchantmentScreenHandler
+ *  net.minecraft.screen.FurnaceScreenHandler
+ *  net.minecraft.screen.HopperScreenHandler
+ *  net.minecraft.screen.HorseScreenHandler
+ *  net.minecraft.screen.MerchantScreenHandler
  *  net.minecraft.screen.ScreenHandlerRepair
- *  net.minecraft.screen.ScreenHandlerShulkerBox
+ *  net.minecraft.screen.ShulkerBoxScreenHandler
  *  net.minecraft.inventory.EntityEquipmentSlot
  *  net.minecraft.inventory.IInventory
  *  net.minecraft.item.Item
- *  net.minecraft.item.ItemElytra
+ *  net.minecraft.item.ElytraItem
  *  net.minecraft.item.ItemStack
- *  net.minecraft.item.crafting.IRecipe
+ *  net.minecraft.item.crafting.Recipe
  *  net.minecraft.network.Packet
- *  net.minecraft.network.datasync.DataParameter
- *  net.minecraft.network.datasync.EntityDataManager
+ *  net.minecraft.network.datasync.TrackedData
+ *  net.minecraft.network.datasync.DataTracker
  *  net.minecraft.network.play.client.CPacketAnimation
  *  net.minecraft.network.play.client.ChatMessageC2SPacket
  *  net.minecraft.network.play.client.CPacketClientSettings
@@ -61,7 +61,7 @@
  *  net.minecraft.network.play.client.PlayerMoveC2SPacket$Position
  *  net.minecraft.network.play.client.PlayerMoveC2SPacket$PositionRotation
  *  net.minecraft.network.play.client.PlayerMoveC2SPacket$Rotation
- *  net.minecraft.network.play.client.PlayerMoveC2SPacketAbilities
+ *  net.minecraft.network.play.client.PlayerAbilitiesC2SPacket
  *  net.minecraft.network.play.client.PlayerActionC2SPacket
  *  net.minecraft.network.play.client.PlayerActionC2SPacket$Action
  *  net.minecraft.network.play.client.CPacketRecipeInfo
@@ -69,8 +69,8 @@
  *  net.minecraft.potion.Potion
  *  net.minecraft.potion.PotionEffect
  *  net.minecraft.stats.RecipeBook
- *  net.minecraft.stats.StatBase
- *  net.minecraft.stats.StatisticsManager
+ *  net.minecraft.stats.Statistic
+ *  net.minecraft.stats.StatHandler
  *  net.minecraft.tileentity.CommandBlockBaseLogic
  *  net.minecraft.tileentity.TileEntityCommandBlock
  *  net.minecraft.tileentity.TileEntitySign
@@ -78,8 +78,8 @@
  *  net.minecraft.util.DamageSource
  *  net.minecraft.util.math.Direction
  *  net.minecraft.util.Hand
- *  net.minecraft.util.HandSide
- *  net.minecraft.util.MovementInput
+ *  net.minecraft.util.Arm
+ *  net.minecraft.util.// MovementInput removed - use Input
  *  net.minecraft.util.SoundEvent
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.util.math.BlockPos
@@ -87,9 +87,9 @@
  *  net.minecraft.util.math.Vec2f
  *  net.minecraft.util.math.Vec3d
  *  net.minecraft.util.text.Text
- *  net.minecraft.world.GameType
+ *  net.minecraft.world.GameMode
  *  net.minecraft.world.IBlockAccess
- *  net.minecraft.world.IInteractionObject
+ *  net.minecraft.world.NamedScreenHandlerFactory
  *  net.minecraft.world.World
  */
 package com.botclient;
@@ -97,7 +97,7 @@ package com.botclient;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import com.botclient.Client;
 import com.botclient.PBot;
 import com.botclient.BotKeyState;
@@ -108,66 +108,65 @@ import com.botclient.ScriptManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IJumpingMount;
+// Removed
 import net.minecraft.village.Merchant;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.BoatEntity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.entity.player.PlayerEntity.PlayerModelPart;
 import net.minecraft.entity.player.PlayerInventory;
-// Removed: PlayerCapabilities replaced
+// Removed: // PlayerCapabilities removed - use GameMode replaced
 import net.minecraft.registry.Registries;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerBeacon;
-import net.minecraft.screen.ScreenHandlerBrewingStand;
-import net.minecraft.screen.ScreenHandlerChest;
-import net.minecraft.screen.ScreenHandlerDispenser;
-import net.minecraft.screen.ScreenHandlerEnchantment;
-import net.minecraft.screen.ScreenHandlerFurnace;
-import net.minecraft.screen.ScreenHandlerHopper;
-import net.minecraft.screen.ScreenHandlerHorseInventory;
-import net.minecraft.screen.ScreenHandlerMerchant;
+import net.minecraft.screen.BeaconScreenHandler;
+import net.minecraft.screen.BrewingStandScreenHandler;
+import net.minecraft.screen.GenericScreenHandlerScreenHandler;
+import net.minecraft.screen.DispenserScreenHandler;
+import net.minecraft.screen.EnchantmentScreenHandler;
+import net.minecraft.screen.FurnaceScreenHandler;
+import net.minecraft.screen.HopperScreenHandler;
+import net.minecraft.screen.HorseScreenHandler;
+import net.minecraft.screen.MerchantScreenHandler;
 import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.ScreenHandlerShulkerBox;
+import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemElytra;
+import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacketAbilities;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.network.packet.c2s.play.PlayerAbilitiesC2SPacket;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.stats.RecipeBook;
-import net.minecraft.stats.StatBase;
-import net.minecraft.stats.StatisticsManager;
+import net.minecraft.recipe.book.RecipeBook;
+import net.minecraft.stat.Stat;
+import net.minecraft.stat.Stats;
 // Removed: CommandBlockBaseLogic changed in 1.21.4
 // Removed: TileEntity not used directly in 1.21.4
 // Removed: TileEntity not used directly in 1.21.4
 // Removed: TileEntity not used directly in 1.21.4
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.MovementInput;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.Arm;
+// Use Keyboard/Input
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.text.Text;
-import net.minecraft.world.GameType;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IInteractionObject;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.world.World;
 
 /*
@@ -193,12 +192,12 @@ extends PlayerEntity {
     public int sprintToggleTimer;
     public int horseJumpPowerCounter;
     public Hand activeHand;
-    public final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet((Object[])EnumPlayerModelParts.values());
+    public final Set<PlayerModelPart> setModelParts = Sets.newHashSet((Object[])PlayerModelPart.values());
     public final RecipeBook recipeBook;
     public int autoJumpTime;
     public float lastReportedYaw;
     public boolean handActive;
-    public final StatisticsManager statWriter;
+    public final StatHandler statWriter;
     public float lastReportedPitch;
     public double lastReportedPosY;
     public boolean hasValidHealth;
@@ -208,14 +207,14 @@ extends PlayerEntity {
     public int positionUpdateTicks;
     public double lastReportedPosX;
     public float renderArmPitch;
-    public MovementInput movementInput;
+    public // MovementInput removed - use Input movementInput;
     public boolean serverSneakState;
 
     public int getPermissionLevel() {
         return (this.permissionLevel);
     }
 
-    private static boolean getLeftKeyDown(MovementInput movementInput) {
+    private static boolean getLeftKeyDown(// MovementInput removed - use Input movementInput) {
         return movementInput.leftKeyDown;
     }
 
@@ -227,7 +226,7 @@ extends PlayerEntity {
         return axisAlignedBB.minY;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -235,7 +234,7 @@ extends PlayerEntity {
         this.permissionLevel = p_184839_1_;
     }
 
-    private static PlayerCapabilities getCapabilities(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities(PBotPlayer instance) {
         return instance.capabilities;
     }
 
@@ -247,7 +246,7 @@ extends PlayerEntity {
         (this.connection).sendPacket((Packet)new CPacketClientStatus((CPacketClientStatus.State.PERFORM_RESPAWN)));
     }
 
-    private static boolean getBackKeyDown(MovementInput movementInput) {
+    private static boolean getBackKeyDown(// MovementInput removed - use Input movementInput) {
         return movementInput.backKeyDown;
     }
 
@@ -255,11 +254,11 @@ extends PlayerEntity {
         return instance.positionUpdateTicks;
     }
 
-    private static MovementInput getMovementInput(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static boolean getForwardKeyDown(MovementInput movementInput) {
+    private static boolean getForwardKeyDown(// MovementInput removed - use Input movementInput) {
         return movementInput.forwardKeyDown;
     }
 
@@ -275,7 +274,7 @@ extends PlayerEntity {
         return instance.motionY;
     }
 
-    private static InventoryPlayer getInventory(PBotPlayer instance) {
+    private static PlayerInventory getInventory(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -283,15 +282,15 @@ extends PlayerEntity {
         return instance.posX;
     }
 
-    private static PlayerCapabilities getCapabilities3(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities3(PBotPlayer instance) {
         return instance.capabilities;
     }
 
-    private static MovementInput getMovementInput2(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input2(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static boolean getJump(MovementInput movementInput) {
+    private static boolean getJump(// MovementInput removed - use Input movementInput) {
         return movementInput.jump;
     }
 
@@ -299,7 +298,7 @@ extends PlayerEntity {
         return instance.permissionLevel;
     }
 
-    public void removeRecipeHighlight(IRecipe p_193103_1_) {
+    public void removeRecipeHighlight(Recipe p_193103_1_) {
         if ((this.recipeBook).isNew(p_193103_1_)) {
             (this.recipeBook).markSeen(p_193103_1_);
             (this.connection).sendPacket((Packet)new CPacketRecipeInfo(p_193103_1_));
@@ -307,14 +306,14 @@ extends PlayerEntity {
     }
 
     public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
-        this.openContainer = (Container)new ContainerHorseInventory((IInventory)PBotPlayer.getInventory10(this), inventoryIn, horse, (PlayerEntity)this);
+        this.openScreenHandler = (ScreenHandler)new ScreenHandlerHorseInventory((IInventory)PBotPlayer.getInventory10(this), inventoryIn, horse, (PlayerEntity)this);
     }
 
-    private static MovementInput getMovementInput3(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input3(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static MovementInput getMovementInput4(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input4(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -327,13 +326,13 @@ extends PlayerEntity {
         this.rowingBoat = false;
         if (this.getRidingEntity() instanceof EntityBoat) {
             EntityBoat entityboat = (EntityBoat)this.getRidingEntity();
-            entityboat.updateInputs((PBotPlayer.getMovementInput3(this).leftKeyDown), (PBotPlayer.getMovementInput16(this).rightKeyDown), (PBotPlayer.getMovementInput17(this).forwardKeyDown), (PBotPlayer.getMovementInput11(this).backKeyDown));
+            entityboat.updateInputs((PBotPlayer.get// MovementInput removed - use Input3(this).leftKeyDown), (PBotPlayer.get// MovementInput removed - use Input16(this).rightKeyDown), (PBotPlayer.get// MovementInput removed - use Input17(this).forwardKeyDown), (PBotPlayer.get// MovementInput removed - use Input11(this).backKeyDown));
             PBotPlayer cD = this;
-            cD.rowingBoat = (PBotPlayer.getRowingBoat2(cD) | (PBotPlayer.getLeftKeyDown(PBotPlayer.getMovementInput10(this)) || PBotPlayer.getRightKeyDown2(PBotPlayer.getMovementInput15(this)) || PBotPlayer.getForwardKeyDown(PBotPlayer.getMovementInput2(this)) || PBotPlayer.getBackKeyDown(PBotPlayer.getMovementInput13(this)) ? 1 : 0)) != 0;
+            cD.rowingBoat = (PBotPlayer.getRowingBoat2(cD) | (PBotPlayer.getLeftKeyDown(PBotPlayer.get// MovementInput removed - use Input10(this)) || PBotPlayer.getRightKeyDown2(PBotPlayer.get// MovementInput removed - use Input15(this)) || PBotPlayer.getForwardKeyDown(PBotPlayer.get// MovementInput removed - use Input2(this)) || PBotPlayer.getBackKeyDown(PBotPlayer.get// MovementInput removed - use Input13(this)) ? 1 : 0)) != 0;
         }
     }
 
-    private static float getMoveStrafe(MovementInput movementInput) {
+    private static float getMoveStrafe(// MovementInput removed - use Input movementInput) {
         return movementInput.moveStrafe;
     }
 
@@ -347,16 +346,16 @@ extends PlayerEntity {
     public void sendSettingsToServer() {
         if ((PBotPlayer.getPbot2(this).player) != null) {
             int i = 0;
-            for (EnumPlayerModelParts enumplayermodelparts : (this.setModelParts)) {
+            for (PlayerModelPart enumplayermodelparts : (this.setModelParts)) {
                 i |= enumplayermodelparts.getPartMask();
             }
-            (this.pbot).sendPacket((Packet)new CPacketClientSettings("en_us", 4, (PlayerEntity.EnumChatVisibility.FULL), true, i, (HandSide.RIGHT)));
+            (this.pbot).sendPacket((Packet)new CPacketClientSettings("en_us", 4, (PlayerEntity.EnumChatVisibility.FULL), true, i, (Arm.RIGHT)));
         }
     }
 
     protected void updateAutoJump(float p_189810_1_, float p_189810_2_) {
         Vec2f vec2f;
-        if (this.isAutoJumpEnabled() && (this.autoJumpTime) <= 0 && (this.onGround) && !this.isSneaking() && !this.isRiding() && ((vec2f = PBotPlayer.getMovementInput23(this).getMoveVector().x) != 0.0f || (vec2f.y) != 0.0f)) {
+        if (this.isAutoJumpEnabled() && (this.autoJumpTime) <= 0 && (this.onGround) && !this.isSneaking() && !this.isRiding() && ((vec2f = PBotPlayer.get// MovementInput removed - use Input23(this).getMoveVector().x) != 0.0f || (vec2f.y) != 0.0f)) {
             Vec3d vec3d = new Vec3d((this.posX), (this.getEntityBoundingBox().minY), (this.posZ));
             double d0 = (this.posX) + (double)p_189810_1_;
             double d1 = (this.posZ) + (double)p_189810_2_;
@@ -446,7 +445,7 @@ extends PlayerEntity {
         return instance.horseJumpPowerCounter;
     }
 
-    private static MovementInput getMovementInput5(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input5(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -492,11 +491,11 @@ extends PlayerEntity {
         return instance.maxHurtResistantTime;
     }
 
-    private static MovementInput getMovementInput7(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input7(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static float getMoveForward(MovementInput movementInput) {
+    private static float getMoveForward(// MovementInput removed - use Input movementInput) {
         return movementInput.moveForward;
     }
 
@@ -507,7 +506,7 @@ extends PlayerEntity {
     public void displayGuiEditCommandCart(CommandBlockBaseLogic commandBlock) {
     }
 
-    private static MovementInput getMovementInput8(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input8(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -515,11 +514,11 @@ extends PlayerEntity {
         return instance.onGround;
     }
 
-    private static MovementInput getMovementInput9(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input9(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    public void addStat(StatBase stat, int amount) {
+    public void addStat(Statistic stat, int amount) {
         if (stat != null && (stat.isIndependent)) {
             super.addStat(stat, amount);
         }
@@ -533,15 +532,15 @@ extends PlayerEntity {
         return instance.recipeBook;
     }
 
-    private static MovementInput getMovementInput10(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input10(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static MovementInput getMovementInput11(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input11(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static PlayerCapabilities getCapabilities4(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities4(PBotPlayer instance) {
         return instance.capabilities;
     }
 
@@ -562,15 +561,15 @@ extends PlayerEntity {
     }
 
     public void closeScreen() {
-        (this.connection).sendPacket((Packet)new CloseHandledScreenC2SPacket((PBotPlayer.getOpenContainer(this).windowId)));
+        (this.connection).sendPacket((Packet)new CloseHandledScreenC2SPacket((PBotPlayer.getOpenScreenHandler(this).windowId)));
         this.closeScreenAndDropStack();
     }
 
-    private static InventoryPlayer getInventory2(PBotPlayer instance) {
+    private static PlayerInventory getInventory2(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static MovementInput getMovementInput13(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input13(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -598,7 +597,7 @@ extends PlayerEntity {
             super.onUpdate();
             if (this.isRiding()) {
                 (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket.Rotation((this.rotationYaw), (this.rotationPitch), (this.onGround)));
-                (this.connection).sendPacket((Packet)new CPacketInput((this.moveStrafing), (this.moveVertical), (PBotPlayer.getMovementInput(this).jump), (PBotPlayer.getMovementInput35(this).sneak)));
+                (this.connection).sendPacket((Packet)new CPacketInput((this.moveStrafing), (this.moveVertical), (PBotPlayer.get// MovementInput removed - use Input(this).jump), (PBotPlayer.get// MovementInput removed - use Input35(this).sneak)));
                 Entity entity = this.getLowestRidingEntity();
                 if (entity != this && entity.canPassengerSteer()) {
                     (this.connection).sendPacket((Packet)new CPacketVehicleMove(entity));
@@ -609,7 +608,7 @@ extends PlayerEntity {
         }
     }
 
-    private static PlayerCapabilities getCapabilities5(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities5(PBotPlayer instance) {
         return instance.capabilities;
     }
 
@@ -625,7 +624,7 @@ extends PlayerEntity {
         return (this.autoJumpEnabled);
     }
 
-    private static float getMoveStrafe2(MovementInput movementInput) {
+    private static float getMoveStrafe2(// MovementInput removed - use Input movementInput) {
         return movementInput.moveStrafe;
     }
 
@@ -642,7 +641,7 @@ extends PlayerEntity {
         return instance.rowingBoat;
     }
 
-    private static MovementInput getMovementInput14(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input14(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -688,12 +687,12 @@ extends PlayerEntity {
         return false;
     }
 
-    private static float getMoveForward3(MovementInput movementInput) {
+    private static float getMoveForward3(// MovementInput removed - use Input movementInput) {
         return movementInput.moveForward;
     }
 
     public boolean isSneaking() {
-        int flag = (this.movementInput) != null && (PBotPlayer.getMovementInput25(this).sneak) ? 1 : 0;
+        int flag = (this.movementInput) != null && (PBotPlayer.get// MovementInput removed - use Input25(this).sneak) ? 1 : 0;
         return (flag != 0 && !(this.sleeping) ? 1 : 0) != 0;
     }
 
@@ -701,7 +700,7 @@ extends PlayerEntity {
         return instance.world;
     }
 
-    private static boolean getRightKeyDown2(MovementInput movementInput) {
+    private static boolean getRightKeyDown2(// MovementInput removed - use Input movementInput) {
         return movementInput.rightKeyDown;
     }
 
@@ -713,15 +712,15 @@ extends PlayerEntity {
         return instance.pbot;
     }
 
-    private static MovementInput getMovementInput15(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input15(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static MovementInput getMovementInput16(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input16(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static InventoryPlayer getInventory3(PBotPlayer instance) {
+    private static PlayerInventory getInventory3(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -729,11 +728,11 @@ extends PlayerEntity {
         instance.activeHand = enumHand;
     }
 
-    private static InventoryPlayer getInventory4(PBotPlayer instance) {
+    private static PlayerInventory getInventory4(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static MovementInput getMovementInput17(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input17(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -741,15 +740,15 @@ extends PlayerEntity {
         return (permLevel <= this.getPermissionLevel() ? 1 : 0) != 0;
     }
 
-    private static InventoryPlayer getInventory5(PBotPlayer instance) {
+    private static PlayerInventory getInventory5(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static InventoryPlayer getInventory6(PBotPlayer instance) {
+    private static PlayerInventory getInventory6(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static MovementInput getMovementInput18(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input18(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -766,11 +765,11 @@ extends PlayerEntity {
         (this.connection).sendPacket((Packet)new CPacketAnimation(hand));
     }
 
-    private static PlayerCapabilities getCapabilities6(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities6(PBotPlayer instance) {
         return instance.capabilities;
     }
 
-    private static MovementInput getMovementInput19(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input19(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -810,21 +809,21 @@ extends PlayerEntity {
             PBotPlayer cD6 = this;
             cD6.timeUntilPortal = PBotPlayer.getTimeUntilPortal2(cD6) - (1);
         }
-        boolean flag = (PBotPlayer.getMovementInput21(this).jump);
-        boolean flag1 = (PBotPlayer.getMovementInput34(this).sneak);
-        int flag2 = (PBotPlayer.getMovementInput20(this).moveForward) >= 0.800000012f ? 1 : 0;
+        boolean flag = (PBotPlayer.get// MovementInput removed - use Input21(this).jump);
+        boolean flag1 = (PBotPlayer.get// MovementInput removed - use Input34(this).sneak);
+        int flag2 = (PBotPlayer.get// MovementInput removed - use Input20(this).moveForward) >= 0.800000012f ? 1 : 0;
         (this.movementInput).updatePlayerMoveState();
         if (this.isHandActive() && !this.isRiding()) {
-            MovementInput movementInput = (this.movementInput);
+            // MovementInput removed - use Input movementInput = (this.movementInput);
             movementInput.moveStrafe = PBotPlayer.getMoveStrafe3(movementInput) * 0.200000003f;
-            MovementInput movementInput2 = (this.movementInput);
+            // MovementInput removed - use Input movementInput2 = (this.movementInput);
             movementInput2.moveForward = PBotPlayer.getMoveForward4(movementInput2) * 0.200000003f;
             this.sprintToggleTimer = 0;
         }
         if ((this.autoJumpTime) > 0) {
             PBotPlayer cD7 = this;
             cD7.autoJumpTime = PBotPlayer.getAutoJumpTime(cD7) - (1);
-            PBotPlayer.getMovementInput24(this).jump = true;
+            PBotPlayer.get// MovementInput removed - use Input24(this).jump = true;
         }
         AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
         this.pushOutOfBlocks((this.posX) - (double)(this.width) * 0.34999999999999998, (axisalignedbb.minY) + 0.5, (this.posZ) + (double)(this.width) * 0.34999999999999998);
@@ -832,37 +831,37 @@ extends PlayerEntity {
         this.pushOutOfBlocks((this.posX) + (double)(this.width) * 0.34999999999999998, (axisalignedbb.minY) + 0.5, (this.posZ) - (double)(this.width) * 0.34999999999999998);
         this.pushOutOfBlocks((this.posX) + (double)(this.width) * 0.34999999999999998, (axisalignedbb.minY) + 0.5, (this.posZ) + (double)(this.width) * 0.34999999999999998);
         int n = flag4 = (float)this.getFoodStats().getFoodLevel() > 6.0f || (PBotPlayer.getCapabilities6(this).allowFlying) ? 1 : 0;
-        if ((this.onGround) && !flag1 && flag2 == 0 && (PBotPlayer.getMovementInput29(this).moveForward) >= 0.800000012f && !this.isSprinting() && flag4 != 0 && !this.isHandActive() && !this.isPotionActive((MobEffects.BLINDNESS))) {
-            if ((this.sprintToggleTimer) <= 0 && !(PBotPlayer.getGameSettings(PBotPlayer.getMc(this)).keyBindSprint)) {
+        if ((this.onGround) && !flag1 && flag2 == 0 && (PBotPlayer.get// MovementInput removed - use Input29(this).moveForward) >= 0.800000012f && !this.isSprinting() && flag4 != 0 && !this.isHandActive() && !this.isPotionActive((MobEffects.BLINDNESS))) {
+            if ((this.sprintToggleTimer) <= 0 && !(PBotPlayer.getGameOptions(PBotPlayer.getMc(this)).keyBindSprint)) {
                 this.sprintToggleTimer = 7;
             } else {
                 this.setSprinting(true);
             }
         }
-        if (!this.isSprinting() && (PBotPlayer.getMovementInput32(this).moveForward) >= 0.800000012f && flag4 != 0 && !this.isHandActive() && !this.isPotionActive((MobEffects.BLINDNESS)) && (PBotPlayer.getGameSettings2(PBotPlayer.getMc3(this)).keyBindSprint)) {
+        if (!this.isSprinting() && (PBotPlayer.get// MovementInput removed - use Input32(this).moveForward) >= 0.800000012f && flag4 != 0 && !this.isHandActive() && !this.isPotionActive((MobEffects.BLINDNESS)) && (PBotPlayer.getGameOptions2(PBotPlayer.getMc3(this)).keyBindSprint)) {
             this.setSprinting(true);
         }
-        if (this.isSprinting() && ((PBotPlayer.getMovementInput4(this).moveForward) < 0.800000012f || (this.collidedHorizontally) || flag4 == 0)) {
+        if (this.isSprinting() && ((PBotPlayer.get// MovementInput removed - use Input4(this).moveForward) < 0.800000012f || (this.collidedHorizontally) || flag4 == 0)) {
             this.setSprinting(false);
         }
-        if (!(!(PBotPlayer.getMovementInput22(this).jump) || flag || (this.onGround) || !((this.motionY) < 0.0) || this.isElytraFlying() || (PBotPlayer.getCapabilities(this).isFlying) || (itemstack = this.getItemStackFromSlot((EntityEquipmentSlot.CHEST))).getItem() != (Items.ELYTRA) || ItemElytra.isUsable((ItemStack)itemstack))) {
+        if (!(!(PBotPlayer.get// MovementInput removed - use Input22(this).jump) || flag || (this.onGround) || !((this.motionY) < 0.0) || this.isElytraFlying() || (PBotPlayer.getCapabilities(this).isFlying) || (itemstack = this.getItemStackFromSlot((EntityEquipmentSlot.CHEST))).getItem() != (Items.ELYTRA) || ElytraItem.isUsable((ItemStack)itemstack))) {
             (this.connection).sendPacket((Packet)new CPacketEntityAction((Entity)this, (CPacketEntityAction.Action.START_FALL_FLYING)));
         }
         this.wasFallFlying = this.isElytraFlying();
         if ((PBotPlayer.getCapabilities7(this).isFlying) && this.isCurrentViewEntity()) {
-            if ((PBotPlayer.getMovementInput27(this).sneak)) {
-                PBotPlayer.getMovementInput33(this).moveStrafe = (float)((double)PBotPlayer.getMoveStrafe2(PBotPlayer.getMovementInput9(this)) / 0.29999999999999999);
-                PBotPlayer.getMovementInput5(this).moveForward = (float)((double)PBotPlayer.getMoveForward3(PBotPlayer.getMovementInput26(this)) / 0.29999999999999999);
+            if ((PBotPlayer.get// MovementInput removed - use Input27(this).sneak)) {
+                PBotPlayer.get// MovementInput removed - use Input33(this).moveStrafe = (float)((double)PBotPlayer.getMoveStrafe2(PBotPlayer.get// MovementInput removed - use Input9(this)) / 0.29999999999999999);
+                PBotPlayer.get// MovementInput removed - use Input5(this).moveForward = (float)((double)PBotPlayer.getMoveForward3(PBotPlayer.get// MovementInput removed - use Input26(this)) / 0.29999999999999999);
                 PBotPlayer cD8 = this;
                 cD8.motionY = PBotPlayer.getMotionY3(cD8) - (double)(PBotPlayer.getCapabilities3(this).getFlySpeed() * 3.0f);
             }
-            if ((PBotPlayer.getMovementInput14(this).jump)) {
+            if ((PBotPlayer.get// MovementInput removed - use Input14(this).jump)) {
                 PBotPlayer cD9 = this;
                 cD9.motionY = PBotPlayer.getMotionY(cD9) + (double)(PBotPlayer.getCapabilities8(this).getFlySpeed() * 3.0f);
             }
         }
         if (this.isRidingHorse()) {
-            IJumpingMount ijumpingmount = (IJumpingMount)this.getRidingEntity();
+            // IJumpingMount removed ijumpingmount = (// IJumpingMount removed)this.getRidingEntity();
             if ((this.horseJumpPowerCounter) < 0) {
                 PBotPlayer cD10 = this;
                 cD10.horseJumpPowerCounter = PBotPlayer.getHorseJumpPowerCounter2(cD10) + (1);
@@ -870,11 +869,11 @@ extends PlayerEntity {
                     this.horseJumpPower = 0.0f;
                 }
             }
-            if (flag && !(PBotPlayer.getMovementInput18(this).jump)) {
+            if (flag && !(PBotPlayer.get// MovementInput removed - use Input18(this).jump)) {
                 this.horseJumpPowerCounter = -10;
                 ijumpingmount.setJumpPower(MathHelper.floor((float)(this.getHorseJumpPower() * 100.0f)));
                 this.sendHorseJump();
-            } else if (!flag && (PBotPlayer.getMovementInput31(this).jump)) {
+            } else if (!flag && (PBotPlayer.get// MovementInput removed - use Input31(this).jump)) {
                 this.horseJumpPowerCounter = 0;
                 this.horseJumpPower = 0.0f;
             } else if (flag) {
@@ -908,7 +907,7 @@ extends PlayerEntity {
         this.handActive = false;
     }
 
-    private static float getMoveStrafe3(MovementInput movementInput) {
+    private static float getMoveStrafe3(// MovementInput removed - use Input movementInput) {
         return movementInput.moveStrafe;
     }
 
@@ -919,9 +918,9 @@ extends PlayerEntity {
     public void updateEntityActionState() {
         super.updateEntityActionState();
         if (this.isCurrentViewEntity()) {
-            this.moveStrafing = PBotPlayer.getMoveStrafe(PBotPlayer.getMovementInput19(this));
-            this.moveForward = PBotPlayer.getMoveForward(PBotPlayer.getMovementInput7(this));
-            this.isJumping = PBotPlayer.getJump(PBotPlayer.getMovementInput8(this));
+            this.moveStrafing = PBotPlayer.getMoveStrafe(PBotPlayer.get// MovementInput removed - use Input19(this));
+            this.moveForward = PBotPlayer.getMoveForward(PBotPlayer.get// MovementInput removed - use Input7(this));
+            this.isJumping = PBotPlayer.getJump(PBotPlayer.get// MovementInput removed - use Input8(this));
             this.prevRenderArmYaw = PBotPlayer.getRenderArmYaw(this);
             this.prevRenderArmPitch = PBotPlayer.getRenderArmPitch3(this);
             this.renderArmPitch = (float)((double)PBotPlayer.getRenderArmPitch2(this) + (double)(PBotPlayer.getRotationPitch8(this) - PBotPlayer.getRenderArmPitch(this)) * 0.5);
@@ -930,7 +929,7 @@ extends PlayerEntity {
     }
 
     public void sendPlayerAbilities() {
-        (this.connection).sendPacket((Packet)new PlayerMoveC2SPacketAbilities((this.capabilities)));
+        (this.connection).sendPacket((Packet)new PlayerAbilitiesC2SPacket((this.capabilities)));
     }
 
     public void sendHorseInventory() {
@@ -949,11 +948,11 @@ extends PlayerEntity {
         return instance.sprintingTicksLeft;
     }
 
-    private static float getMoveForward4(MovementInput movementInput) {
+    private static float getMoveForward4(// MovementInput removed - use Input movementInput) {
         return movementInput.moveForward;
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -963,10 +962,10 @@ extends PlayerEntity {
 
     public boolean isSpectator() {
         NetworkPlayerInfo networkplayerinfo = (this.connection).getPlayerInfo(this.getGameProfile().getId());
-        return (networkplayerinfo != null && networkplayerinfo.getGameType() == (GameType.SPECTATOR) ? 1 : 0) != 0;
+        return (networkplayerinfo != null && networkplayerinfo.getGameMode() == (GameMode.SPECTATOR) ? 1 : 0) != 0;
     }
 
-    private static MovementInput getMovementInput20(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input20(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -976,7 +975,7 @@ extends PlayerEntity {
         this.autoJumpEnabled = 1;
         this.pbot = pbot;
         this.connection = pbot.getPlayHandler();
-        this.statWriter = new StatisticsManager();
+        this.statWriter = new StatHandler();
         this.recipeBook = new RecipeBook();
         this.mc = pbot.mc;
         this.dimension = 0;
@@ -995,15 +994,15 @@ extends PlayerEntity {
         return true;
     }
 
-    private static InventoryPlayer getInventory7(PBotPlayer instance) {
+    private static PlayerInventory getInventory7(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static MovementInput getMovementInput21(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input21(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static PlayerCapabilities getCapabilities7(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities7(PBotPlayer instance) {
         return instance.capabilities;
     }
 
@@ -1075,7 +1074,7 @@ extends PlayerEntity {
         }
     }
 
-    private static PlayerCapabilities getCapabilities8(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities8(PBotPlayer instance) {
         return instance.capabilities;
     }
 
@@ -1085,7 +1084,7 @@ extends PlayerEntity {
         }
     }
 
-    private static MovementInput getMovementInput22(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input22(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1093,15 +1092,15 @@ extends PlayerEntity {
         return instance.posX;
     }
 
-    private static PlayerCapabilities getCapabilities9(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities9(PBotPlayer instance) {
         return instance.capabilities;
     }
 
-    private static MovementInput getMovementInput23(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input23(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static MovementInput getMovementInput24(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input24(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1115,7 +1114,7 @@ extends PlayerEntity {
         }
     }
 
-    private static MovementInput getMovementInput25(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input25(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1126,7 +1125,7 @@ extends PlayerEntity {
         return instance.mc;
     }
 
-    private static InventoryPlayer getInventory9(PBotPlayer instance) {
+    private static PlayerInventory getInventory9(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -1142,7 +1141,7 @@ extends PlayerEntity {
         return true;
     }
 
-    private static InventoryPlayer getInventory10(PBotPlayer instance) {
+    private static PlayerInventory getInventory10(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -1155,7 +1154,7 @@ extends PlayerEntity {
         return true;
     }
 
-    private static MovementInput getMovementInput26(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input26(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1163,28 +1162,28 @@ extends PlayerEntity {
         return instance.renderArmYaw;
     }
 
-    public void displayGui(IInteractionObject guiOwner) {
+    public void displayGui(NamedScreenHandlerFactory guiOwner) {
         String s = guiOwner.getGuiID();
         if (!"minecraft:crafting_table".equals(s)) {
             if ("minecraft:enchanting_table".equals(s)) {
-                this.openContainer = (Container)new ContainerEnchantment(PBotPlayer.getInventory11(this), PBotPlayer.getWorld15(this));
+                this.openScreenHandler = (ScreenHandler)new ScreenHandlerEnchantment(PBotPlayer.getInventory11(this), PBotPlayer.getWorld15(this));
             } else if ("minecraft:anvil".equals(s)) {
-                this.openContainer = (Container)new ContainerRepair(PBotPlayer.getInventory(this), PBotPlayer.getWorld11(this), (PlayerEntity)this);
+                this.openScreenHandler = (ScreenHandler)new ScreenHandlerRepair(PBotPlayer.getInventory(this), PBotPlayer.getWorld11(this), (PlayerEntity)this);
             }
         }
     }
 
     public boolean isRidingHorse() {
         Entity entity = this.getRidingEntity();
-        return (this.isRiding() && entity instanceof IJumpingMount && ((IJumpingMount)entity).canJump() ? 1 : 0) != 0;
+        return (this.isRiding() && entity instanceof // IJumpingMount removed && ((// IJumpingMount removed)entity).canJump() ? 1 : 0) != 0;
     }
 
     private static float getRotationYaw9(Entity entity) {
         return entity.rotationYaw;
     }
 
-    private static Container getOpenContainer(PBotPlayer instance) {
-        return instance.openContainer;
+    private static ScreenHandler getOpenScreenHandler(PBotPlayer instance) {
+        return instance.openScreenHandler;
     }
 
     private static String getServerBrand(PBotPlayer instance) {
@@ -1195,7 +1194,7 @@ extends PlayerEntity {
         return instance.sprintToggleTimer;
     }
 
-    private static MovementInput getMovementInput27(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input27(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1220,40 +1219,40 @@ extends PlayerEntity {
 
     public void displayGUIChest(IInventory chestInventory) {
         String s;
-        String string = s = chestInventory instanceof IInteractionObject ? ((IInteractionObject)chestInventory).getGuiID() : "minecraft:container";
+        String string = s = chestInventory instanceof NamedScreenHandlerFactory ? ((NamedScreenHandlerFactory)chestInventory).getGuiID() : "minecraft:container";
         if ("minecraft:chest".equals(s)) {
-            this.openContainer = (Container)new ContainerChest((IInventory)PBotPlayer.getInventory12(this), chestInventory, (PlayerEntity)this);
+            this.openScreenHandler = (ScreenHandler)new ScreenHandlerChest((IInventory)PBotPlayer.getInventory12(this), chestInventory, (PlayerEntity)this);
         } else if ("minecraft:hopper".equals(s)) {
-            this.openContainer = (Container)new ContainerHopper(PBotPlayer.getInventory4(this), chestInventory, (PlayerEntity)this);
+            this.openScreenHandler = (ScreenHandler)new ScreenHandlerHopper(PBotPlayer.getInventory4(this), chestInventory, (PlayerEntity)this);
         } else if ("minecraft:furnace".equals(s)) {
-            this.openContainer = (Container)new ContainerFurnace(PBotPlayer.getInventory6(this), chestInventory);
+            this.openScreenHandler = (ScreenHandler)new ScreenHandlerFurnace(PBotPlayer.getInventory6(this), chestInventory);
         } else if ("minecraft:brewing_stand".equals(s)) {
-            this.openContainer = (Container)new ContainerBrewingStand(PBotPlayer.getInventory9(this), chestInventory);
+            this.openScreenHandler = (ScreenHandler)new ScreenHandlerBrewingStand(PBotPlayer.getInventory9(this), chestInventory);
         } else if ("minecraft:beacon".equals(s)) {
-            this.openContainer = (Container)new ContainerBeacon((IInventory)PBotPlayer.getInventory2(this), chestInventory);
+            this.openScreenHandler = (ScreenHandler)new ScreenHandlerBeacon((IInventory)PBotPlayer.getInventory2(this), chestInventory);
         } else if (!"minecraft:dispenser".equals(s) && !"minecraft:dropper".equals(s)) {
             if ("minecraft:shulker_box".equals(s)) {
-                this.openContainer = (Container)new ContainerShulkerBox(PBotPlayer.getInventory3(this), chestInventory, (PlayerEntity)this);
+                this.openScreenHandler = (ScreenHandler)new ScreenHandlerShulkerBox(PBotPlayer.getInventory3(this), chestInventory, (PlayerEntity)this);
             } else {
-                this.openContainer = (Container)new ContainerChest((IInventory)PBotPlayer.getInventory13(this), chestInventory, (PlayerEntity)this);
+                this.openScreenHandler = (ScreenHandler)new ScreenHandlerChest((IInventory)PBotPlayer.getInventory13(this), chestInventory, (PlayerEntity)this);
             }
         } else {
-            this.openContainer = (Container)new ContainerDispenser((IInventory)PBotPlayer.getInventory5(this), chestInventory);
+            this.openScreenHandler = (ScreenHandler)new ScreenHandlerDispenser((IInventory)PBotPlayer.getInventory5(this), chestInventory);
         }
     }
 
-    private static MovementInput getMovementInput29(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input29(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    public StatisticsManager getStatFileWriter() {
+    public StatHandler getStatFileWriter() {
         return (this.statWriter);
     }
 
     public void openEditStructure(TileEntityStructure structure) {
     }
 
-    private static InventoryPlayer getInventory11(PBotPlayer instance) {
+    private static PlayerInventory getInventory11(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -1270,10 +1269,10 @@ extends PlayerEntity {
     }
 
     public void displayVillagerTradeGui(IMerchant villager) {
-        this.openContainer = (Container)new ContainerMerchant(PBotPlayer.getInventory7(this), villager, PBotPlayer.getWorld6(this));
+        this.openScreenHandler = (ScreenHandler)new ScreenHandlerMerchant(PBotPlayer.getInventory7(this), villager, PBotPlayer.getWorld6(this));
     }
 
-    private static InventoryPlayer getInventory12(PBotPlayer instance) {
+    private static PlayerInventory getInventory12(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -1294,7 +1293,7 @@ extends PlayerEntity {
         return (this.recipeBook);
     }
 
-    public void moveEntity(MoverType type, double x, double y, double z) {
+    public void moveEntity(MovementType type, double x, double y, double z) {
         double d0 = (this.posX);
         double d1 = (this.posZ);
         super.move(type, x, y, z);
@@ -1303,10 +1302,10 @@ extends PlayerEntity {
 
     public boolean isCreative() {
         NetworkPlayerInfo networkplayerinfo = (this.connection).getPlayerInfo(this.getGameProfile().getId());
-        return (networkplayerinfo != null && networkplayerinfo.getGameType() == (GameType.CREATIVE) ? 1 : 0) != 0;
+        return (networkplayerinfo != null && networkplayerinfo.getGameMode() == (GameMode.CREATIVE) ? 1 : 0) != 0;
     }
 
-    private static MovementInput getMovementInput31(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input31(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1317,7 +1316,7 @@ extends PlayerEntity {
     public void onCriticalHit(Entity entityHit) {
     }
 
-    private static MovementInput getMovementInput32(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input32(PBotPlayer instance) {
         return instance.movementInput;
     }
 
@@ -1404,11 +1403,11 @@ extends PlayerEntity {
         }
     }
 
-    private static MovementInput getMovementInput33(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input33(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    public void notifyDataManagerChange(DataParameter<?> key) {
+    public void notifyDataManagerChange(TrackedData<?> key) {
         super.notifyDataManagerChange(key);
         if ((HAND_STATES).equals(key)) {
             Hand enumhand;
@@ -1442,18 +1441,18 @@ extends PlayerEntity {
         return instance.world;
     }
 
-    private static MovementInput getMovementInput34(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input34(PBotPlayer instance) {
         return instance.movementInput;
     }
 
     public void displayGuiCommandBlock(TileEntityCommandBlock commandBlock) {
     }
 
-    private static MovementInput getMovementInput35(PBotPlayer instance) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input35(PBotPlayer instance) {
         return instance.movementInput;
     }
 
-    private static InventoryPlayer getInventory13(PBotPlayer instance) {
+    private static PlayerInventory getInventory13(PBotPlayer instance) {
         return instance.inventory;
     }
 

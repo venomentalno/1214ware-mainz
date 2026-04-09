@@ -54,7 +54,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Timer;
 import net.minecraft.util.math.Box;
-import net.minecraft.client.render.RenderSystem;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

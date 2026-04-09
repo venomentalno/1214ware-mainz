@@ -14,14 +14,14 @@
  *  net.minecraft.block.material.MapColor
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.ItemFrameEntity
- *  net.minecraft.entity.player.InventoryPlayer
+ *  net.minecraft.entity.player.PlayerInventory
  *  net.minecraft.item.Item
- *  net.minecraft.item.ItemMap
+ *  net.minecraft.item.FilledMapItem
  *  net.minecraft.item.ItemStack
  *  net.minecraft.util.math.Direction
- *  net.minecraft.util.NonNullList
+ *  net.minecraft.util.DefaultedList
  *  net.minecraft.world.World
- *  net.minecraft.world.storage.MapData
+ *  net.minecraft.world.storage.MapState
  */
 package com.botclient;
 
@@ -48,7 +48,7 @@ import com.botclient.GifFrameInfo;
 import com.botclient.ImageUtils;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemFrameEntity;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.FilledMapItem;
@@ -56,13 +56,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.MapData;
+import net.minecraft.item.map.MapState;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class CaptchaDetector {
-    private static InventoryPlayer getInventory(PBotPlayer instance) {
+    private static PlayerInventory getInventory(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -77,9 +77,9 @@ public class CaptchaDetector {
         int mapItemSlot = bot.getMapSlot();
         if (mapItemSlot != (-1)) {
             Item mapItem = mapItemSlot == (45) ? (bot.player).getHeldItemOffhand().getItem() : ((ItemStack)(CaptchaDetector.getInventory(CaptchaDetector.getPlayer2(bot)).mainInventory).get(mapItemSlot)).getItem();
-            ItemMap map = (ItemMap)mapItem;
-            MapData mapData = map.getMapData(mapItem.getDefaultInstance(), (World)bot.world);
-            BufferedImage captchaFrame = CaptchaDetector.mapToImage(CaptchaDetector.getMapData((mapData.colors)), false);
+            FilledMapItem map = (FilledMapItem)mapItem;
+            MapState mapData = map.getMapState(mapItem.getDefaultInstance(), (World)bot.world);
+            BufferedImage captchaFrame = CaptchaDetector.mapToImage(CaptchaDetector.getMapState((mapData.colors)), false);
             return new CaptchaPacket(ImageUtils.imageToHash((BufferedImage)captchaFrame), captchaFrame, new ArrayList(), bot);
         }
         List<Object> frames = (bot.world.loadedEntityList).stream().filter(entity -> (entity instanceof EntityItemFrame && ((entity.getHorizontalFacing().equals((Object)CaptchaDetector.getSOUTH()) && (Entity)CaptchaDetector.getPlayer(bot).getHorizontalFacing().equals((Object)CaptchaDetector.getNORTH2()) || entity.getHorizontalFacing().equals((Object)CaptchaDetector.getWEST()) && (Entity)CaptchaDetector.getPlayer(bot).getHorizontalFacing().equals((Object)CaptchaDetector.getEAST2()) || entity.getHorizontalFacing().equals((Object)CaptchaDetector.getNORTH()) && (Entity)CaptchaDetector.getPlayer(bot).getHorizontalFacing().equals((Object)CaptchaDetector.getSOUTH2()) || entity.getHorizontalFacing().equals((Object)CaptchaDetector.getEAST()) && (Entity)CaptchaDetector.getPlayer(bot).getHorizontalFacing().equals((Object)CaptchaDetector.getWEST2()) ? 1 : 0) != 0) ? 1 : 0) != 0).map(EntityItemFrame.class::cast).collect(Collectors.toList());
@@ -110,9 +110,9 @@ public class CaptchaDetector {
                 if ((entityItemFrame.rotationYaw) == 0.0f || (entityItemFrame.rotationYaw) == 90.0f) {
                     frameX = (double)width - frameX - 1.0;
                 }
-                ItemMap map = (ItemMap)entityItemFrame.getDisplayedItem().getItem();
-                MapData mapData = map.getMapData(entityItemFrame.getDisplayedItem(), (World)bot.world);
-                BufferedImage captchaFrame = CaptchaDetector.mapToImage(CaptchaDetector.getMapData((mapData.colors)), false);
+                FilledMapItem map = (FilledMapItem)entityItemFrame.getDisplayedItem().getItem();
+                MapState mapData = map.getMapState(entityItemFrame.getDisplayedItem(), (World)bot.world);
+                BufferedImage captchaFrame = CaptchaDetector.mapToImage(CaptchaDetector.getMapState((mapData.colors)), false);
                 frameList.add(new GifFrameInfo(entityItemFrame.getEntityId(), (int)((double)width - frameX - 1.0), (int)((double)n - frameY - 1.0)));
                 image.createGraphics().drawImage((Image)(entityItemFrame.getRotation() != 0 ? CaptchaDetector.rotateImage(captchaFrame, entityItemFrame.getRotation() * (90)) : captchaFrame), (int)((double)width - frameX - 1.0) * (128), (int)((double)n - frameY - 1.0) * (128), null);
             }
@@ -197,7 +197,7 @@ public class CaptchaDetector {
         return Direction.SOUTH;
     }
 
-    public static int[] getMapData(byte[] data) {
+    public static int[] getMapState(byte[] data) {
         int a;
         if (data == null) {
             return null;

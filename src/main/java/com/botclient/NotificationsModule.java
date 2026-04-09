@@ -13,7 +13,7 @@
  *  net.minecraft.client.gui.GuiChat
  *  net.minecraft.client.gui.GuiScreen
  *  net.minecraft.client.gui.ScaledResolution
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  */
 package com.botclient;
 
@@ -46,7 +46,7 @@ extends Module {
     public static void render(ScaledResolution res) {
         float yOffset = -24.0f;
         if (((mc).currentScreen) instanceof GuiChat) {
-            int i = (NotificationsModule.getGameSettings().guiScale);
+            int i = (NotificationsModule.getGameOptions().guiScale);
             if (i == 0) {
                 yOffset -= 26.0f;
             }
@@ -59,7 +59,7 @@ extends Module {
         }
     }
 
-    private static GameSettings getGameSettings() {
+    private static GameOptions getGameOptions() {
         return Minecraft.gameSettings;
     }
 

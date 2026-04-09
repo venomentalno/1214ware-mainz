@@ -33,7 +33,7 @@
  *  neo.deobf.ChatUtils
  *  neo.deobf.ProxyInfo
  *  net.minecraft.network.EnumConnectionState
- *  net.minecraft.network.INetHandler
+ *  net.minecraft.network.PacketListener
  *  net.minecraft.network.NettyCompressionDecoder
  *  net.minecraft.network.NettyCompressionEncoder
  *  net.minecraft.network.Packet

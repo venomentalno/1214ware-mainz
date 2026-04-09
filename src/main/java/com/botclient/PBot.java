@@ -4,7 +4,7 @@
  * Could not load the following classes:
  *  io.netty.buffer.Unpooled
  *  io.netty.channel.Channel
- *  javax.vecmath.Vector2f
+ *  org.joml.Vector2f
  *  neo.deobf.TextSetting
  *  neo.deobf.Client
  *  neo.deobf.PBotManager
@@ -44,12 +44,12 @@
  *  net.minecraft.block.properties.PropertyEnum
  *  net.minecraft.client.Minecraft
  *  net.minecraft.client.entity.PlayerEntitySP
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  *  net.minecraft.client.settings.KeyBinding
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.player.PlayerEntity
- *  net.minecraft.entity.player.InventoryPlayer
- *  net.minecraft.entity.player.PlayerCapabilities
+ *  net.minecraft.entity.player.PlayerInventory
+ *  net.minecraft.entity.player.// PlayerCapabilities removed - use GameMode
  *  net.minecraft.init.Items
  *  net.minecraft.inventory.ClickType
  *  net.minecraft.screen.ScreenHandler
@@ -58,10 +58,10 @@
  *  net.minecraft.item.EnumDyeColor
  *  net.minecraft.item.Item
  *  net.minecraft.item.ItemArmor
- *  net.minecraft.item.ItemMap
+ *  net.minecraft.item.FilledMapItem
  *  net.minecraft.item.ItemStack
  *  net.minecraft.network.EnumConnectionState
- *  net.minecraft.network.INetHandler
+ *  net.minecraft.network.PacketListener
  *  net.minecraft.network.Packet
  *  net.minecraft.network.PacketBuffer
  *  net.minecraft.network.handshake.client.C00Handshake
@@ -77,7 +77,7 @@
  *  net.minecraft.potion.PotionUtils
  *  net.minecraft.util.math.Direction
  *  net.minecraft.util.Hand
- *  net.minecraft.util.NonNullList
+ *  net.minecraft.util.DefaultedList
  *  net.minecraft.util.Session
  *  net.minecraft.util.math.BlockPos
  *  net.minecraft.world.World
@@ -142,7 +142,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-// Removed: PlayerCapabilities replaced
+// Removed: // PlayerCapabilities removed - use GameMode replaced
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.screen.ScreenHandler;
@@ -211,7 +211,7 @@ public class PBot {
         this.deleted = deleted;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -257,8 +257,8 @@ public class PBot {
         return (Integer)this.getParameters().get(key);
     }
 
-    private static Container getOpenContainer(PBotPlayer instance) {
-        return instance.openContainer;
+    private static ScreenHandler getOpenScreenHandler(PBotPlayer instance) {
+        return instance.openScreenHandler;
     }
 
     private static PBotMinecraft getMc3(PBot instance) {
@@ -289,7 +289,7 @@ public class PBot {
         return (COLOR_PATTERN).matcher(input).replaceAll("");
     }
 
-    private static KeyBinding getKeyBindForward(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindForward(GameOptions gameSettings) {
         return gameSettings.keyBindForward;
     }
 
@@ -323,7 +323,7 @@ public class PBot {
         instance.world = world;
     }
 
-    private static GameSettings getGameSettings2() {
+    private static GameOptions getGameOptions2() {
         return Minecraft.gameSettings;
     }
 
@@ -354,7 +354,7 @@ public class PBot {
         return instance.player;
     }
 
-    private static BotKeyState getGameSettings3(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions3(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -378,7 +378,7 @@ public class PBot {
         return instance.player;
     }
 
-    private static InventoryPlayer getInventory(PBotPlayer instance) {
+    private static PlayerInventory getInventory(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -438,7 +438,7 @@ public class PBot {
         return vector2f.x;
     }
 
-    private static KeyBinding getKeyBindSneak(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindSneak(GameOptions gameSettings) {
         return gameSettings.keyBindSneak;
     }
 
@@ -454,7 +454,7 @@ public class PBot {
         return instance.networkManager;
     }
 
-    private static BotKeyState getGameSettings4(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions4(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -462,7 +462,7 @@ public class PBot {
         return instance.player;
     }
 
-    private static BotKeyState getGameSettings5(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions5(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -488,7 +488,7 @@ public class PBot {
         return instance.proxy;
     }
 
-    private static GameSettings getGameSettings6() {
+    private static GameOptions getGameOptions6() {
         return Minecraft.gameSettings;
     }
 
@@ -508,8 +508,8 @@ public class PBot {
         this.port = port;
     }
 
-    private static Container getOpenContainer4(PBotPlayer instance) {
-        return instance.openContainer;
+    private static ScreenHandler getOpenScreenHandler4(PBotPlayer instance) {
+        return instance.openScreenHandler;
     }
 
     private static PBotPlayer getPlayer21(PBot instance) {
@@ -552,7 +552,7 @@ public class PBot {
             }
             InetAddress inetaddress = InetAddress.getByName(this.getHost());
             this.networkManager = PBotNetworkManager.createNetworkManagerAndConnect((InetAddress)inetaddress, (int)this.getPort(), (PBot)this, (ProxyInfo)PBot.getProxy4(this));
-            (this.networkManager).setNetHandler((INetHandler)new PBotStatFileWriter(this.getNetworkManager(), this));
+            (this.networkManager).setNetHandler((PacketListener)new PBotStatFileWriter(this.getNetworkManager(), this));
             (this.networkManager).sendPacket((Packet)new C00Handshake(this.getHost(), this.getPort(), (EnumConnectionState.LOGIN)));
             ThreadUtils.sleep((long)200L);
             (this.networkManager).sendPacket((Packet)new CPacketLoginStart(this.getSession().getProfile()));
@@ -625,23 +625,23 @@ public class PBot {
         return instance.mc;
     }
 
-    private static Container getOpenContainer5(PBotPlayer instance) {
-        return instance.openContainer;
+    private static ScreenHandler getOpenScreenHandler5(PBotPlayer instance) {
+        return instance.openScreenHandler;
     }
 
     public void closeWindow() {
         if (this.isOnline()) {
             (this.player).closeScreenAndDropStack();
-            this.sendPacket((Packet)new CloseHandledScreenC2SPacket((PBot.getOpenContainer(PBot.getPlayer17(this)).windowId)));
-            PBot.getOpenContainer4(PBot.getPlayer16(this)).windowId = 0;
+            this.sendPacket((Packet)new CloseHandledScreenC2SPacket((PBot.getOpenScreenHandler(PBot.getPlayer17(this)).windowId)));
+            PBot.getOpenScreenHandler4(PBot.getPlayer16(this)).windowId = 0;
         }
     }
 
-    private static BotKeyState getGameSettings7(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions7(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static GameSettings getGameSettings8() {
+    private static GameOptions getGameOptions8() {
         return Minecraft.gameSettings;
     }
 
@@ -668,7 +668,7 @@ public class PBot {
         return (this.isOnline() && (PBot.getMc(this).playerController).isInCreativeMode() ? 1 : 0) != 0;
     }
 
-    private static KeyBinding getKeyBindBack(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindBack(GameOptions gameSettings) {
         return gameSettings.keyBindBack;
     }
 
@@ -728,19 +728,19 @@ public class PBot {
             if ((BotsCommand.mirror)) {
                 PBot.getPlayer36(this).rotationYaw = PBot.getRotationYaw2(PBot.getPlayer62());
                 PBot.getPlayer37(this).rotationPitch = PBot.getRotationPitch(PBot.getPlayer13());
-                PBot.getGameSettings(PBot.getMc4(this)).keyBindForward = PBot.getPressed2(PBot.getKeyBindForward(PBot.getGameSettings17()));
-                PBot.getGameSettings12(PBot.getMc24(this)).keyBindBack = PBot.getPressed7(PBot.getKeyBindBack(PBot.rHqqtYyfop()));
-                PBot.getGameSettings16(PBot.getMc19(this)).keyBindLeft = PBot.getPressed(PBot.getKeyBindLeft(PBot.getGameSettings14()));
-                PBot.getGameSettings3(PBot.getMc8(this)).keyBindRight = PBot.getPressed6(PBot.mfbGWusihm(PBot.getGameSettings9()));
-                PBot.getGameSettings5(PBot.getMc23(this)).keyBindSprint = PBot.getPressed4(PBot.getKeyBindSprint(PBot.getGameSettings8()));
-                PBot.getGameSettings13(PBot.getMc22(this)).keyBindSneak = PBot.getPressed5(PBot.getKeyBindSneak(PBot.getGameSettings6()));
-                PBot.getGameSettings4(PBot.getMc20(this)).keyBindJump = PBot.getPressed3(PBot.getKeyBindJump(PBot.getGameSettings2()));
+                PBot.getGameOptions(PBot.getMc4(this)).keyBindForward = PBot.getPressed2(PBot.getKeyBindForward(PBot.getGameOptions17()));
+                PBot.getGameOptions12(PBot.getMc24(this)).keyBindBack = PBot.getPressed7(PBot.getKeyBindBack(PBot.rHqqtYyfop()));
+                PBot.getGameOptions16(PBot.getMc19(this)).keyBindLeft = PBot.getPressed(PBot.getKeyBindLeft(PBot.getGameOptions14()));
+                PBot.getGameOptions3(PBot.getMc8(this)).keyBindRight = PBot.getPressed6(PBot.mfbGWusihm(PBot.getGameOptions9()));
+                PBot.getGameOptions5(PBot.getMc23(this)).keyBindSprint = PBot.getPressed4(PBot.getKeyBindSprint(PBot.getGameOptions8()));
+                PBot.getGameOptions13(PBot.getMc22(this)).keyBindSneak = PBot.getPressed5(PBot.getKeyBindSneak(PBot.getGameOptions6()));
+                PBot.getGameOptions4(PBot.getMc20(this)).keyBindJump = PBot.getPressed3(PBot.getKeyBindJump(PBot.getGameOptions2()));
             }
             if ((BotsCommand.randommove)) {
                 PBotPlayer cD = (this.player);
                 cD.rotationYaw = PBot.getRotationYaw(cD) + BlockUtils.normalizeYaw((float)RandomUtils.intRandom((int)(-25), (int)(25)));
                 this.jump();
-                PBot.getGameSettings11(PBot.getMc5(this)).keyBindForward = true;
+                PBot.getGameOptions11(PBot.getMc5(this)).keyBindForward = true;
             }
             if ((BotsCommand.attack)) {
                 try {
@@ -750,7 +750,7 @@ public class PBot {
                     if (BlockUtils.hasSword((PBot)this)) {
                         PBot.getInventory3(PBot.getPlayer43(this)).currentItem = BlockUtils.getSword((PBot)this);
                     }
-                    InventoryPlayer inventory = (PBot.getPlayer23(this).inventory);
+                    PlayerInventory inventory = (PBot.getPlayer23(this).inventory);
                     int[] ArmorSlots = new int[4];
                     int[] ArmorValues = new int[4];
                     for (int type = 0; type < (4); ++type) {
@@ -798,7 +798,7 @@ public class PBot {
                         Vector2f vector2f = BlockUtils.getBlockAngles((double)(e.posX), (double)((e.posY) + 0.5), (double)(e.posZ), (double)(PBot.getPlayer20(this).posX), (double)(PBot.getPlayer39(this).posY), (double)(PBot.getPlayer47(this).posZ));
                         PBot.getPlayer48(this).rotationYaw = BlockUtils.normalizeYaw((float)PBot.getY2(vector2f)) + (float)RandomUtils.intRandom((int)(-3), (int)(3));
                         PBot.getPlayer12(this).rotationPitch = BlockUtils.normalizePitch((float)PBot.getX(vector2f)) + (float)RandomUtils.intRandom((int)(-1), (int)(1));
-                        PBot.getGameSettings7(PBot.getMc2(this)).keyBindForward = (!(PBot.MvztlqeHew(this).getDistance(e) <= 2.0f) && !PBot.getIsDead(e) ? 1 : 0) != 0;
+                        PBot.getGameOptions7(PBot.getMc2(this)).keyBindForward = (!(PBot.MvztlqeHew(this).getDistance(e) <= 2.0f) && !PBot.getIsDead(e) ? 1 : 0) != 0;
                         if ((double)(this.player).getDistance(e) <= 3.0) {
                             if ((double)(this.player).getCooledAttackStrength(1.0f) >= 0.93000000000000005 && (this.c).hasReached((double)((2300) + RandomUtils.intRandom((int)(0), (int)(100))))) {
                                 (this.c).reset();
@@ -840,10 +840,10 @@ public class PBot {
     }
 
     public void windowClick(int slot, int mouseButton, ClickType type) {
-        (PBot.getMc18(this).playerController).windowClick((PBot.getOpenContainer5(PBot.getPlayer18(this)).windowId), slot, mouseButton, type, (PlayerEntity)(this.player));
+        (PBot.getMc18(this).playerController).windowClick((PBot.getOpenScreenHandler5(PBot.getPlayer18(this)).windowId), slot, mouseButton, type, (PlayerEntity)(this.player));
     }
 
-    private static KeyBinding mfbGWusihm(GameSettings gameSettings) {
+    private static KeyBinding mfbGWusihm(GameOptions gameSettings) {
         return gameSettings.keyBindRight;
     }
 
@@ -851,8 +851,8 @@ public class PBot {
         return (String)this.getParameters().get(key);
     }
 
-    private static Container getOpenContainer6(PBotPlayer instance) {
-        return instance.openContainer;
+    private static ScreenHandler getOpenScreenHandler6(PBotPlayer instance) {
+        return instance.openScreenHandler;
     }
 
     private static PBotPlayer getPlayer36(PBot instance) {
@@ -890,7 +890,7 @@ public class PBot {
         return instance.player;
     }
 
-    private static GameSettings getGameSettings9() {
+    private static GameOptions getGameOptions9() {
         return Minecraft.gameSettings;
     }
 
@@ -932,7 +932,7 @@ public class PBot {
         return instance.tabFooter;
     }
 
-    private static InventoryPlayer getInventory3(PBotPlayer instance) {
+    private static PlayerInventory getInventory3(PBotPlayer instance) {
         return instance.inventory;
     }
 
@@ -979,7 +979,7 @@ public class PBot {
 
     public int currentWindowID() {
         if (this.isOnline()) {
-            return (PBot.getOpenContainer7(PBot.getPlayer42(this)).windowId);
+            return (PBot.getOpenScreenHandler7(PBot.getPlayer42(this)).windowId);
         }
         return 0;
     }
@@ -992,10 +992,10 @@ public class PBot {
                     for (BlockPos blockPos : BlockUtils.getAllInBox((BlockPos)new BlockPos(9, 51, -1), (BlockPos)new BlockPos(9, 53, 1))) {
                         if ((PBot.getPlayer10(this).world).getBlockState(blockPos).getProperties().size() == 0 || !(PBot.getPlayer65(this).world).getBlockState(blockPos).getBlock().getTranslationKey().equalsIgnoreCase("tile.cloth") || !((EnumDyeColor)(PBot.getPlayer29(this).world).getBlockState(blockPos).getValue((IProperty)PBot.getCOLOR())).toString().equalsIgnoreCase((BotSettingsModule.gameguardBlock).get())) continue;
                         if (BlockUtils.getDistance((PBot)this, (double)9.0, (double)52.0, (double)0.0) < 4.0f) {
-                            PBot.getGameSettings10(PBot.getMc21(this)).keyBindForward = false;
+                            PBot.getGameOptions10(PBot.getMc21(this)).keyBindForward = false;
                             this.sendPacket((Packet)new PlayerInteractBlockC2SPacket(new BlockPos(blockPos.getX() - (1), blockPos.getY(), blockPos.getZ()), (Direction.SOUTH), (Hand.MAIN_HAND), (float)blockPos.getX(), (float)blockPos.getY(), (float)blockPos.getZ()));
                         } else {
-                            PBot.getGameSettings15(PBot.getMc9(this)).keyBindForward = true;
+                            PBot.getGameOptions15(PBot.getMc9(this)).keyBindForward = true;
                         }
                         Iterator vector2f = BlockUtils.getBlockAngles((double)blockPos.getX(), (double)blockPos.getY(), (double)blockPos.getZ(), (double)((PBot.getPlayer11(this).posX) + 0.5), (double)(PBot.getPlayer28(this).posY), (double)(PBot.getPlayer3(this).posZ));
                         PBot.getPlayer30(this).rotationYaw = BlockUtils.normalizeYaw((float)PBot.getY3((Vector2f)vector2f));
@@ -1011,7 +1011,7 @@ public class PBot {
                     if ((this.windowTitle) != null) {
                         String containerName = (this.windowTitle).toLowerCase().replace("k", "Рє").replace("x", "С…").replace("p", "р").replace("a", "а").replace("y", "у").replace("t", "С‚").replace("c", "с").replace("o", "о").replace("e", "е").replace("b", "РІ").replace("h", "н").replace("m", "м");
                         int slot = 0;
-                        for (ItemStack stack : (PBot.getPlayer33(this).openContainer).getInventory()) {
+                        for (ItemStack stack : (PBot.getPlayer33(this).openScreenHandler).getInventory()) {
                             if (stack.getTranslationKey().equals("tile.thinStainedGlass.lime") && (this.c).hasReached(400.0)) {
                                 this.windowClick(slot, 0, (ClickType.PICKUP));
                                 (this.c).reset();
@@ -1024,10 +1024,10 @@ public class PBot {
                         }
                     }
                 } else if ((BotSettingsModule.antibot).is("AnvilRename") && !this.getBooleanParameter("anvilbypass") && (this.c).hasReached(2000.0)) {
-                    ContainerRepair containerrepair;
+                    ScreenHandlerRepair containerrepair;
                     ItemStack paper;
                     (this.c).reset();
-                    if ((PBot.getPlayer60(this).openContainer) instanceof ContainerRepair && (paper = (ItemStack)(containerrepair = (ContainerRepair)(PBot.getPlayer27(this).openContainer)).getInventory().get(0)).getItem().equals((Items.PAPER))) {
+                    if ((PBot.getPlayer60(this).openScreenHandler) instanceof ScreenHandlerRepair && (paper = (ItemStack)(containerrepair = (ScreenHandlerRepair)(PBot.getPlayer27(this).openScreenHandler)).getInventory().get(0)).getItem().equals((Items.PAPER))) {
                         if (paper.getDisplayName().contains("Введите число")) {
                             String s = paper.getDisplayName().replace("В№", "1").replace("ВІ", "2").replace("Ві", "3").replace("⁴", "4").replace("⁵", "5").replace("⁶", "6").replace("⁷", "7").replace("⁸", "8").replace("⁹", "9").replace("⁰", "0");
                             String number = s.split("число ")[1];
@@ -1062,7 +1062,7 @@ public class PBot {
 
     public void dropItem(int slot) {
         if (this.isOnline()) {
-            (PBot.getMc7(this).playerController).windowClick((PBot.getOpenContainer6(PBot.getPlayer19(this)).windowId), slot, 1, (ClickType.THROW), (PlayerEntity)(this.player));
+            (PBot.getMc7(this).playerController).windowClick((PBot.getOpenScreenHandler6(PBot.getPlayer19(this)).windowId), slot, 1, (ClickType.THROW), (PlayerEntity)(this.player));
         }
     }
 
@@ -1070,19 +1070,19 @@ public class PBot {
         return vector2f.x;
     }
 
-    private static KeyBinding getKeyBindLeft(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindLeft(GameOptions gameSettings) {
         return gameSettings.keyBindLeft;
     }
 
-    private static BotKeyState getGameSettings10(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions10(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static InventoryPlayer getInventory4(PBotPlayer instance) {
+    private static PlayerInventory getInventory4(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static BotKeyState getGameSettings11(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions11(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -1094,7 +1094,7 @@ public class PBot {
         return (this.tabHeader);
     }
 
-    private static BotKeyState getGameSettings12(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions12(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -1144,7 +1144,7 @@ public class PBot {
         return BotDebugModule.rejoin;
     }
 
-    private static BotKeyState getGameSettings13(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions13(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -1163,7 +1163,7 @@ public class PBot {
         return (this.deleted);
     }
 
-    private static KeyBinding getKeyBindJump(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindJump(GameOptions gameSettings) {
         return gameSettings.keyBindJump;
     }
 
@@ -1208,7 +1208,7 @@ public class PBot {
         }
     }
 
-    private static GameSettings getGameSettings14() {
+    private static GameOptions getGameOptions14() {
         return Minecraft.gameSettings;
     }
 
@@ -1220,8 +1220,8 @@ public class PBot {
         return keyBinding.pressed;
     }
 
-    private static Container getOpenContainer7(PBotPlayer instance) {
-        return instance.openContainer;
+    private static ScreenHandler getOpenScreenHandler7(PBotPlayer instance) {
+        return instance.openScreenHandler;
     }
 
     private static ProxyInfo getProxy4(PBot instance) {
@@ -1234,11 +1234,11 @@ public class PBot {
         }
     }
 
-    private static PlayerCapabilities getCapabilities(PBotPlayer instance) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities(PBotPlayer instance) {
         return instance.capabilities;
     }
 
-    private static BotKeyState getGameSettings15(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions15(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -1274,7 +1274,7 @@ public class PBot {
         return instance.mc;
     }
 
-    private static BotKeyState getGameSettings16(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions16(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -1316,7 +1316,7 @@ public class PBot {
         PBot.getPlayer21(this).motionZ = z;
     }
 
-    private static GameSettings getGameSettings17() {
+    private static GameOptions getGameOptions17() {
         return Minecraft.gameSettings;
     }
 
@@ -1368,11 +1368,11 @@ public class PBot {
         return instance.player;
     }
 
-    private static InventoryPlayer getInventory5(PBotPlayer instance) {
+    private static PlayerInventory getInventory5(PBotPlayer instance) {
         return instance.inventory;
     }
 
-    private static KeyBinding getKeyBindSprint(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindSprint(GameOptions gameSettings) {
         return gameSettings.keyBindSprint;
     }
 
@@ -1380,7 +1380,7 @@ public class PBot {
         return instance.player;
     }
 
-    private static GameSettings rHqqtYyfop() {
+    private static GameOptions rHqqtYyfop() {
         return Minecraft.gameSettings;
     }
 

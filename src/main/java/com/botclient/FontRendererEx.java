@@ -26,7 +26,6 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.texture.DynamicTexture;
 import net.minecraft.client.render.vertex.DefaultVertexFormats;
 import net.minecraft.client.render.vertex.VertexFormat;
-import net.minecraft.client.render.RenderSystem;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

@@ -15,7 +15,7 @@
  *  net.minecraft.client.multiplayer.ClientWorld
  *  net.minecraft.client.renderer.GlStateManager
  *  net.minecraft.client.renderer.entity.RenderManager
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.player.PlayerEntity
  *  net.minecraft.util.math.Vec3d
@@ -42,7 +42,6 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.client.render.RenderSystem;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -56,7 +55,7 @@ extends Module {
         return Minecraft.player;
     }
 
-    private static GameSettings getGameSettings() {
+    private static GameOptions getGameOptions() {
         return Minecraft.gameSettings;
     }
 
@@ -76,7 +75,7 @@ extends Module {
     public void onEvent3D(Render3DEvent event) {
         for (Entity entity : (TracersModule.getWorld((mc)).loadedEntityList)) {
             if (entity == (Minecraft.player) || (TracersModule.getOnlyplayers(this).value) && !(entity instanceof PlayerEntity)) continue;
-            TracersModule.getGameSettings().viewBobbing = false;
+            TracersModule.getGameOptions().viewBobbing = false;
             double d = (entity.lastTickPosX) + ((entity.posX) - (entity.lastTickPosX)) * (double)event.getPartialTicks();
             (mc).getRenderManager();
             double x = d - (RenderManager.renderPosX);

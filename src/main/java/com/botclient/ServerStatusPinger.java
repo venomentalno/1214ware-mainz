@@ -1,16 +1,5 @@
 /*
  * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  neo.deobf.PBot
- *  neo.deobf.PBotNetworkManager
- *  neo.deobf.StatusPingHandler
- *  neo.deobf.ProxyInfo
- *  net.minecraft.network.EnumConnectionState
- *  net.minecraft.network.INetHandler
- *  net.minecraft.network.Packet
- *  net.minecraft.network.handshake.client.C00Handshake
- *  net.minecraft.network.status.client.CPacketServerQuery
  */
 package com.botclient;
 
@@ -23,7 +12,7 @@ import com.botclient.ProxyInfo;
 import net.minecraft.network.listener.PacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.handshake.HandshakeC2SPacket;
-import net.minecraft.network.packet.status.client.StatusQueryC2SPacket;
+import net.minecraft.network.packet.c2s.query.QueryRequestC2SPacket;
 
 public class ServerStatusPinger {
 
@@ -33,11 +22,10 @@ public class ServerStatusPinger {
         networkmanager.setNetHandler((PacketListener)new StatusPingHandler(this, networkmanager));
         try {
             networkmanager.sendPacket((Packet)new HandshakeC2SPacket(pbot.getHost(), pbot.getPort(), 1)); // 1 = STATUS state ID
-            networkmanager.sendPacket((Packet)new StatusQueryC2SPacket());
+            networkmanager.sendPacket((Packet)new QueryRequestC2SPacket());
         }
         catch (Throwable throwable) {
             throwable.printStackTrace();
         }
     }
 }
-

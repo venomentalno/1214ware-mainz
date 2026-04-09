@@ -2,7 +2,7 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector3i
+ *  org.joml.Vector3i
  *  neo.deobf.AbstractPathScanner
  *  neo.deobf.PathBlockUtils
  *  neo.deobf.PathNode
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.vecmath.Vector3i;
+import org.joml.Vector3i;
 import com.botclient.AbstractPathScanner;
 import com.botclient.PathBlockUtils;
 import com.botclient.PathNode;

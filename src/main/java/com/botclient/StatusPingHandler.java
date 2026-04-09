@@ -6,7 +6,7 @@
  *  neo.deobf.ServerStatusPinger
  *  net.minecraft.client.Minecraft
  *  net.minecraft.network.Packet
- *  net.minecraft.network.status.INetHandlerStatusClient
+ *  net.minecraft.network.status.PacketListenerStatusClient
  *  net.minecraft.network.status.client.CPacketPing
  *  net.minecraft.network.status.server.SPacketPong
  *  net.minecraft.network.status.server.SPacketServerInfo
@@ -20,10 +20,9 @@ import com.botclient.PBotNetworkManager;
 import com.botclient.ServerStatusPinger;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.status.INetHandlerStatusClient;
+import net.minecraft.network.status.PacketListenerStatusClient;
 import net.minecraft.network.status.server.SPacketPong;
 import net.minecraft.network.status.server.SPacketServerInfo;
-import net.minecraft.text.Text;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
  * Exception performing whole class analysis ignored.
  */
 class StatusPingHandler
-implements INetHandlerStatusClient {
+implements PacketListenerStatusClient {
     final ServerStatusPinger this$0;
     public final PBotNetworkManager val$networkmanager;
 

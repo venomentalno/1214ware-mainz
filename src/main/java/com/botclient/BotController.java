@@ -46,8 +46,8 @@ public class BotController {
         if (!(this.pbot).isOnline()) {
             return;
         }
-        BotController.getGameSettings(BotController.getMc(BotController.getPbot5(this))).keyBindJump = (BotController.getPlayer(BotController.getPbot6(this)).isInWater() && BotController.getValue2(BotController.getAutoSwim()) ? 1 : 0) != 0;
-        if ((BotController.getAutoJump().value) && (BotController.getPlayer2(BotController.getPbot(this)).collidedHorizontally) && (BotController.getGameSettings2(BotController.getMc2(BotController.getPbot2(this))).keyBindForward)) {
+        BotController.getGameOptions(BotController.getMc(BotController.getPbot5(this))).keyBindJump = (BotController.getPlayer(BotController.getPbot6(this)).isInWater() && BotController.getValue2(BotController.getAutoSwim()) ? 1 : 0) != 0;
+        if ((BotController.getAutoJump().value) && (BotController.getPlayer2(BotController.getPbot(this)).collidedHorizontally) && (BotController.getGameOptions2(BotController.getMc2(BotController.getPbot2(this))).keyBindForward)) {
             (this.pbot).jump();
         }
         if ((this.botFunction) != null) {
@@ -91,7 +91,7 @@ public class BotController {
         return instance.value;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -125,7 +125,7 @@ public class BotController {
         return BotBaritoneModule.autoSwim;
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 

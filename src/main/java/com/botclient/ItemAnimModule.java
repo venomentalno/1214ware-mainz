@@ -3,7 +3,7 @@
  * 
  * Could not load the following classes:
  *  neo.deobf.UpdateEvent
- *  neo.deobf.HandSideRenderEvent
+ *  neo.deobf.ArmRenderEvent
  *  neo.deobf.EventTarget
  *  neo.deobf.Setting
  *  neo.deobf.ModuleCategory
@@ -14,7 +14,7 @@
 package com.botclient;
 
 import com.botclient.UpdateEvent;
-import com.botclient.HandSideRenderEvent;
+import com.botclient.ArmRenderEvent;
 import com.botclient.EventTarget;
 import com.botclient.Setting;
 import com.botclient.ModuleCategory;
@@ -61,7 +61,7 @@ public ItemAnimModule() {
     }
 
     @EventTarget
-    public void onSidePerson(HandSideRenderEvent event) {
+    public void onSidePerson(ArmRenderEvent event) {
     }
 
     @EventTarget

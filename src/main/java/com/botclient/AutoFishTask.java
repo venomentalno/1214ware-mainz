@@ -8,7 +8,7 @@
  *  neo.deobf.BlockUtils
  *  neo.deobf.MillisTimer
  *  neo.deobf.ThreadUtils
- *  net.minecraft.entity.projectile.FishHookEntity
+ *  net.minecraft.entity.projectile.FishingBobberEntity
  *  net.minecraft.init.Items
  *  net.minecraft.item.Item
  *  net.minecraft.item.ItemFishingRod
@@ -21,7 +21,7 @@ import com.botclient.BotTask;
 import com.botclient.BlockUtils;
 import com.botclient.MillisTimer;
 import com.botclient.ThreadUtils;
-import net.minecraft.entity.projectile.FishHookEntity;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.item.Item;
 import net.minecraft.item.FishingRodItem;

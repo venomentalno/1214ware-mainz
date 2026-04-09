@@ -13,7 +13,7 @@
  *  net.minecraft.client.network.NetHandlerPlayClient
  *  net.minecraft.network.Packet
  *  net.minecraft.network.play.client.CPacketTabComplete
- *  org.apache.commons.lang3.StringUtils
+ *  org.apache.commons.lang3.// StringUtils removed - use Text utils
  */
 package com.botclient;
 
@@ -28,7 +28,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.packet.Packet;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.// StringUtils removed - use Text utils;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -87,7 +87,7 @@ extends Command {
                     ThreadUtils.sleep((long)200L);
                 }
                 if ((plugins).toString().contains(",")) {
-                    ChatUtils.formatMsg((String)("&fPlugins (" + StringUtils.countMatches((CharSequence)(plugins).toString(), (CharSequence)",") + "): " + (plugins).substring(0, (plugins).toString().length() - (1))));
+                    ChatUtils.formatMsg((String)("&fPlugins (" + // StringUtils removed - use Text utils.countMatches((CharSequence)(plugins).toString(), (CharSequence)",") + "): " + (plugins).substring(0, (plugins).toString().length() - (1))));
                 } else {
                     ChatUtils.formatMsg((String)"&cПлагины не найдены.");
                 }
@@ -115,7 +115,7 @@ extends Command {
             String compleation = stringArray[i];
             if (!compleation.contains(":")) continue;
             String alias = compleation.split(":")[0].replace("/", "").toLowerCase();
-            String formate = StringUtils.capitalize((String)compleation.split(":")[0].replace("/", ""));
+            String formate = // StringUtils removed - use Text utils.capitalize((String)compleation.split(":")[0].replace("/", ""));
             if (alias.contains("velocity") || alias.contains("spigot") || alias.contains("bungeecord") || alias.contains("paper") || alias.contains("magma") || alias.contains("forge") || alias.contains("pupur") || alias.contains("bukkit")) {
                 if ((cores).toString().contains(" " + formate + ",")) continue;
                 (cores).append(" ").append(formate).append(",");

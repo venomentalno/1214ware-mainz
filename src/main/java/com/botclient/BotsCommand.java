@@ -3,8 +3,8 @@
  * 
  * Could not load the following classes:
  *  io.netty.channel.Channel
- *  javax.vecmath.Vector2f
- *  javax.vecmath.Vector3i
+ *  org.joml.Vector2f
+ *  org.joml.Vector3i
  *  neo.deobf.CommandInfo
  *  neo.deobf.Command
  *  neo.deobf.Client
@@ -66,7 +66,7 @@ import java.io.PrintWriter;
 import java.time.LocalTime;
 import javax.script.ScriptEngine;
 import org.joml.Vector2f;
-import javax.vecmath.Vector3i;
+import org.joml.Vector3i;
 import com.botclient.CommandInfo;
 import com.botclient.Command;
 import com.botclient.Client;
@@ -351,14 +351,14 @@ extends Command {
                                 ChatUtils.formatMsg((String)("Все боты " + state + " атаковать игрока."));
                                 if (!(attack)) {
                                     for (PBot bot : PBot.getOnline()) {
-                                        BotsCommand.getGameSettings2(BotsCommand.getMc(bot)).keyBindForward = false;
+                                        BotsCommand.getGameOptions2(BotsCommand.getMc(bot)).keyBindForward = false;
                                     }
                                 }
                             } else if ((attack)) {
                                 attack = false;
                                 ChatUtils.formatMsg((String)"Все боты перестали атаковать игрока.");
                                 for (PBot bot : PBot.getOnline()) {
-                                    BotsCommand.getGameSettings(BotsCommand.getMc2(bot)).keyBindForward = false;
+                                    BotsCommand.getGameOptions(BotsCommand.getMc2(bot)).keyBindForward = false;
                                 }
                             } else {
                                 ChatUtils.formatMsg((String)((CommandChatListener.PREFIX) + "bots attack <name> - Боты начнут атаковать игрока."));
@@ -388,7 +388,7 @@ extends Command {
                                 for (PBot bot : PBot.getOnline()) {
                                     try {
                                         int slot = 0;
-                                        for (ItemStack stack : (BotsCommand.getPlayer17(bot).openContainer).getInventory()) {
+                                        for (ItemStack stack : (BotsCommand.getPlayer17(bot).openScreenHandler).getInventory()) {
                                             if (PBot.stripColor((String)stack.getDisplayName()).contains(slotname.substring(0, slotname.length() - (1)))) {
                                                 bot.windowClick(slot, 0, (ClickType.PICKUP));
                                             }
@@ -772,7 +772,7 @@ extends Command {
         return instance.player;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -786,7 +786,7 @@ extends Command {
         return result.toString();
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 

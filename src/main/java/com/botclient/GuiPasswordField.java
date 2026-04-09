@@ -131,7 +131,7 @@ extends Gui {
         this.selectionEnd = 0;
         this.enabledColor = 14737632;
         this.field_73823_s = 1;
-        this.fontRenderer = par1TextRenderer;
+        this.textRenderer = par1TextRenderer;
         this.xPos = par2;
         this.yPos = par3;
         this.width = par4;
@@ -156,7 +156,7 @@ extends Gui {
             int var1 = (this.enabledColor);
             int var2 = (this.cursorPosition) - (this.field_73816_n);
             int var3 = (this.selectionEnd) - (this.field_73816_n);
-            String var4 = (this.fontRenderer).trimStringToWidth((this.text).substring((this.field_73816_n)), this.getWidth());
+            String var4 = (this.textRenderer).trimStringToWidth((this.text).substring((this.field_73816_n)), this.getWidth());
             int var5 = var2 >= 0 && var2 <= var4.length() ? 1 : 0;
             int var6 = (this.isFocused) && (this.cursorCounter) / (6) % (2) == 0 && var5 != 0 ? 1 : 0;
             int var7 = (this.enableBackgroundDrawing) ? (this.xPos) + (4) : (this.xPos);
@@ -169,7 +169,7 @@ extends Gui {
                 if (var5 != 0) {
                     var4.substring(0, var2);
                 }
-                var9 = (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow((this.text).replaceAll("(?s).", "*"), (float)var7, (float)var8, var1);
+                var9 = (MinecraftClient.getInstance().textRenderer).drawStringWithShadow((this.text).replaceAll("(?s).", "*"), (float)var7, (float)var8, var1);
             }
             int var10 = (this.cursorPosition) < (this.text).length() || (this.text).length() >= this.getMaxStringLength() ? 1 : 0;
             int var11 = var9;
@@ -180,17 +180,17 @@ extends Gui {
                 --var9;
             }
             if (var4.length() > 0 && var5 != 0 && var2 < var4.length()) {
-                (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow(var4.substring(var2), (float)var9, (float)var8, var1);
+                (MinecraftClient.getInstance().textRenderer).drawStringWithShadow(var4.substring(var2), (float)var9, (float)var8, var1);
             }
             if (var6 != 0) {
                 if (var10 != 0) {
                     Gui.drawRect((int)var11, (int)(var8 - (1)), (int)(var11 + (1)), (int)(var8 + (1) + (GuiPasswordField.getTextRenderer9(this).FONT_HEIGHT)), (int)(-3092272));
                 } else {
-                    (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("_", (float)var11, (float)var8, var1);
+                    (MinecraftClient.getInstance().textRenderer).drawStringWithShadow("_", (float)var11, (float)var8, var1);
                 }
             }
             if (var3 != var2) {
-                int var12 = var7 + (this.fontRenderer).getStringWidth(var4.substring(0, var3));
+                int var12 = var7 + (this.textRenderer).getStringWidth(var4.substring(0, var3));
                 this.drawCursorVertical(var11, var8 - (1), var12 - (1), var8 + (1) + (GuiPasswordField.getTextRenderer11(this).FONT_HEIGHT));
             }
         }
@@ -264,7 +264,7 @@ extends Gui {
     }
 
     private static TextRenderer getTextRenderer4(GuiPasswordField instance) {
-        return instance.fontRenderer;
+        return instance.textRenderer;
     }
 
     public void updateCursorCounter() {
@@ -292,13 +292,13 @@ extends Gui {
             if ((this.enableBackgroundDrawing)) {
                 var5 -= 4;
             }
-            String var6 = (this.fontRenderer).trimStringToWidth((this.text).substring((this.field_73816_n)), this.getWidth());
-            this.setCursorPosition((this.fontRenderer).trimStringToWidth(var6, var5).length() + (this.field_73816_n));
+            String var6 = (this.textRenderer).trimStringToWidth((this.text).substring((this.field_73816_n)), this.getWidth());
+            this.setCursorPosition((this.textRenderer).trimStringToWidth(var6, var5).length() + (this.field_73816_n));
         }
     }
 
     private static TextRenderer getTextRenderer9(GuiPasswordField instance) {
-        return instance.fontRenderer;
+        return instance.textRenderer;
     }
 
     public void writeText(String par1Str) {
@@ -469,7 +469,7 @@ extends Gui {
     }
 
     private static TextRenderer getTextRenderer11(GuiPasswordField instance) {
-        return instance.fontRenderer;
+        return instance.textRenderer;
     }
 
     public void func_73800_i(int par1) {
@@ -481,12 +481,12 @@ extends Gui {
             par1 = 0;
         }
         this.selectionEnd = par1;
-        if ((this.fontRenderer) != null) {
+        if ((this.textRenderer) != null) {
             if ((this.field_73816_n) > var2) {
                 this.field_73816_n = var2;
             }
             int var3 = this.getWidth();
-            String var4 = (this.fontRenderer).trimStringToWidth((this.text).substring((this.field_73816_n)), var3);
+            String var4 = (this.textRenderer).trimStringToWidth((this.text).substring((this.field_73816_n)), var3);
             int var5 = var4.length() + (this.field_73816_n);
             if (par1 == (this.field_73816_n)) {
                 GuiPasswordField bq = this;

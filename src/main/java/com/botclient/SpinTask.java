@@ -2,7 +2,7 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector2f
+ *  org.joml.Vector2f
  *  neo.deobf.PBot
  *  neo.deobf.PBotPlayer
  *  neo.deobf.BotKeyState
@@ -47,7 +47,7 @@ extends BotTask {
         }
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -56,8 +56,8 @@ extends BotTask {
     }
 
     public void onFinish() {
-        SpinTask.getGameSettings4(this.getMc()).keyBindForward = false;
-        SpinTask.getGameSettings2(this.getMc()).keyBindLeft = false;
+        SpinTask.getGameOptions4(this.getMc()).keyBindForward = false;
+        SpinTask.getGameOptions2(this.getMc()).keyBindLeft = false;
         super.onFinish();
     }
 
@@ -84,11 +84,11 @@ extends BotTask {
         return instance.targetEntity;
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings3(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions3(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -100,15 +100,15 @@ extends BotTask {
         return instance.targetEntity;
     }
 
-    private static BotKeyState getGameSettings4(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions4(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings5(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions5(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings6(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions6(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -125,11 +125,11 @@ extends BotTask {
             SpinTask.getPlayer3(this.getBot()).rotationPitch = nP;
         }
         if (distance > (float)(this.radius)) {
-            SpinTask.getGameSettings6(this.getMc()).keyBindForward = true;
-            SpinTask.getGameSettings(this.getMc()).keyBindLeft = false;
+            SpinTask.getGameOptions6(this.getMc()).keyBindForward = true;
+            SpinTask.getGameOptions(this.getMc()).keyBindLeft = false;
         } else {
-            SpinTask.getGameSettings5(this.getMc()).keyBindForward = false;
-            SpinTask.getGameSettings3(this.getMc()).keyBindLeft = true;
+            SpinTask.getGameOptions5(this.getMc()).keyBindForward = false;
+            SpinTask.getGameOptions3(this.getMc()).keyBindLeft = true;
         }
     }
 

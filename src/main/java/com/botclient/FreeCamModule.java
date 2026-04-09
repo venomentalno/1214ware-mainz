@@ -16,11 +16,11 @@
  *  net.minecraft.client.entity.PlayerEntitySP
  *  net.minecraft.client.multiplayer.ClientWorld
  *  net.minecraft.client.network.NetHandlerPlayClient
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  *  net.minecraft.client.settings.KeyBinding
  *  net.minecraft.entity.Entity
- *  net.minecraft.entity.player.InventoryPlayer
- *  net.minecraft.entity.player.PlayerCapabilities
+ *  net.minecraft.entity.player.PlayerInventory
+ *  net.minecraft.entity.player.// PlayerCapabilities removed - use GameMode
  *  net.minecraft.screen.ScreenHandler
  *  net.minecraft.network.Packet
  *  net.minecraft.network.play.client.PlayerMoveC2SPacket$Position
@@ -47,7 +47,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerInventory;
-// Removed: PlayerCapabilities replaced
+// Removed: // PlayerCapabilities removed - use GameMode replaced
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.util.math.Box;
@@ -108,7 +108,7 @@ extends Module {
         return Minecraft.player;
     }
 
-    private static PlayerCapabilities getCapabilities(PlayerEntitySP entityPlayerSP) {
+    private static // PlayerCapabilities removed - use GameMode getCapabilities(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.capabilities;
     }
 
@@ -123,7 +123,7 @@ extends Module {
         ClientWorld worldClient = ((mc).world);
         EntityOtherPlayerMP ent = new EntityOtherPlayerMP((World)worldClient, (Minecraft.player).getGameProfile());
         ent.inventory = FreeCamModule.getInventory(FreeCamModule.getPlayer20());
-        ent.inventoryContainer = FreeCamModule.getInventoryContainer(FreeCamModule.getPlayer10());
+        ent.inventoryScreenHandler = FreeCamModule.getInventoryScreenHandler(FreeCamModule.getPlayer10());
         ent.setHealth((Minecraft.player).getHealth());
         double d = (this.x);
         double d2 = (FreeCamModule.getPlayer6().getEntityBoundingBox().minY);
@@ -144,10 +144,10 @@ extends Module {
             return;
         }
         FreeCamModule.getPlayer2().motionY = 0.0;
-        if ((FreeCamModule.getKeyBindJump(FreeCamModule.getGameSettings()).pressed)) {
+        if ((FreeCamModule.getKeyBindJump(FreeCamModule.getGameOptions()).pressed)) {
             FreeCamModule.getPlayer12().motionY = FreeCamModule.getValue3(FreeCamModule.getSpeed(this));
         }
-        if ((FreeCamModule.getKeyBindSneak(FreeCamModule.getGameSettings2()).pressed)) {
+        if ((FreeCamModule.getKeyBindSneak(FreeCamModule.getGameOptions2()).pressed)) {
             FreeCamModule.getPlayer23().motionY = -FreeCamModule.getValue2(FreeCamModule.getSpeed3(this));
         }
         FreeCamModule.getPlayer22().noClip = true;
@@ -182,7 +182,7 @@ extends Module {
         return instance.speed;
     }
 
-    private static KeyBinding getKeyBindSneak(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindSneak(GameOptions gameSettings) {
         return gameSettings.keyBindSneak;
     }
 
@@ -214,11 +214,11 @@ extends Module {
         return Minecraft.player;
     }
 
-    private static Container getInventoryContainer(PlayerEntitySP entityPlayerSP) {
-        return entityPlayerSP.inventoryContainer;
+    private static ScreenHandler getInventoryScreenHandler(PlayerEntitySP entityPlayerSP) {
+        return entityPlayerSP.inventoryScreenHandler;
     }
 
-    private static InventoryPlayer getInventory(PlayerEntitySP entityPlayerSP) {
+    private static PlayerInventory getInventory(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.inventory;
     }
 
@@ -226,7 +226,7 @@ extends Module {
         return Minecraft.player;
     }
 
-    private static KeyBinding getKeyBindJump(GameSettings gameSettings) {
+    private static KeyBinding getKeyBindJump(GameOptions gameSettings) {
         return gameSettings.keyBindJump;
     }
 
@@ -250,7 +250,7 @@ extends Module {
         return Minecraft.player;
     }
 
-    private static GameSettings getGameSettings() {
+    private static GameOptions getGameOptions() {
         return Minecraft.gameSettings;
     }
 
@@ -275,7 +275,7 @@ extends Module {
         ((mc).world).removeEntityFromWorld(-1);
     }
 
-    private static GameSettings getGameSettings2() {
+    private static GameOptions getGameOptions2() {
         return Minecraft.gameSettings;
     }
 

@@ -4,10 +4,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.util.InputUtil;
 
-public class BotMovementInput extends Input {
+public class Bot// MovementInput removed - use Input extends Input {
     public final BotKeyState gameSettings;
 
-    public BotMovementInput(BotKeyState gameSettingsIn) {
+    public Bot// MovementInput removed - use Input(BotKeyState gameSettingsIn) {
         this.gameSettings = gameSettingsIn;
     }
 

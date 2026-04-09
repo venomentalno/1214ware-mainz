@@ -47,7 +47,7 @@ public class ActionReplayRunner {
         return instance.mc;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -59,15 +59,15 @@ public class ActionReplayRunner {
         return instance.forwardKeyDown;
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings3(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions3(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings4(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions4(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -91,11 +91,11 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.pitch;
     }
 
-    private static BotKeyState getGameSettings5(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions5(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings6(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions6(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -107,7 +107,7 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.keyBindJump;
     }
 
-    private static BotKeyState getGameSettings7(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions7(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -129,13 +129,13 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
                             pBot.changeSlot((action.integer));
                             pBot.useItem();
                         } else if ((action.actionType).equals((Object)(ReplayActionType.KEYBOARD))) {
-                            ActionReplayRunner.getGameSettings12(ActionReplayRunner.getMc13(pBot)).keyBindForward = ActionReplayRunner.getForwardKeyDown(action);
-                            ActionReplayRunner.getGameSettings8(ActionReplayRunner.getMc12(pBot)).keyBindBack = ActionReplayRunner.getBackKeyDown(action);
-                            ActionReplayRunner.getGameSettings3(ActionReplayRunner.getMc3(pBot)).keyBindLeft = ActionReplayRunner.getLeftKeyDown(action);
-                            ActionReplayRunner.getGameSettings5(ActionReplayRunner.getMc10(pBot)).keyBindRight = ActionReplayRunner.getRightKeyDown(action);
-                            ActionReplayRunner.getGameSettings13(ActionReplayRunner.getMc7(pBot)).keyBindSprint = ActionReplayRunner.getKeyBindSprint(action);
-                            ActionReplayRunner.getGameSettings9(ActionReplayRunner.getMc2(pBot)).keyBindSneak = ActionReplayRunner.getKeyBindSneak(action);
-                            ActionReplayRunner.getGameSettings7(ActionReplayRunner.getMc6(pBot)).keyBindJump = ActionReplayRunner.getKeyBindJump(action);
+                            ActionReplayRunner.getGameOptions12(ActionReplayRunner.getMc13(pBot)).keyBindForward = ActionReplayRunner.getForwardKeyDown(action);
+                            ActionReplayRunner.getGameOptions8(ActionReplayRunner.getMc12(pBot)).keyBindBack = ActionReplayRunner.getBackKeyDown(action);
+                            ActionReplayRunner.getGameOptions3(ActionReplayRunner.getMc3(pBot)).keyBindLeft = ActionReplayRunner.getLeftKeyDown(action);
+                            ActionReplayRunner.getGameOptions5(ActionReplayRunner.getMc10(pBot)).keyBindRight = ActionReplayRunner.getRightKeyDown(action);
+                            ActionReplayRunner.getGameOptions13(ActionReplayRunner.getMc7(pBot)).keyBindSprint = ActionReplayRunner.getKeyBindSprint(action);
+                            ActionReplayRunner.getGameOptions9(ActionReplayRunner.getMc2(pBot)).keyBindSneak = ActionReplayRunner.getKeyBindSneak(action);
+                            ActionReplayRunner.getGameOptions7(ActionReplayRunner.getMc6(pBot)).keyBindJump = ActionReplayRunner.getKeyBindJump(action);
                             ActionReplayRunner.getPlayer(pBot).rotationYaw = ActionReplayRunner.getYaw(action);
                             ActionReplayRunner.getPlayer2(pBot).rotationPitch = ActionReplayRunner.getPitch(action);
                         } else if ((action.actionType).equals((Object)(ReplayActionType.ENTITY))) {
@@ -143,13 +143,13 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
                         }
                         ThreadUtils.sleep((long)50L);
                     }
-                    ActionReplayRunner.getGameSettings10(ActionReplayRunner.getMc8(pBot)).keyBindForward = false;
-                    ActionReplayRunner.getGameSettings6(ActionReplayRunner.getMc(pBot)).keyBindBack = false;
-                    ActionReplayRunner.getGameSettings11(ActionReplayRunner.getMc4(pBot)).keyBindLeft = false;
-                    ActionReplayRunner.getGameSettings(ActionReplayRunner.getMc11(pBot)).keyBindRight = false;
-                    ActionReplayRunner.getGameSettings4(ActionReplayRunner.getMc9(pBot)).keyBindSprint = false;
-                    ActionReplayRunner.getGameSettings2(ActionReplayRunner.getMc14(pBot)).keyBindSneak = false;
-                    ActionReplayRunner.getGameSettings14(ActionReplayRunner.getMc5(pBot)).keyBindJump = false;
+                    ActionReplayRunner.getGameOptions10(ActionReplayRunner.getMc8(pBot)).keyBindForward = false;
+                    ActionReplayRunner.getGameOptions6(ActionReplayRunner.getMc(pBot)).keyBindBack = false;
+                    ActionReplayRunner.getGameOptions11(ActionReplayRunner.getMc4(pBot)).keyBindLeft = false;
+                    ActionReplayRunner.getGameOptions(ActionReplayRunner.getMc11(pBot)).keyBindRight = false;
+                    ActionReplayRunner.getGameOptions4(ActionReplayRunner.getMc9(pBot)).keyBindSprint = false;
+                    ActionReplayRunner.getGameOptions2(ActionReplayRunner.getMc14(pBot)).keyBindSneak = false;
+                    ActionReplayRunner.getGameOptions14(ActionReplayRunner.getMc5(pBot)).keyBindJump = false;
                     pBot.recorderActive = false;
                 }
             });
@@ -170,11 +170,11 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.yaw;
     }
 
-    private static BotKeyState getGameSettings8(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions8(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
-    private static BotKeyState getGameSettings9(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions9(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -182,7 +182,7 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.mc;
     }
 
-    private static BotKeyState getGameSettings10(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions10(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -190,7 +190,7 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.mc;
     }
 
-    private static BotKeyState getGameSettings11(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions11(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -210,7 +210,7 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.mc;
     }
 
-    private static BotKeyState getGameSettings12(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions12(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -222,7 +222,7 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.player;
     }
 
-    private static BotKeyState getGameSettings13(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions13(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -242,7 +242,7 @@ private static boolean getKeyBindSprint(ReplayAction instance) {
         return instance.mc;
     }
 
-    private static BotKeyState getGameSettings14(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions14(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 

@@ -16,27 +16,27 @@
  *  neo.deobf.ChatUtils
  *  neo.deobf.CachedChunkProvider
  *  net.minecraft.block.state.BlockState
- *  net.minecraft.client.multiplayer.ChunkProviderClient
+ *  net.minecraft.client.multiplayer.ClientChunkManager
  *  net.minecraft.entity.Entity
  *  net.minecraft.network.Packet
  *  net.minecraft.profiler.Profiler
- *  net.minecraft.scoreboard.Scoreboard
- *  net.minecraft.util.IntHashMap
+ *  net.minecraft.scoreboard.ScoreboardCriterionboard
+ *  net.minecraft.util.Int2ObjectOpenHashMap
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.util.math.BlockPos
  *  net.minecraft.util.math.MathHelper
  *  net.minecraft.util.text.Text
  *  net.minecraft.util.text.LiteralTextContent
- *  net.minecraft.world.DimensionType
- *  net.minecraft.world.EnumDifficulty
+ *  net.minecraft.world.DimensionOptions
+ *  net.minecraft.world.Difficulty
  *  net.minecraft.world.World
- *  net.minecraft.world.WorldSettings
+ *  net.minecraft.world.GameMode
  *  net.minecraft.world.chunk.Chunk
- *  net.minecraft.world.chunk.IChunkProvider
- *  net.minecraft.world.storage.ISaveHandler
- *  net.minecraft.world.storage.SaveDataMemoryStorage
- *  net.minecraft.world.storage.SaveHandlerMP
- *  net.minecraft.world.storage.WorldInfo
+ *  net.minecraft.world.chunk.ChunkProvider
+ *  net.minecraft.world.storage.ServerSaveHandler
+ *  net.minecraft.world.storage.// Removed
+ *  net.minecraft.world.storage.// Removed
+ *  net.minecraft.world.storage.ServerWorldProperties
  *  org.jetbrains.annotations.NotNull
  */
 package com.botclient;
@@ -47,7 +47,7 @@ import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import com.botclient.BooleanSetting;
 import com.botclient.NumberSetting;
 import com.botclient.PBot;
@@ -58,27 +58,26 @@ import com.botclient.BotSettingsModule;
 import com.botclient.ChatUtils;
 import com.botclient.CachedChunkProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.multiplayer.ChunkProviderClient;
+import net.minecraft.client.world.ClientChunkManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.packet.Packet;
 // Removed: import net.minecraft.profiler.Profiler;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.IntHashMap;
+import net.minecraft.scoreboard.ScoreboardCriterionboard;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.text.Text;
-import net.minecraft.text.Text;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.dimension.DimensionOptions;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings;
+import net.minecraft.world.GameMode;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.storage.ISaveHandler;
-import net.minecraft.world.storage.SaveDataMemoryStorage;
-import net.minecraft.world.storage.SaveHandlerMP;
-import net.minecraft.world.storage.WorldInfo;
+import net.minecraft.world.chunk.ChunkProvider;
+import net.minecraft.server.SaveHandler;
+// Removed
+// Removed
+import net.minecraft.world.level.LevelInfo;
 import org.jetbrains.annotations.NotNull;
 
 /*
@@ -87,7 +86,7 @@ import org.jetbrains.annotations.NotNull;
 class PBotClientWorld
 extends World {
     public final Set<Entity> entitySpawnQueue;
-    public static ChunkProviderClient clientChunkProvider;
+    public static ClientChunkManager clientChunkProvider;
     public final Set<Entity> entityList = Sets.newHashSet();
     public final PBotNetHandlerPlayClient connection;
     public final PBot pbot;
@@ -101,17 +100,17 @@ extends World {
         }
     }
 
-    public PBotClientWorld(PBot bot, PBotNetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
-        super((ISaveHandler)new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById((int)dimension).createDimension(), profilerIn, true);
+    public PBotClientWorld(PBot bot, PBotNetHandlerPlayClient netHandler, GameMode settings, int dimension, Difficulty difficulty, Profiler profilerIn) {
+        super((ServerSaveHandler)new // Removed(), new ServerWorldProperties(settings, "MpServer"), DimensionOptions.getById((int)dimension).createDimension(), profilerIn, true);
         this.entitySpawnQueue = Sets.newHashSet();
         this.pbot = bot;
         this.pbot.worldId += 1;
         this.connection = netHandler;
-        this.getWorldInfo().setDifficulty(difficulty);
+        this.getServerWorldProperties().setDifficulty(difficulty);
         this.setSpawnPoint(new BlockPos(8, 64, 8));
         this.provider.setWorld((World)this);
         this.chunkProvider = this.createChunkProvider();
-        this.mapStorage = new SaveDataMemoryStorage();
+        this.mapStorage = new // Removed();
         this.calculateInitialSkylight();
         this.calculateInitialWeather();
     }
@@ -168,8 +167,8 @@ extends World {
     }
 
     @NotNull
-    public ChunkProviderClient getChunkProvider() {
-        return (ChunkProviderClient)super.getChunkProvider();
+    public ClientChunkManager getChunkProvider() {
+        return (ClientChunkManager)super.getChunkProvider();
     }
 
     @NotNull
@@ -189,13 +188,13 @@ extends World {
     }
 
     @NotNull
-    protected IChunkProvider createChunkProvider() {
+    protected ChunkProvider createChunkProvider() {
         CachedChunkProvider.createChunkProvider((World)this);
         if ((float)(PBotClientWorld.getPbot4(this).worldId) > (PBotClientWorld.getCacheAfter2().value) && (PBotClientWorld.getChunkCache().value)) {
             ChatUtils.formatMsg((String)("??? &d&l" + (this.pbot).getNickname() + " &f&l??????????? ???????????? ???."));
         }
         if ((clientChunkProvider) == null) {
-            clientChunkProvider = (float)(PBotClientWorld.getPbot5(this).worldId) > (PBotClientWorld.getCacheAfter().value) ? CachedChunkProvider.getChunkProvider() : new ChunkProviderClient((World)this);
+            clientChunkProvider = (float)(PBotClientWorld.getPbot5(this).worldId) > (PBotClientWorld.getCacheAfter().value) ? CachedChunkProvider.getChunkProvider() : new ClientChunkManager((World)this);
         }
         return (clientChunkProvider);
     }
@@ -225,8 +224,8 @@ extends World {
         return BotDebugModule.chunkCache;
     }
 
-    public void setWorldScoreboard(Scoreboard scoreboardIn) {
-        this.worldScoreboard = scoreboardIn;
+    public void setWorldScoreboardCriterionboard(ScoreboardCriterionboard scoreboardIn) {
+        this.worldScoreboardCriterionboard = scoreboardIn;
     }
 
     public void removeEntity(@NotNull Entity entityIn) {
@@ -312,8 +311,8 @@ extends World {
         return BotSettingsModule.cacheAfter;
     }
 
-    private static void setWorldScoreboard(PBotClientWorld instance, Scoreboard scoreboard) {
-        instance.worldScoreboard = scoreboard;
+    private static void setWorldScoreboardCriterionboard(PBotClientWorld instance, ScoreboardCriterionboard scoreboard) {
+        instance.worldScoreboardCriterionboard = scoreboard;
     }
 
     protected void onEntityRemoved(@NotNull Entity entityIn) {

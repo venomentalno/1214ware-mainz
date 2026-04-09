@@ -9,8 +9,8 @@
  *  neo.deobf.BotDebugModule
  *  neo.deobf.ChatUtils
  *  net.minecraft.network.EnumConnectionState
- *  net.minecraft.network.INetHandler
- *  net.minecraft.network.login.INetHandlerLoginClient
+ *  net.minecraft.network.PacketListener
+ *  net.minecraft.network.login.PacketListenerLoginClient
  *  net.minecraft.network.login.server.DisconnectS2CPacket
  *  net.minecraft.network.login.server.SPacketEnableCompression
  *  net.minecraft.network.login.server.SPacketEncryptionRequest
@@ -27,7 +27,7 @@ import com.botclient.BotDebugModule;
 import com.botclient.ChatUtils;
 // Removed: EnumConnectionState not in 1.21.4
 import net.minecraft.network.listener.PacketListener;
-import net.minecraft.network.login.INetHandlerLoginClient;
+import net.minecraft.network.login.PacketListenerLoginClient;
 import net.minecraft.network.login.server.DisconnectS2CPacket;
 import net.minecraft.network.login.server.SPacketEnableCompression;
 import net.minecraft.network.login.server.SPacketEncryptionRequest;
@@ -38,13 +38,13 @@ import net.minecraft.text.Text;
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class PBotStatFileWriter
-implements INetHandlerLoginClient {
+implements PacketListenerLoginClient {
     public final PBotNetworkManager networkManager;
     public final PBot pbot;
 
     public void handleLoginSuccess(SPacketLoginSuccess packetIn) {
         (this.networkManager).setConnectionState((EnumConnectionState.PLAY));
-        (this.networkManager).setNetHandler((INetHandler)new PBotNetHandlerPlayClient((this.pbot)));
+        (this.networkManager).setNetHandler((PacketListener)new PBotNetHandlerPlayClient((this.pbot)));
     }
 
 public PBotStatFileWriter(PBotNetworkManager networkManagerIn, PBot pbot) {

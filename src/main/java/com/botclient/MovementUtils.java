@@ -6,10 +6,10 @@
  *  net.minecraft.client.Minecraft
  *  net.minecraft.client.entity.PlayerEntitySP
  *  net.minecraft.client.multiplayer.ClientWorld
- *  net.minecraft.client.settings.GameSettings
+ *  net.minecraft.client.settings.GameOptions
  *  net.minecraft.client.settings.KeyBinding
  *  net.minecraft.entity.Entity
- *  net.minecraft.util.MovementInput
+ *  net.minecraft.util.// MovementInput removed - use Input
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.util.math.HitResult
  *  net.minecraft.util.math.HitResult$Type
@@ -24,7 +24,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MovementInput;
+// Use Keyboard/Input
 import net.minecraft.util.math.Box;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
@@ -39,11 +39,11 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static GameSettings getGameSettings() {
+    private static GameOptions getGameOptions() {
         return Minecraft.gameSettings;
     }
 
-    private static MovementInput getMovementInput(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -51,11 +51,11 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput2(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input2(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static MovementInput getMovementInput3(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input3(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -76,8 +76,8 @@ implements MinecraftContext {
      */
     public static boolean isMoving() {
         int n;
-        if ((double)(MovementUtils.getMovementInput8(MovementUtils.getPlayer38()).moveStrafe) == 0.0) {
-            if ((double)(MovementUtils.getMovementInput11(MovementUtils.getPlayer32()).moveForward) == 0.0) {
+        if ((double)(MovementUtils.get// MovementInput removed - use Input8(MovementUtils.getPlayer38()).moveStrafe) == 0.0) {
+            if ((double)(MovementUtils.get// MovementInput removed - use Input11(MovementUtils.getPlayer32()).moveForward) == 0.0) {
                 n = 0;
                 return n != 0;
             }
@@ -109,8 +109,8 @@ implements MinecraftContext {
     }
 
     public static void setMotion(double motion) {
-        double forward = (MovementUtils.getMovementInput9(MovementUtils.getPlayer14()).moveForward);
-        double strafe = (MovementUtils.getMovementInput4(MovementUtils.getPlayer12()).moveStrafe);
+        double forward = (MovementUtils.get// MovementInput removed - use Input9(MovementUtils.getPlayer14()).moveForward);
+        double strafe = (MovementUtils.get// MovementInput removed - use Input4(MovementUtils.getPlayer12()).moveStrafe);
         float yaw = (MovementUtils.getPlayer43().rotationYaw);
         if (forward == 0.0 && strafe == 0.0) {
             MovementUtils.getPlayer50().motionX = 0.0;
@@ -143,8 +143,8 @@ implements MinecraftContext {
     }
 
     public static double[] forward(double speed) {
-        float forward = (MovementUtils.getMovementInput7(MovementUtils.getPlayer11()).moveForward);
-        float side = (MovementUtils.getMovementInput14(MovementUtils.getPlayer62()).moveStrafe);
+        float forward = (MovementUtils.get// MovementInput removed - use Input7(MovementUtils.getPlayer11()).moveForward);
+        float side = (MovementUtils.get// MovementInput removed - use Input14(MovementUtils.getPlayer62()).moveStrafe);
         float f = (MovementUtils.getPlayer24().prevRotationYaw);
         float f2 = (MovementUtils.getPlayer27().rotationYaw);
         float yaw = f + (f2 - (MovementUtils.getPlayer51().prevRotationYaw)) * (mc).getRenderPartialTicks();
@@ -171,7 +171,7 @@ implements MinecraftContext {
         return dArray;
     }
 
-    private static MovementInput getMovementInput4(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input4(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -215,7 +215,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput5(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input5(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -227,31 +227,31 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput6(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input6(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
     public static float getAllDirection() {
         float rotationYaw = (MovementUtils.getPlayer60().rotationYaw);
         float factor = 0.0f;
-        if ((MovementUtils.getMovementInput5(MovementUtils.getPlayer29()).moveForward) > 0.0f) {
+        if ((MovementUtils.get// MovementInput removed - use Input5(MovementUtils.getPlayer29()).moveForward) > 0.0f) {
             factor = 1.0f;
         }
-        if ((MovementUtils.getMovementInput10(MovementUtils.getPlayer52()).moveForward) < 0.0f) {
+        if ((MovementUtils.get// MovementInput removed - use Input10(MovementUtils.getPlayer52()).moveForward) < 0.0f) {
             factor = -1.00000048f;
         }
         if (factor == 0.0f) {
-            if ((MovementUtils.getMovementInput13(MovementUtils.getPlayer55()).moveStrafe) > 0.0f) {
+            if ((MovementUtils.get// MovementInput removed - use Input13(MovementUtils.getPlayer55()).moveStrafe) > 0.0f) {
                 rotationYaw -= 90.0f;
             }
-            if ((MovementUtils.getMovementInput(MovementUtils.getPlayer37()).moveStrafe) < 0.0f) {
+            if ((MovementUtils.get// MovementInput removed - use Input(MovementUtils.getPlayer37()).moveStrafe) < 0.0f) {
                 rotationYaw += 90.0f;
             }
         } else {
-            if ((MovementUtils.getMovementInput2(MovementUtils.getPlayer25()).moveStrafe) > 0.0f) {
+            if ((MovementUtils.get// MovementInput removed - use Input2(MovementUtils.getPlayer25()).moveStrafe) > 0.0f) {
                 rotationYaw -= 45.0f * factor;
             }
-            if ((MovementUtils.getMovementInput12(MovementUtils.getPlayer18()).moveStrafe) < 0.0f) {
+            if ((MovementUtils.get// MovementInput removed - use Input12(MovementUtils.getPlayer18()).moveStrafe) < 0.0f) {
                 rotationYaw += 45.0f * factor;
             }
         }
@@ -269,7 +269,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput7(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input7(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -281,13 +281,13 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput8(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input8(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
     public static void setSpeed(double speed) {
-        float f = (MovementUtils.getMovementInput6(MovementUtils.getPlayer61()).moveForward);
-        float f1 = (MovementUtils.getMovementInput3(MovementUtils.getPlayer45()).moveStrafe);
+        float f = (MovementUtils.get// MovementInput removed - use Input6(MovementUtils.getPlayer61()).moveForward);
+        float f1 = (MovementUtils.get// MovementInput removed - use Input3(MovementUtils.getPlayer45()).moveStrafe);
         float f2 = (MovementUtils.getPlayer8().rotationYaw);
         if (f == 0.0f && f1 == 0.0f) {
             MovementUtils.getPlayer19().motionX = 0.0;
@@ -316,7 +316,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput9(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input9(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -347,7 +347,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput10(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input10(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -367,7 +367,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput11(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input11(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -461,7 +461,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput12(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input12(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -483,7 +483,7 @@ implements MinecraftContext {
     }
 
     public static void strafe() {
-        if ((MovementUtils.getGameSettings().keyBindBack).isKeyDown()) {
+        if ((MovementUtils.getGameOptions().keyBindBack).isKeyDown()) {
             return;
         }
         MovementUtils.strafe(MovementUtils.getSpeed());
@@ -497,7 +497,7 @@ implements MinecraftContext {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput13(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input13(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -508,7 +508,7 @@ implements MinecraftContext {
         return (float)Math.sqrt(d2 + d3 * (MovementUtils.getPlayer49().motionZ));
     }
 
-    private static MovementInput getMovementInput14(PlayerEntitySP entityPlayerSP) {
+    private static // MovementInput removed - use Input get// MovementInput removed - use Input14(PlayerEntitySP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 

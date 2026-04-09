@@ -2,7 +2,7 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector3i
+ *  org.joml.Vector3i
  */
 package com.botclient;
 

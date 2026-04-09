@@ -96,7 +96,7 @@ extends Screen {
                 }
             }
             ProxySettingsScreen.saveConfig();
-            (this.mc).displayGuiScreen((GuiScreen)new GuiMultiplayer((GuiScreen)new MainMenuScreen()));
+            (this.mc).setScreen((GuiScreen)new GuiMultiplayer((GuiScreen)new MainMenuScreen()));
         } else if ((button.id) == (1)) {
             (this.proxyField).setText("");
             proxy = "";
@@ -140,13 +140,13 @@ extends Screen {
     }
 
     private static TextRenderer getTextRenderer(ProxySettingsScreen instance) {
-        return instance.fontRenderer;
+        return instance.textRenderer;
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         RenderSystem.scale((float)1.0f, (float)1.0f, (float)1.0f);
-        this.drawString((this.fontRenderer), "§6Current Type: §6§l" + ProxySettingsScreen.getCurrentType() + " §8- §7IP:Port", (this.width) / (2) - (110), (this.height) / (2) - (20) - (10), -1);
+        this.drawString((this.textRenderer), "§6Current Type: §6§l" + ProxySettingsScreen.getCurrentType() + " §8- §7IP:Port", (this.width) / (2) - (110), (this.height) / (2) - (20) - (10), -1);
         (this.proxyField).drawTextBox();
         if ((type) == (1)) {
             if (!(this.usernameField).getVisible()) {
@@ -157,8 +157,8 @@ extends Screen {
             }
             (this.usernameField).drawTextBox();
             (this.passwordField).drawTextBox();
-            this.drawString((this.fontRenderer), "§fUsername", (this.width) / (2) - (110), (this.height) / (2) + (10) + (40) - (20), -1);
-            this.drawString((this.fontRenderer), "§fPassword", (this.width) / (2) - (110), (this.height) / (2) + (10) + (80) - (20), -1);
+            this.drawString((this.textRenderer), "§fUsername", (this.width) / (2) - (110), (this.height) / (2) + (10) + (40) - (20), -1);
+            this.drawString((this.textRenderer), "§fPassword", (this.width) / (2) - (110), (this.height) / (2) + (10) + (80) - (20), -1);
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -217,7 +217,7 @@ extends Screen {
     }
 
     private static TextRenderer getTextRenderer2(ProxySettingsScreen instance) {
-        return instance.fontRenderer;
+        return instance.textRenderer;
     }
 
     public boolean doesGuiPauseGame() {
@@ -245,7 +245,7 @@ extends Screen {
     }
 
     private static TextRenderer getTextRenderer5(ProxySettingsScreen instance) {
-        return instance.fontRenderer;
+        return instance.textRenderer;
     }
 
     public static void saveConfig() {

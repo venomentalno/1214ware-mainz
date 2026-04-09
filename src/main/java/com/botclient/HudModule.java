@@ -75,20 +75,20 @@ extends Module {
             if ((HudModule.getBoard(this).value)) {
                 Runtime runtime = Runtime.getRuntime();
                 String lag = TickRateTracker.getLagFormatColor() + (TickRateTracker.getLagPackets() - 700L < GenericCancelableEventB ? GenericCancelableEventB : TickRateTracker.getLagPackets() - 700L);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§d§lNeo§f§lWare " + (Client.VERSION_TYPE), 10, 100, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lFps: §d§l" + MinecraftClient.getInstance().getCurrentFps(), 10, 110, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lIP: §d§l" + ((HudModule.getHideIP(this).value) ? "Hidden" : ((mc).isSingleplayer() ? "Localhost" : (Objects.requireNonNull(MinecraftClient.getInstance().getCurrentServerData()).serverIP))), 10, 120, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§d§lNeo§f§lWare " + (Client.VERSION_TYPE), 10, 100, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lFps: §d§l" + MinecraftClient.getInstance().getCurrentFps(), 10, 110, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lIP: §d§l" + ((HudModule.getHideIP(this).value) ? "Hidden" : ((mc).isSingleplayer() ? "Localhost" : (Objects.requireNonNull(MinecraftClient.getInstance().getCurrentServerData()).serverIP))), 10, 120, -1);
                 Object[] objectArray = new Object[1];
                 objectArray[0] = Float.valueOf(TickRateTracker.getTickRate());
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lTPS: §d§l" + String.format("%.2f", objectArray), 10, 130, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lBrand: §d§l" + ((Minecraft.player).getServerBrand() != null && (Minecraft.player).getServerBrand().split(" ").length >= (2) ? (Minecraft.player).getServerBrand().split(" ")[0] : (Minecraft.player).getServerBrand()), 10, 140, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lLag Detector: " + ((mc).isSingleplayer() ? "§a§l0" : lag) + "ms", 10, 150, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lLoaded Proxies: §d§l" + PBotManager.getInstance().getProxyManager().getProxyList().size(), 10, 160, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lBots Connected: §d§l" + PBot.getOnline().size() + "/" + PBot.getBotList().size(), 10, 170, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lRAM Usage: §d§l" + (runtime.totalMemory() - runtime.freeMemory()) / 0x100000L + "/" + runtime.totalMemory() / 0x100000L, 10, 180, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lManualHelper: §d§l" + PBotManager.getInstance().getCaptchaManager().getHelperSize(), 10, 190, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lRecorder: §d§l" + (ActionRecorderModule.records).size(), 10, 200, -1);
-                (MinecraftClient.getInstance().fontRenderer).drawString("§f§lThreads: §d§l" + Thread.activeCount(), 10, 210, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lTPS: §d§l" + String.format("%.2f", objectArray), 10, 130, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lBrand: §d§l" + ((Minecraft.player).getServerBrand() != null && (Minecraft.player).getServerBrand().split(" ").length >= (2) ? (Minecraft.player).getServerBrand().split(" ")[0] : (Minecraft.player).getServerBrand()), 10, 140, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lLag Detector: " + ((mc).isSingleplayer() ? "§a§l0" : lag) + "ms", 10, 150, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lLoaded Proxies: §d§l" + PBotManager.getInstance().getProxyManager().getProxyList().size(), 10, 160, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lBots Connected: §d§l" + PBot.getOnline().size() + "/" + PBot.getBotList().size(), 10, 170, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lRAM Usage: §d§l" + (runtime.totalMemory() - runtime.freeMemory()) / 0x100000L + "/" + runtime.totalMemory() / 0x100000L, 10, 180, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lManualHelper: §d§l" + PBotManager.getInstance().getCaptchaManager().getHelperSize(), 10, 190, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lRecorder: §d§l" + (ActionRecorderModule.records).size(), 10, 200, -1);
+                (MinecraftClient.getInstance().textRenderer).drawString("§f§lThreads: §d§l" + Thread.activeCount(), 10, 210, -1);
             }
             if ((HudModule.getLagDetector(this).value) && !(mc).isSingleplayer() && TickRateTracker.getLagPackets() > 1500L) {
                 DrawUtils.drawImage((ResourceLocation)new Identifier("neoware/images/lost_connection.png"), (float)(scaledresolution.getScaledWidth() / (2) - (64)), (float)(scaledresolution.getScaledHeight() / (2) - (200)), (float)128.0f, (float)128.0f, (Color)this.getColor());

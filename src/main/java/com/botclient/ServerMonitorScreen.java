@@ -51,7 +51,6 @@ import net.minecraft.client.network.ServerPinger;
 import net.minecraft.client.render.RenderSystem;
 import net.minecraft.util.Identifier;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.render.RenderSystem;
 import org.lwjgl.opengl.GL20;
 
 /*
@@ -68,11 +67,11 @@ extends Screen {
 
     protected void actionPerformed(ButtonWidget button) throws IOException {
         if ((button.id) == 0) {
-            (this.mc).displayGuiScreen((this.parentScreen));
+            (this.mc).setScreen((this.parentScreen));
         } else if ((button.id) == (1)) {
             ServerParser.init();
         } else if ((button.id) == (10)) {
-            (this.mc).displayGuiScreen((GuiScreen)new GuiProtocolSelector((GuiScreen)this));
+            (this.mc).setScreen((GuiScreen)new GuiProtocolSelector((GuiScreen)this));
         }
     }
 
@@ -143,7 +142,7 @@ extends Screen {
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         if (keyCode == (1)) {
-            (this.mc).displayGuiScreen((this.parentScreen));
+            (this.mc).setScreen((this.parentScreen));
         }
         super.keyTyped(typedChar, keyCode);
     }

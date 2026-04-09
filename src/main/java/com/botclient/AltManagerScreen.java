@@ -10,7 +10,7 @@ import net.minecraft.client.session.Session;
 import net.minecraft.client.util.Identifier;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.StringUtils;
+// // StringUtils removed - use Text utils removed
 import org.lwjgl.glfw.GLFW;
 import net.minecraft.client.render.RenderSystem;
 
@@ -78,8 +78,8 @@ public class AltManagerScreen extends Screen {
             String pass = alt.getPassword().isEmpty() ? Formatting.RED + "Not License" : Formatting.GREEN + "License";
 
             RenderSystem.enableTexture();
-            if (this.skinIdentifier == null || !StringUtils.stripControlCodes(name).equals(this.skinIdentifier.getPath())) {
-                this.skinIdentifier = new Identifier("alt_skins/" + StringUtils.stripControlCodes(name));
+            if (this.skinIdentifier == null || !// StringUtils removed - use Text utils.stripControlCodes(name).equals(this.skinIdentifier.getPath())) {
+                this.skinIdentifier = new Identifier("alt_skins/" + // StringUtils removed - use Text utils.stripControlCodes(name));
                 this.loadSkin(this.skinIdentifier, name);
             } else {
                 this.client.getTextureManager().bindTexture(this.skinIdentifier);

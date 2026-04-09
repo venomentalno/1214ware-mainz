@@ -13,25 +13,25 @@
  *  neo.deobf.BotKeyState
  *  neo.deobf.EntityCollisionPredicate
  *  neo.deobf.RayTraceTypeSwitchMap
- *  neo.deobf.BotMovementInput
+ *  neo.deobf.Bot// MovementInput removed - use Input
  *  neo.deobf.PBotNetHandlerPlayClient
  *  neo.deobf.PBotPlayerController
  *  neo.deobf.PBotClientWorld
- *  net.minecraft.block.material.Material
+ *  net.minecraft.block.material.MapColor
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.player.PlayerEntity
  *  net.minecraft.item.ItemStack
  *  net.minecraft.network.Packet
  *  net.minecraft.network.play.client.CPacketTabComplete
- *  net.minecraft.profiler.ISnooperInfo
+ *  net.minecraft.profiler.// ISnooperInfo removed in 1.21.4
  *  net.minecraft.profiler.Profiler
  *  net.minecraft.profiler.Snooper
- *  net.minecraft.util.EntitySelectors
+ *  net.minecraft.util.EntityPredicates
  *  net.minecraft.util.EnumActionResult
  *  net.minecraft.util.math.Direction
  *  net.minecraft.util.Hand
- *  net.minecraft.util.IThreadListener
- *  net.minecraft.util.MovementInput
+ *  net.minecraft.util.ThreadExecutor
+ *  net.minecraft.util.// MovementInput removed - use Input
  *  net.minecraft.util.Util
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.util.math.BlockPos
@@ -61,24 +61,24 @@ import com.botclient.PBotPlayer;
 import com.botclient.BotKeyState;
 import com.botclient.EntityCollisionPredicate;
 import com.botclient.RayTraceTypeSwitchMap;
-import com.botclient.BotMovementInput;
+import com.botclient.Bot// MovementInput removed - use Input;
 import com.botclient.PBotNetHandlerPlayClient;
 import com.botclient.PBotPlayerController;
 import com.botclient.PBotClientWorld;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.MapColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet;
-// Removed: import net.minecraft.profiler.ISnooperInfo;
+// Removed: import net.minecraft.profiler.// ISnooperInfo removed in 1.21.4;
 // Removed: import net.minecraft.profiler.Profiler;
 // Removed: import net.minecraft.profiler.Snooper;
-import net.minecraft.util.EntitySelectors;
+import net.minecraft.entity.EntityPredicates;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.IThreadListener;
-import net.minecraft.util.MovementInput;
+// ThreadExecutor removed
+// Use Keyboard/Input
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.BlockPos;
@@ -93,8 +93,8 @@ import org.apache.logging.log4j.Logger;
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class PBotMinecraft
-implements IThreadListener,
-ISnooperInfo {
+// ThreadExecutor removed in 1.21.4,
+// ISnooperInfo removed in 1.21.4 {
     public final PBot pbot;
     public BotKeyState gameSettings;
     public PBotPlayerController playerController;
@@ -108,7 +108,7 @@ ISnooperInfo {
         return instance.pbot;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -133,7 +133,7 @@ ISnooperInfo {
                 }
                 case 2: {
                     BlockPos blockpos = (this.objectMouseOver).getBlockPos();
-                    if ((this.pbot).world.getBlockState(blockpos).getMaterial() != (Material.AIR)) {
+                    if ((this.pbot).world.getBlockState(blockpos).getMapColor() != (MapColor.AIR)) {
                         (this.playerController).clickBlock(blockpos, (PBotMinecraft.getObjectMouseOver6(this).sideHit));
                         break;
                     }
@@ -146,7 +146,7 @@ ISnooperInfo {
         }
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -225,9 +225,9 @@ ISnooperInfo {
         (PBotMinecraft.getPbot29(this).player).setServerBrand(s);
         (this.pbot).world.spawnEntity((Entity)(PBotMinecraft.getPbot35(this).player));
         (this.playerController).flipPlayer((PlayerEntity)(PBotMinecraft.getPbot13(this).player));
-        PBotMinecraft.getPlayer33(PBotMinecraft.getPbot60(this)).movementInput = (MovementInput)new BotMovementInput(PBotMinecraft.getGameSettings(this));
+        PBotMinecraft.getPlayer33(PBotMinecraft.getPbot60(this)).movementInput = (// MovementInput removed - use Input)new Bot// MovementInput removed - use Input(PBotMinecraft.getGameOptions(this));
         (PBotMinecraft.getPbot63(this).player).setEntityId(i);
-        (this.playerController).setPlayerCapabilities((PlayerEntity)(PBotMinecraft.getPbot40(this).player));
+        (this.playerController).set// PlayerCapabilities removed - use GameMode((PlayerEntity)(PBotMinecraft.getPbot40(this).player));
         (PBotMinecraft.getPbot2(this).player).setReducedDebug((PBotMinecraft.getPbot51(this).player).hasReducedDebug());
     }
 
@@ -309,7 +309,7 @@ ISnooperInfo {
         return instance.pbot;
     }
 
-    private static BotKeyState getGameSettings3(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions3(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -318,7 +318,7 @@ ISnooperInfo {
     }
 
     public void runTickKeyboard() {
-        this.callGetPlayer20((PBotMinecraft.getGameSettings3(this).keyBindAttack));
+        this.callGetPlayer20((PBotMinecraft.getGameOptions3(this).keyBindAttack));
     }
 
     public void getMouseOver() {
@@ -341,7 +341,7 @@ ISnooperInfo {
             Vec3d vec3d2 = vec3d.add((vec3d1.x) * d0, (vec3d1.y) * d0, (vec3d1.z) * d0);
             Entity pointedEntity = null;
             Vec3d vec3d3 = null;
-            List list = (this.pbot).world.getEntitiesInAABBexcluding((Entity)(PBotMinecraft.getPbot42(this).player), (PBotMinecraft.getPbot33(this).player).getEntityBoundingBox().grow((vec3d1.x) * d0, (vec3d1.y) * d0, (vec3d1.z) * d0).grow(1.0, 1.0, 1.0), Predicates.and((Predicate)(EntitySelectors.NOT_SPECTATING), (Predicate)new EntityCollisionPredicate(this)));
+            List list = (this.pbot).world.getEntitiesInAABBexcluding((Entity)(PBotMinecraft.getPbot42(this).player), (PBotMinecraft.getPbot33(this).player).getEntityBoundingBox().grow((vec3d1.x) * d0, (vec3d1.y) * d0, (vec3d1.z) * d0).grow(1.0, 1.0, 1.0), Predicates.and((Predicate)(EntityPredicates.NOT_SPECTATING), (Predicate)new EntityCollisionPredicate(this)));
             double d2 = d1;
             for (Entity entity1 : list) {
                 double d3;
@@ -442,7 +442,7 @@ ISnooperInfo {
         if (!(PBotMinecraft.getPbot62(this).player).isHandActive()) {
             if (leftClick && (this.objectMouseOver) != null && (PBotMinecraft.getObjectMouseOver11(this).typeOfHit) == (HitResult.Type.BLOCK)) {
                 BlockPos blockpos = (this.objectMouseOver).getBlockPos();
-                if ((this.pbot).world.getBlockState(blockpos).getMaterial() != (Material.AIR) && (this.playerController).onPlayerDamageBlock(blockpos, (PBotMinecraft.getObjectMouseOver8(this).sideHit))) {
+                if ((this.pbot).world.getBlockState(blockpos).getMapColor() != (MapColor.AIR) && (this.playerController).onPlayerDamageBlock(blockpos, (PBotMinecraft.getObjectMouseOver8(this).sideHit))) {
                     (PBotMinecraft.getPbot48(this).player).swingArm((Hand.MAIN_HAND));
                 }
             } else {
@@ -507,7 +507,7 @@ ISnooperInfo {
                         }
                         case 2: {
                             BlockPos blockpos = (this.objectMouseOver).getBlockPos();
-                            if ((this.pbot).world.getBlockState(blockpos).getMaterial() == (Material.AIR)) break;
+                            if ((this.pbot).world.getBlockState(blockpos).getMapColor() == (MapColor.AIR)) break;
                             int i2 = itemstack.getCount();
                             EnumActionResult enumactionresult = (this.playerController).processRightClickBlock((PBotMinecraft.getPbot53(this).player), (World)(this.pbot).world, blockpos, (PBotMinecraft.getObjectMouseOver3(this).sideHit), (PBotMinecraft.getObjectMouseOver18(this).hitVec), enumhand);
                             if (enumactionresult != (ActionResult.SUCCESS)) break;
@@ -570,8 +570,8 @@ ISnooperInfo {
         if (world != null) {
             (PBotMinecraft.getPbot6(this).player).preparePlayerToSpawn();
             (this.pbot).world.spawnEntity((Entity)(PBotMinecraft.getPbot8(this).player));
-            PBotMinecraft.getPlayer35(PBotMinecraft.getPbot14(this)).movementInput = (MovementInput)new BotMovementInput(PBotMinecraft.getGameSettings2(PBotMinecraft.getMc(PBotMinecraft.getPbot57(this))));
-            (PBotMinecraft.getMc2(PBotMinecraft.getPbot(this)).playerController).setPlayerCapabilities((PlayerEntity)(PBotMinecraft.getPbot21(this).player));
+            PBotMinecraft.getPlayer35(PBotMinecraft.getPbot14(this)).movementInput = (// MovementInput removed - use Input)new Bot// MovementInput removed - use Input(PBotMinecraft.getGameOptions2(PBotMinecraft.getMc(PBotMinecraft.getPbot57(this))));
+            (PBotMinecraft.getMc2(PBotMinecraft.getPbot(this)).playerController).set// PlayerCapabilities removed - use GameMode((PlayerEntity)(PBotMinecraft.getPbot21(this).player));
         }
     }
 

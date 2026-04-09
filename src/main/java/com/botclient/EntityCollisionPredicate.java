@@ -10,7 +10,7 @@
 package com.botclient;
 
 import com.google.common.base.Predicate;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import com.botclient.PBotMinecraft;
 import net.minecraft.entity.Entity;
 

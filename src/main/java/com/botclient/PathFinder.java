@@ -2,8 +2,8 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector2f
- *  javax.vecmath.Vector3i
+ *  org.joml.Vector2f
+ *  org.joml.Vector3i
  *  neo.deobf.BooleanSetting
  *  neo.deobf.PBot
  *  neo.deobf.PBotPlayer
@@ -23,7 +23,7 @@ package com.botclient;
 import java.util.ArrayList;
 import java.util.List;
 import org.joml.Vector2f;
-import javax.vecmath.Vector3i;
+import org.joml.Vector3i;
 import com.botclient.BooleanSetting;
 import com.botclient.PBot;
 import com.botclient.PBotPlayer;
@@ -78,14 +78,14 @@ public class PathFinder {
         return instance.player;
     }
 
-    private static BotKeyState getGameSettings(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
     public void pathFindStop() {
         if ((this.isRunning) && (PathFinder.getPbot17(this).mc) != null) {
-            PathFinder.getGameSettings(PathFinder.getMc(PathFinder.getPbot9(this))).keyBindForward = false;
-            PathFinder.getGameSettings2(PathFinder.getMc2(PathFinder.getPbot10(this))).keyBindJump = false;
+            PathFinder.getGameOptions(PathFinder.getMc(PathFinder.getPbot9(this))).keyBindForward = false;
+            PathFinder.getGameOptions2(PathFinder.getMc2(PathFinder.getPbot10(this))).keyBindJump = false;
         }
         this.isRunning = false;
         this.pause();
@@ -206,7 +206,7 @@ public class PathFinder {
         return instance.pbot;
     }
 
-    private static BotKeyState getGameSettings2(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions2(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -222,7 +222,7 @@ public class PathFinder {
         return instance.posZ;
     }
 
-    private static BotKeyState getGameSettings3(PBotMinecraft instance) {
+    private static BotKeyState getGameOptions3(PBotMinecraft instance) {
         return instance.gameSettings;
     }
 
@@ -306,7 +306,7 @@ public class PathFinder {
                     PathFinder.getPlayer4(PathFinder.getPbot6(this)).rotationYaw = nY;
                     PathFinder.getPlayer9(PathFinder.getPbot18(this)).rotationPitch = nP;
                 }
-                PathFinder.getGameSettings3(PathFinder.getMc3(PathFinder.getPbot7(this))).keyBindForward = true;
+                PathFinder.getGameOptions3(PathFinder.getMc3(PathFinder.getPbot7(this))).keyBindForward = true;
                 PBotPlayer ent = (PathFinder.getPbot(this).player);
                 int n = inside = (double)(PathFinder.getPos5(point).x) <= ((Entity)ent.posX) && (double)((PathFinder.getPos6(point).x) + (1)) >= ((Entity)ent.posX) && (double)((PathFinder.getPos(point).y) - (1)) <= ((Entity)ent.posY) && (double)((PathFinder.getPos3(point).y) + (1)) >= ((Entity)ent.posY) && (double)(PathFinder.getPos4(point).z) <= ((Entity)ent.posZ) && (double)((PathFinder.getPos2(point).z) + (1)) >= ((Entity)ent.posZ) ? 1 : 0;
                 if (inside != 0) {

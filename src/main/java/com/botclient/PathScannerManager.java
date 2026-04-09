@@ -2,7 +2,7 @@
  * Decompiled with CFR 0.152.
  * 
  * Could not load the following classes:
- *  javax.vecmath.Vector3i
+ *  org.joml.Vector3i
  *  neo.deobf.PBot
  *  neo.deobf.PathSearchTask
  *  neo.deobf.ThreadUtils
@@ -10,7 +10,7 @@
 package com.botclient;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.vecmath.Vector3i;
+import org.joml.Vector3i;
 import com.botclient.PBot;
 import com.botclient.PathSearchTask;
 import com.botclient.ThreadUtils;
