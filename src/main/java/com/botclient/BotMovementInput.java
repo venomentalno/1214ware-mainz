@@ -1,58 +1,61 @@
 package com.botclient;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
-import net.minecraft.client.util.InputUtil;
 
-public class Bot// MovementInput removed - use Input extends Input {
+public class BotMovementInput extends Input {
     public final BotKeyState gameSettings;
+    
+    public float forwardSpeed = 0f;
+    public float sidewaysSpeed = 0f;
+    public boolean jumping = false;
+    public boolean sneaking = false;
 
-    public Bot// MovementInput removed - use Input(BotKeyState gameSettingsIn) {
+    public BotMovementInput(BotKeyState gameSettingsIn) {
         this.gameSettings = gameSettingsIn;
     }
 
     @Override
-    public void tick(boolean isPlayerMovingSlowly, float strafeSpeed) {
+    public void tick(boolean slowingDown) {
         this.jumping = false;
         this.sneaking = false;
         this.movementForward = 0.0f;
         this.movementSideways = 0.0f;
+        this.forwardSpeed = 0f;
+        this.sidewaysSpeed = 0f;
 
-        // Forward
-        if (this.gameSettings.keyBindForward || 
-           (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 87) || 
-            InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 200))) {
+        if (this.gameSettings.keyBindForward) {
             this.movementForward += 1.0f;
+            this.forwardSpeed += 1.0f;
         }
-        // Back
-        if (this.gameSettings.keyBindBack || 
-           (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 83) || 
-            InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 208))) {
+        if (this.gameSettings.keyBindBack) {
             this.movementForward -= 1.0f;
+            this.forwardSpeed -= 1.0f;
         }
-        // Left
-        if (this.gameSettings.keyBindLeft || 
-           (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 65) || 
-            InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 203))) {
+        if (this.gameSettings.keyBindLeft) {
             this.movementSideways += 1.0f;
+            this.sidewaysSpeed += 1.0f;
         }
-        // Right
-        if (this.gameSettings.keyBindRight || 
-           (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 68) || 
-            InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 205))) {
+        if (this.gameSettings.keyBindRight) {
             this.movementSideways -= 1.0f;
+            this.sidewaysSpeed -= 1.0f;
         }
-        // Jump
-        if (this.gameSettings.keyBindJump || 
-            InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 32)) {
+        if (this.gameSettings.keyBindJump) {
             this.jumping = true;
         }
-        // Sneak
-        if (this.gameSettings.keyBindSneak || 
-            InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) { // Shift
+        if (this.gameSettings.keyBindSneak) {
             this.sneaking = true;
             this.movementSideways *= 0.3f;
             this.movementForward *= 0.3f;
+            this.sidewaysSpeed *= 0.3f;
+            this.forwardSpeed *= 0.3f;
         }
+    }
+    
+    public net.minecraft.util.math.Vec2f getMoveVector() {
+        return new net.minecraft.util.math.Vec2f(this.movementSideways, this.movementForward);
+    }
+    
+    public void updatePlayerMoveState() {
+        // Handled by tick method
     }
 }
