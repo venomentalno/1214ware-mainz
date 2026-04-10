@@ -11,26 +11,26 @@
  *  neo.deobf.ProxyType
  *  neo.deobf.ProxyInfo
  *  net.minecraft.client.Minecraft
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.util.text.TextFormatting
  *  org.jsoup.Jsoup
  *  org.jsoup.nodes.Document
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
-import com.botclient.NumberSetting;
-import com.botclient.BotSettingsModule;
-import com.botclient.NotificationType;
-import com.botclient.NotificationsModule;
-import com.botclient.ChatUtils;
-import com.botclient.BackendApi;
-import com.botclient.ProxyType;
-import com.botclient.ProxyInfo;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Formatting;
+import neo.deobf.NumberSetting;
+import neo.deobf.BotSettingsModule;
+import neo.deobf.NotificationType;
+import neo.deobf.NotificationsModule;
+import neo.deobf.ChatUtils;
+import neo.deobf.BackendApi;
+import neo.deobf.ProxyType;
+import neo.deobf.ProxyInfo;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -95,7 +95,7 @@ private static ArrayList getProxyList(ProxyManager instance) {
             }
         } else {
             try {
-                for (String proxyLine : Files.readAllLines(new File((MinecraftClient.getInstance().gameDir), "/NeoWare/proxy/" + path).toPath())) {
+                for (String proxyLine : Files.readAllLines(new File((Minecraft.getMinecraft().gameDir), "/NeoWare/proxy/" + path).toPath())) {
                     this.readProxy(proxyLine, type);
                 }
             }
@@ -141,7 +141,7 @@ private static ArrayList getProxyList(ProxyManager instance) {
     }
 
     public void sendDebugInfo() {
-        NotificationsModule.notify((String)"Bots Debug", (String)((TextFormat.GREEN) + "Загружено " + (this.proxyList).size() + " прокси"), (NotificationType)(NotificationType.SUCCESS), (int)(4));
+        NotificationsModule.notify((String)"Bots Debug", (String)((TextFormatting.GREEN) + "Загружено " + (this.proxyList).size() + " прокси"), (NotificationType)(NotificationType.SUCCESS), (int)(4));
         ChatUtils.formatMsg((String)("Загружено &d&l" + (this.proxyList).size() + " &f&lпрокси"));
         if ((this.proxyList).size() > 0) {
             ChatUtils.formatMsg((String)("[SOCKS4]: " + this.callGetType("socks4") + " прокси"));

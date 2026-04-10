@@ -10,15 +10,15 @@
  *  neo.deobf.DiscordSpectateGameCallback
  *  neo.deobf.DiscordEventHandlers
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.DiscordDisconnectedCallback;
-import com.botclient.DiscordErroredCallback;
-import com.botclient.DiscordJoinGameCallback;
-import com.botclient.DiscordJoinRequestCallback;
-import com.botclient.DiscordReadyCallback;
-import com.botclient.DiscordSpectateGameCallback;
-import com.botclient.DiscordEventHandlers;
+import neo.deobf.DiscordDisconnectedCallback;
+import neo.deobf.DiscordErroredCallback;
+import neo.deobf.DiscordJoinGameCallback;
+import neo.deobf.DiscordJoinRequestCallback;
+import neo.deobf.DiscordReadyCallback;
+import neo.deobf.DiscordSpectateGameCallback;
+import neo.deobf.DiscordEventHandlers;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

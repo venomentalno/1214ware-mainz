@@ -14,19 +14,19 @@
  *  net.minecraft.client.settings.KeyBinding
  *  org.lwjgl.input.Keyboard
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.UpdateEvent;
-import com.botclient.EventTarget;
-import com.botclient.ModuleCategory;
-import com.botclient.Module;
-import com.botclient.MinecraftContext;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.UpdateEvent;
+import neo.deobf.EventTarget;
+import neo.deobf.ModuleCategory;
+import neo.deobf.Module;
+import neo.deobf.MinecraftContext;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
+import org.lwjgl.input.Keyboard;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -60,19 +60,19 @@ extends Module {
     public void onUpdate(UpdateEvent event) {
         if (!(((mc).currentScreen) instanceof GuiChat)) {
             KeyBinding keyBinding = (GuiMoveModule.getGameSettings6().keyBindJump);
-            keyBinding.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindJump(GuiMoveModule.getGameSettings3()).getKeyCode());
+            keyBinding.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindJump(GuiMoveModule.getGameSettings3()).getKeyCode());
             KeyBinding keyBinding2 = (GuiMoveModule.getGameSettings5().keyBindForward);
-            keyBinding2.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindForward(GuiMoveModule.getGameSettings4()).getKeyCode());
+            keyBinding2.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindForward(GuiMoveModule.getGameSettings4()).getKeyCode());
             KeyBinding keyBinding3 = (GuiMoveModule.getGameSettings14().keyBindBack);
-            keyBinding3.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindBack3(GuiMoveModule.getGameSettings8()).getKeyCode());
+            keyBinding3.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindBack3(GuiMoveModule.getGameSettings8()).getKeyCode());
             KeyBinding keyBinding4 = (GuiMoveModule.getGameSettings12().keyBindLeft);
-            keyBinding4.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindLeft(GuiMoveModule.getGameSettings()).getKeyCode());
+            keyBinding4.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindLeft(GuiMoveModule.getGameSettings()).getKeyCode());
             KeyBinding keyBinding5 = (GuiMoveModule.getGameSettings20().keyBindRight);
-            keyBinding5.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindRight(GuiMoveModule.getGameSettings7()).getKeyCode());
+            keyBinding5.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindRight(GuiMoveModule.getGameSettings7()).getKeyCode());
             KeyBinding keyBinding6 = (GuiMoveModule.getGameSettings13().keyBindSprint);
-            keyBinding6.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindSprint(GuiMoveModule.getGameSettings19()).getKeyCode());
+            keyBinding6.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindSprint(GuiMoveModule.getGameSettings19()).getKeyCode());
             KeyBinding keyBinding7 = (GuiMoveModule.getGameSettings18().keyBindSneak);
-            keyBinding7.pressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), (int)GuiMoveModule.getKeyBindSneak(GuiMoveModule.getGameSettings15()).getKeyCode());
+            keyBinding7.pressed = Keyboard.isKeyDown((int)GuiMoveModule.getKeyBindSneak(GuiMoveModule.getGameSettings15()).getKeyCode());
         }
     }
 

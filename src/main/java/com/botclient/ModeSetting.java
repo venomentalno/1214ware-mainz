@@ -4,12 +4,12 @@
  * Could not load the following classes:
  *  neo.deobf.Setting
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Supplier;
-import com.botclient.Setting;
+import neo.deobf.Setting;
 
 public class ModeSetting
 extends Setting {

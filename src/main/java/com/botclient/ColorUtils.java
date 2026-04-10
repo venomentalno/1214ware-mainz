@@ -6,12 +6,12 @@
  *  net.minecraft.client.renderer.GlStateManager
  *  net.minecraft.util.math.MathHelper
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import com.botclient.MathUtils;
-import net.minecraft.client.render.RenderSystem;
+import neo.deobf.MathUtils;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
 
 public class ColorUtils {
@@ -92,7 +92,7 @@ public class ColorUtils {
         float red = (float)(hex >> (16) & (255)) / 255.0f;
         float green = (float)(hex >> (8) & (255)) / 255.0f;
         float blue = (float)(hex & (255)) / 255.0f;
-        RenderSystem.color((float)red, (float)green, (float)blue, (float)(alpha / 255.0f));
+        GlStateManager.color((float)red, (float)green, (float)blue, (float)(alpha / 255.0f));
     }
 
     public static int applyOpacity(int color, float opacity) {
@@ -135,7 +135,7 @@ public class ColorUtils {
         float red = (float)(hex >> (16) & (255)) / 255.0f;
         float green = (float)(hex >> (8) & (255)) / 255.0f;
         float blue = (float)(hex & (255)) / 255.0f;
-        RenderSystem.color((float)red, (float)green, (float)blue, (float)alpha);
+        GlStateManager.color((float)red, (float)green, (float)blue, (float)alpha);
     }
 
     public static int[] createColorArray(int color) {
@@ -196,7 +196,7 @@ public class ColorUtils {
         float green = (float)color.getGreen() / 255.0f;
         float blue = (float)color.getBlue() / 255.0f;
         float alpha = (float)color.getAlpha() / 255.0f;
-        RenderSystem.color((float)red, (float)green, (float)blue, (float)alpha);
+        GlStateManager.color((float)red, (float)green, (float)blue, (float)alpha);
     }
 
     public static Color applyOpacity(Color color, float opacity) {

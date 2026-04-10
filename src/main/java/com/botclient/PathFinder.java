@@ -18,24 +18,24 @@
  *  neo.deobf.BlockUtils
  *  net.minecraft.entity.Entity
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.joml.Vector2f;
+import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3i;
-import com.botclient.BooleanSetting;
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.BotKeyState;
-import com.botclient.PBotMinecraft;
-import com.botclient.BotDebugModule;
-import com.botclient.ChatUtils;
-import com.botclient.AbstractPathScanner;
-import com.botclient.PathNode;
-import com.botclient.PathScannerManager;
-import com.botclient.PathSearchTask;
-import com.botclient.BlockUtils;
+import neo.deobf.BooleanSetting;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.BotKeyState;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.BotDebugModule;
+import neo.deobf.ChatUtils;
+import neo.deobf.AbstractPathScanner;
+import neo.deobf.PathNode;
+import neo.deobf.PathScannerManager;
+import neo.deobf.PathSearchTask;
+import neo.deobf.BlockUtils;
 import net.minecraft.entity.Entity;
 
 /*

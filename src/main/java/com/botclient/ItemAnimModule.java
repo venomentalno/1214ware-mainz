@@ -11,16 +11,16 @@
  *  neo.deobf.NumberSetting
  *  neo.deobf.Module
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.UpdateEvent;
-import com.botclient.HandSideRenderEvent;
-import com.botclient.EventTarget;
-import com.botclient.Setting;
-import com.botclient.ModuleCategory;
-import com.botclient.ModeSetting;
-import com.botclient.NumberSetting;
-import com.botclient.Module;
+import neo.deobf.UpdateEvent;
+import neo.deobf.HandSideRenderEvent;
+import neo.deobf.EventTarget;
+import neo.deobf.Setting;
+import neo.deobf.ModuleCategory;
+import neo.deobf.ModeSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.Module;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

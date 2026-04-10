@@ -6,11 +6,11 @@
  *  neo.deobf.PBot
  *  neo.deobf.BotTask
  */
-package com.botclient;
+package neo.deobf;
 
 import javax.vecmath.Vector3i;
-import com.botclient.PBot;
-import com.botclient.BotTask;
+import neo.deobf.PBot;
+import neo.deobf.BotTask;
 
 public class GotoTask
 extends BotTask {

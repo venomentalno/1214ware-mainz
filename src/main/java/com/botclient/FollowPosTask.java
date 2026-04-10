@@ -11,15 +11,15 @@
  *  neo.deobf.BlockUtils
  *  net.minecraft.util.math.BlockPos
  */
-package com.botclient;
+package neo.deobf;
 
-import org.joml.Vector2f;
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.BotKeyState;
-import com.botclient.PBotMinecraft;
-import com.botclient.BotTask;
-import com.botclient.BlockUtils;
+import javax.vecmath.Vector2f;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.BotKeyState;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.BotTask;
+import neo.deobf.BlockUtils;
 import net.minecraft.util.math.BlockPos;
 
 /*

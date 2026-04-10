@@ -10,16 +10,16 @@
  *  neo.deobf.ConfigManager
  *  net.minecraft.client.Minecraft
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
-import com.botclient.CommandInfo;
-import com.botclient.Command;
-import com.botclient.Client;
-import com.botclient.CommandChatListener;
-import com.botclient.ChatUtils;
-import com.botclient.ConfigManager;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.CommandInfo;
+import neo.deobf.Command;
+import neo.deobf.Client;
+import neo.deobf.CommandChatListener;
+import neo.deobf.ChatUtils;
+import neo.deobf.ConfigManager;
+import net.minecraft.client.Minecraft;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -35,7 +35,7 @@ extends Command {
         if (args.length != 0) {
             if (args.length == (2)) {
                 if (args[0].equalsIgnoreCase("load")) {
-                    if (!new File((MinecraftClient.getInstance().gameDir), "/NeoWare/configs/" + args[1] + ".cfg").exists()) {
+                    if (!new File((Minecraft.getMinecraft().gameDir), "/NeoWare/configs/" + args[1] + ".cfg").exists()) {
                         ChatUtils.formatMsg((String)("Конфиг " + args[1] + " не найден!"));
                     } else {
                         (Client.getInstance().configManager).loadConfig(args[1]);

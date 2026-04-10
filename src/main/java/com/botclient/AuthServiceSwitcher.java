@@ -5,13 +5,13 @@
  *  neo.deobf.ReflectionHelper
  *  neo.deobf.AuthServiceType
  */
-package com.botclient;
+package neo.deobf;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import com.botclient.ReflectionHelper;
-import com.botclient.AuthServiceType;
+import neo.deobf.ReflectionHelper;
+import neo.deobf.AuthServiceType;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

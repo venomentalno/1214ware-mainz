@@ -44,20 +44,20 @@
  *  neo.deobf.ServerAddressUtils
  *  neo.deobf.ThreadUtils
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.entity.PlayerEntitySP
+ *  net.minecraft.client.entity.EntityPlayerSP
  *  net.minecraft.entity.Entity
  *  net.minecraft.inventory.ClickType
- *  net.minecraft.screen.ScreenHandler
+ *  net.minecraft.inventory.Container
  *  net.minecraft.item.ItemStack
  *  net.minecraft.network.Packet
- *  net.minecraft.network.play.client.PlayerInteractBlockC2SPacket
- *  net.minecraft.network.play.client.PlayerInteractEntityC2SPacket
- *  net.minecraft.util.math.Direction
- *  net.minecraft.util.Hand
+ *  net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock
+ *  net.minecraft.network.play.client.CPacketUseEntity
+ *  net.minecraft.util.EnumFacing
+ *  net.minecraft.util.EnumHand
  *  net.minecraft.util.math.BlockPos
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.util.text.TextFormatting
  */
-package com.botclient;
+package neo.deobf;
 
 import io.netty.channel.Channel;
 import java.io.File;
@@ -65,57 +65,59 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.time.LocalTime;
 import javax.script.ScriptEngine;
-import org.joml.Vector2f;
+import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3i;
-import com.botclient.CommandInfo;
-import com.botclient.Command;
-import com.botclient.Client;
-import com.botclient.PBotManager;
-import com.botclient.BooleanSetting;
-import com.botclient.ModeSetting;
-import com.botclient.CommandChatListener;
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.BotKeyState;
-import com.botclient.PBotMinecraft;
-import com.botclient.PBotNetHandlerPlayClient;
-import com.botclient.PBotNetworkManager;
-import com.botclient.ActionReplayRunner;
-import com.botclient.BotTask;
-import com.botclient.AutoFishTask;
-import com.botclient.FollowTask;
-import com.botclient.FollowPosTask;
-import com.botclient.BotSettingsModule;
-import com.botclient.NotificationType;
-import com.botclient.NotificationsModule;
-import com.botclient.ScriptManager;
-import com.botclient.ScriptRiskLevel;
-import com.botclient.ScriptRiskAnalyzer;
-import com.botclient.ChatUtils;
-import com.botclient.GotoTask;
-import com.botclient.SpinTask;
-import com.botclient.FigurePatternRegistry;
-import com.botclient.BotSpammer;
-import com.botclient.BlockUtils;
-import com.botclient.NickManager;
-import com.botclient.ProxyManager;
-import com.botclient.PlaceholderFormatter;
-import com.botclient.FileReadUtils;
-import com.botclient.ProxyType;
-import com.botclient.ProxyInfo;
-import com.botclient.ServerAddressUtils;
-import com.botclient.ThreadUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import neo.deobf.CommandInfo;
+import neo.deobf.Command;
+import neo.deobf.Client;
+import neo.deobf.PBotManager;
+import neo.deobf.BooleanSetting;
+import neo.deobf.ModeSetting;
+import neo.deobf.CommandChatListener;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.BotKeyState;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.PBotNetHandlerPlayClient;
+import neo.deobf.PBotNetworkManager;
+import neo.deobf.ActionReplayRunner;
+import neo.deobf.BotTask;
+import neo.deobf.AutoFishTask;
+import neo.deobf.FollowTask;
+import neo.deobf.FollowPosTask;
+import neo.deobf.BotSettingsModule;
+import neo.deobf.NotificationType;
+import neo.deobf.NotificationsModule;
+import neo.deobf.ScriptManager;
+import neo.deobf.ScriptRiskLevel;
+import neo.deobf.ScriptRiskAnalyzer;
+import neo.deobf.ChatUtils;
+import neo.deobf.GotoTask;
+import neo.deobf.SpinTask;
+import neo.deobf.FigurePatternRegistry;
+import neo.deobf.BotSpammer;
+import neo.deobf.BlockUtils;
+import neo.deobf.NickManager;
+import neo.deobf.ProxyManager;
+import neo.deobf.PlaceholderFormatter;
+import neo.deobf.FileReadUtils;
+import neo.deobf.ProxyType;
+import neo.deobf.ProxyInfo;
+import neo.deobf.ServerAddressUtils;
+import neo.deobf.ThreadUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
+import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.text.TextFormatting;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -168,7 +170,7 @@ extends Command {
                                     port = Integer.parseInt(args[3].split(":")[1]);
                                 }
                                 ChatUtils.formatMsg((String)("Запуск &d&l" + args[1] + " &f&lботов."));
-                                NotificationsModule.notify((String)"Bots Debug", (String)((TextFormat.GREEN) + "Запуск " + args[1] + " ботов..."), (NotificationType)(NotificationType.SUCCESS), (int)(4));
+                                NotificationsModule.notify((String)"Bots Debug", (String)((TextFormatting.GREEN) + "Запуск " + args[1] + " ботов..."), (NotificationType)(NotificationType.SUCCESS), (int)(4));
                                 joinloop = true;
                                 for (int bcount = 0; bcount < Integer.parseInt(args[1]); ++bcount) {
                                     if (!(joinloop)) continue;
@@ -425,11 +427,11 @@ extends Command {
                                     (Client.getInstance().pBotsScriptManager).setActive(false);
                                     return;
                                 }
-                                if (!new File((MinecraftClient.getInstance().gameDir), "/NeoWare/scripts/" + args[1] + ".js").exists()) {
+                                if (!new File((Minecraft.getMinecraft().gameDir), "/NeoWare/scripts/" + args[1] + ".js").exists()) {
                                     ChatUtils.formatMsg((String)("Скрипт " + args[1] + " не найден!"));
                                     (Client.getInstance().pBotsScriptManager).setActive(false);
                                 } else {
-                                    String src = FileReadUtils.readUsingFiles((File)new File((MinecraftClient.getInstance().gameDir), "/NeoWare/scripts/" + args[1] + ".js"));
+                                    String src = FileReadUtils.readUsingFiles((File)new File((Minecraft.getMinecraft().gameDir), "/NeoWare/scripts/" + args[1] + ".js"));
                                     if (!($assertionsDisabled) && src == null) {
                                         throw new AssertionError();
                                     }
@@ -485,7 +487,7 @@ extends Command {
                                         Vector2f vector2f = BlockUtils.getBlockAngles((double)block.getX(), (double)block.getY(), (double)block.getZ(), (double)((BotsCommand.getPlayer9(bot).posX) + 0.5), (double)(BotsCommand.getPlayer2(bot).posY), (double)(BotsCommand.getPlayer19(bot).posZ));
                                         BotsCommand.getPlayer8(bot).rotationYaw = BlockUtils.normalizeYaw((float)BotsCommand.getY(vector2f));
                                         BotsCommand.getPlayer20(bot).rotationPitch = BlockUtils.normalizePitch((float)BotsCommand.getX(vector2f));
-                                        bot.sendPacket((Packet)new PlayerInteractBlockC2SPacket(new BlockPos(block.getX(), block.getY(), block.getZ()), (Direction.SOUTH), (Hand.MAIN_HAND), (float)block.getX(), (float)block.getY(), (float)block.getZ()));
+                                        bot.sendPacket((Packet)new CPacketPlayerTryUseItemOnBlock(new BlockPos(block.getX(), block.getY(), block.getZ()), (EnumFacing.SOUTH), (EnumHand.MAIN_HAND), (float)block.getX(), (float)block.getY(), (float)block.getZ()));
                                     }
                                     catch (Exception exception) {
                                         exception.printStackTrace();
@@ -512,17 +514,17 @@ extends Command {
                                         return;
                                     }
                                     for (PBot bot : PBot.getOnline()) {
-                                        Entity npc = bot.world.getEntityByID((npcId));
+                                        Entity npc = bot.getWorld().getEntityByID((npcId));
                                         if (npc != null) {
                                             if (!(BlockUtils.getDistance((PBot)bot, (double)(npc.posX), (double)(npc.posY), (double)(npc.posZ)) < 6.0f)) continue;
                                             Vector2f vector2f = BlockUtils.getBlockAngles((double)(npc.posX), (double)(npc.posY), (double)(npc.posZ), (double)(BotsCommand.getPlayer10(bot).posX), (double)((BotsCommand.getPlayer11(bot).posY) + 0.5), (double)(BotsCommand.getPlayer7(bot).posZ));
                                             BotsCommand.getPlayer13(bot).rotationYaw = BlockUtils.normalizeYaw((float)BotsCommand.getY2(vector2f));
                                             BotsCommand.getPlayer14(bot).rotationPitch = BlockUtils.normalizePitch((float)BotsCommand.getX2(vector2f));
-                                            (BotsCommand.getPlayer5(bot).connection).sendPacket((Packet)new PlayerInteractEntityC2SPacket(npc, (Hand.MAIN_HAND)));
+                                            (BotsCommand.getPlayer5(bot).connection).sendPacket((Packet)new CPacketUseEntity(npc, (EnumHand.MAIN_HAND)));
                                             continue;
                                         }
                                         ChatUtils.formatMsg((String)("Бот &d&l" + bot.getNickname() + "&6 Не найдено энтити с таким ID, отправляю обычный клик без ротации."));
-                                        (BotsCommand.getPlayer(bot).connection).sendPacket((Packet)new PlayerInteractEntityC2SPacket((npcId), (Hand.MAIN_HAND)));
+                                        (BotsCommand.getPlayer(bot).connection).sendPacket((Packet)new CPacketUseEntity((npcId), (EnumHand.MAIN_HAND)));
                                     }
                                 } else if (args[1].equalsIgnoreCase("stop")) {
                                     npcId = -1;
@@ -535,7 +537,7 @@ extends Command {
                             }
                         } else if (args[0].equalsIgnoreCase("dumpproxy")) {
                             try {
-                                File file = new File((MinecraftClient.getInstance().gameDir), "/NeoWare/dumpproxy.txt");
+                                File file = new File((Minecraft.getMinecraft().gameDir), "/NeoWare/dumpproxy.txt");
                                 PrintWriter dumpProxy = new PrintWriter(file);
                                 for (PBot bot : PBot.getOnline()) {
                                     ProxyInfo proxyInfo = bot.getProxy();
@@ -594,7 +596,7 @@ extends Command {
                             if (args.length == (2)) {
                                 if (args[1].equalsIgnoreCase("list")) {
                                     ChatUtils.formatMsg((String)"Список фигур:");
-                                    String[] vector = new File((MinecraftClient.getInstance().gameDir), "/NeoWare/figures/").list();
+                                    String[] vector = new File((Minecraft.getMinecraft().gameDir), "/NeoWare/figures/").list();
                                     int bot = vector.length;
                                     for (int bot3 = 0; bot3 < bot; ++bot3) {
                                         String file = vector[bot3];
@@ -790,11 +792,11 @@ extends Command {
         return instance.gameSettings;
     }
 
-    private static PlayerEntitySP getPlayer15() {
+    private static EntityPlayerSP getPlayer15() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer16() {
+    private static EntityPlayerSP getPlayer16() {
         return Minecraft.player;
     }
 
@@ -806,7 +808,7 @@ extends Command {
         return vector2f.y;
     }
 
-    private static PlayerEntitySP getPlayer18() {
+    private static EntityPlayerSP getPlayer18() {
         return Minecraft.player;
     }
 

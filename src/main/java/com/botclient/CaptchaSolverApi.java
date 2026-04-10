@@ -5,9 +5,9 @@
  *  neo.deobf.CaptchaPacket
  *  okhttp3.OkHttpClient
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CaptchaPacket;
+import neo.deobf.CaptchaPacket;
 import okhttp3.OkHttpClient;
 
 public interface CaptchaSolverApi {

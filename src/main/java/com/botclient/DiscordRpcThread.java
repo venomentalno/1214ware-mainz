@@ -1,7 +1,7 @@
-package com.botclient;
+package neo.deobf;
 
 import java.util.Objects;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 public class DiscordRpcThread extends Thread {
     public DiscordRpcThread(DiscordRpcThreadToken x0) {
@@ -18,12 +18,12 @@ public class DiscordRpcThread extends Thread {
             while (true) {
                 if (Minecraft.player != null) {
                     String serverState;
-                    if (MinecraftClient.getInstance().isSingleplayer()) {
+                    if (Minecraft.getMinecraft().isSingleplayer()) {
                         serverState = "Singleplayer";
                     } else if ((DiscordRPCModule.hideServer).value) {
                         serverState = "Hidden";
                     } else {
-                        serverState = Objects.requireNonNull(MinecraftClient.getInstance().getCurrentServerData()).serverIP;
+                        serverState = Objects.requireNonNull(Minecraft.getMinecraft().getCurrentServerData()).serverIP;
                     }
                     DiscordRpc.update("Version: " + Client.VERSION_TYPE, "Server: " + serverState);
                 } else {

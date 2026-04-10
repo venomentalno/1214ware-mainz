@@ -5,11 +5,11 @@
  *  neo.deobf.Setting
  *  neo.deobf.Theme
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
-import com.botclient.Setting;
-import com.botclient.Theme;
+import neo.deobf.Setting;
+import neo.deobf.Theme;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

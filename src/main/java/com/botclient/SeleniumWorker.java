@@ -12,17 +12,17 @@
  *  org.jsoup.Jsoup
  *  org.jsoup.nodes.Document
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.io.IOException;
-import com.botclient.TextSetting;
-import com.botclient.BooleanSetting;
-import com.botclient.ModeSetting;
-import com.botclient.WebSolverModule;
-import com.botclient.SeleniumJob;
-import com.botclient.ChatUtils;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.TextSetting;
+import neo.deobf.BooleanSetting;
+import neo.deobf.ModeSetting;
+import neo.deobf.WebSolverModule;
+import neo.deobf.SeleniumJob;
+import neo.deobf.ChatUtils;
+import net.minecraft.client.Minecraft;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -77,7 +77,7 @@ public class SeleniumWorker {
             }
         } else if ((WebSolverModule.solverType).is("Chrome")) {
             try {
-                String neoChromePath = new File((MinecraftClient.getInstance().gameDir), "/NeoWare/Chrome/").getAbsolutePath();
+                String neoChromePath = new File((Minecraft.getMinecraft().gameDir), "/NeoWare/Chrome/").getAbsolutePath();
                 String proxyServer = "";
                 if ((SeleniumWorker.getUseProxy().value)) {
                     proxyServer = "--proxy-server=\\\\\\\"" + (this.seleniumData).getProxy().getType().name().toLowerCase() + "://" + (this.seleniumData).getProxy().getProxy() + "\\\\\\\" ";

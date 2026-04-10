@@ -9,28 +9,28 @@
  *  neo.deobf.NotificationType
  *  neo.deobf.NotificationEntry
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.entity.PlayerEntitySP
+ *  net.minecraft.client.entity.EntityPlayerSP
  *  net.minecraft.client.gui.GuiChat
  *  net.minecraft.client.gui.GuiScreen
  *  net.minecraft.client.gui.ScaledResolution
  *  net.minecraft.client.settings.GameSettings
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.botclient.Render2DEvent;
-import com.botclient.EventTarget;
-import com.botclient.ModuleCategory;
-import com.botclient.Module;
-import com.botclient.NotificationType;
-import com.botclient.NotificationEntry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import neo.deobf.Render2DEvent;
+import neo.deobf.EventTarget;
+import neo.deobf.ModuleCategory;
+import neo.deobf.Module;
+import neo.deobf.NotificationType;
+import neo.deobf.NotificationEntry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.Window;
-import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.settings.GameSettings;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -67,7 +67,7 @@ extends Module {
     public void onUpdate(Render2DEvent event) {
         (notifies).forEach(notify -> notify.updateAnimation());
         (notifies).removeIf(NotificationEntry::updateAnimation);
-        NotificationsModule.render(new ScaledResolution(mc));
+        NotificationsModule.render(new ScaledResolution(Minecraft.getMinecraft()));
     }
 
 public static void notify(String title, String text, NotificationType type, int second) {

@@ -4,16 +4,16 @@
  * Could not load the following classes:
  *  neo.deobf.FileManager
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.io.IOException;
-import com.botclient.FileManager;
+import neo.deobf.FileManager;
 
 /*
  * Exception performing whole class analysis ignored.
  */
-public abstract class CustomFile {
+public static abstract class CustomFile {
     public final String name;
     public final File file;
     public final boolean load;

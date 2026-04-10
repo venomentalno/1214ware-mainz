@@ -11,9 +11,9 @@
  *  neo.deobf.AltAccount
  *  neo.deobf.AltManager
  *  neo.deobf.AddAltScreen
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.util.text.TextFormatting
  */
-package com.botclient;
+package neo.deobf;
 
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
@@ -21,11 +21,11 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import java.net.Proxy;
-import com.botclient.AltStatus;
-import com.botclient.AltAccount;
-import com.botclient.AltManager;
-import com.botclient.AddAltScreen;
-import net.minecraft.util.Formatting;
+import neo.deobf.AltStatus;
+import neo.deobf.AltAccount;
+import neo.deobf.AltManager;
+import neo.deobf.AddAltScreen;
+import net.minecraft.util.text.TextFormatting;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -41,16 +41,16 @@ AddAltThread(AddAltScreen bl, String username, String password) {
         this.this$0 = bl;
         this.username = username;
         this.password = password;
-        AddAltScreen.access$000((AddAltScreen)bl, (String)(Formatting.GRAY + "Idle..."));
+        AddAltScreen.access$000((AddAltScreen)bl, (String)(TextFormatting.GRAY + "Idle..."));
     }
 
     @Override
     public void run() {
         if (this.password.equals("")) {
             AltManager.addAccount((AltAccount)new AltAccount(this.username, ""));
-            AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(Formatting.GREEN + "Added alt - " + ChatFormatting.RED + this.username + ChatFormatting.BOLD + "(non license)"));
+            AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(TextFormatting.GREEN + "Added alt - " + ChatFormatting.RED + this.username + ChatFormatting.BOLD + "(non license)"));
         } else {
-            AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(Formatting.AQUA + "Trying connect..."));
+            AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(TextFormatting.AQUA + "Trying connect..."));
             this.callGetNO_PROXY(this.username, this.password);
         }
     }
@@ -64,15 +64,15 @@ AddAltThread(AddAltScreen bl, String username, String password) {
             try {
                 auth.logIn();
                 AltManager.addAccount((AltAccount)new AltAccount(username, password, auth.getSelectedProfile().getName(), AltStatus.Working));
-                AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(Formatting.GREEN + "Added alt - " + ChatFormatting.RED + this.username + ChatFormatting.BOLD + "(license)"));
+                AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(TextFormatting.GREEN + "Added alt - " + ChatFormatting.RED + this.username + ChatFormatting.BOLD + "(license)"));
             }
             catch (AuthenticationException var7) {
-                AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(Formatting.RED + "Connect failed!"));
+                AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(TextFormatting.RED + "Connect failed!"));
                 var7.printStackTrace();
             }
         }
         catch (Throwable e) {
-            AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(Formatting.RED + "Error"));
+            AddAltScreen.access$000((AddAltScreen)this.this$0, (String)(TextFormatting.RED + "Error"));
             e.printStackTrace();
         }
     }

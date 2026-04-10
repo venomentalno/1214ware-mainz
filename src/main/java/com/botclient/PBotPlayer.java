@@ -1,6 +1,6 @@
 /*
  * Decompiled with CFR 0.152.
- *
+ * 
  * Could not load the following classes:
  *  com.google.common.collect.Sets
  *  javax.annotation.Nullable
@@ -11,34 +11,34 @@
  *  neo.deobf.PBotNetHandlerPlayClient
  *  neo.deobf.PBotPlayerController
  *  neo.deobf.ScriptManager
- *  net.minecraft.block.state.BlockState
- *  net.minecraft.client.network.PlayerListEntry
+ *  net.minecraft.block.state.IBlockState
+ *  net.minecraft.client.network.NetworkPlayerInfo
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.IJumpingMount
- *  net.minecraft.village.Merchant
+ *  net.minecraft.entity.IMerchant
  *  net.minecraft.entity.MoverType
- *  net.minecraft.entity.BoatEntity
+ *  net.minecraft.entity.item.EntityBoat
  *  net.minecraft.entity.item.EntityItem
- *  net.minecraft.entity.passive.HorseEntity
- *  net.minecraft.entity.player.PlayerEntity
- *  net.minecraft.entity.player.PlayerEntity$EnumChatVisibility
+ *  net.minecraft.entity.passive.AbstractHorse
+ *  net.minecraft.entity.player.EntityPlayer
+ *  net.minecraft.entity.player.EntityPlayer$EnumChatVisibility
  *  net.minecraft.entity.player.EnumPlayerModelParts
  *  net.minecraft.entity.player.InventoryPlayer
  *  net.minecraft.entity.player.PlayerCapabilities
  *  net.minecraft.init.Items
  *  net.minecraft.init.MobEffects
- *  net.minecraft.screen.ScreenHandler
- *  net.minecraft.screen.ScreenHandlerBeacon
- *  net.minecraft.screen.ScreenHandlerBrewingStand
- *  net.minecraft.screen.ScreenHandlerChest
- *  net.minecraft.screen.ScreenHandlerDispenser
- *  net.minecraft.screen.ScreenHandlerEnchantment
- *  net.minecraft.screen.ScreenHandlerFurnace
- *  net.minecraft.screen.ScreenHandlerHopper
- *  net.minecraft.screen.ScreenHandlerHorseInventory
- *  net.minecraft.screen.ScreenHandlerMerchant
- *  net.minecraft.screen.ScreenHandlerRepair
- *  net.minecraft.screen.ScreenHandlerShulkerBox
+ *  net.minecraft.inventory.Container
+ *  net.minecraft.inventory.ContainerBeacon
+ *  net.minecraft.inventory.ContainerBrewingStand
+ *  net.minecraft.inventory.ContainerChest
+ *  net.minecraft.inventory.ContainerDispenser
+ *  net.minecraft.inventory.ContainerEnchantment
+ *  net.minecraft.inventory.ContainerFurnace
+ *  net.minecraft.inventory.ContainerHopper
+ *  net.minecraft.inventory.ContainerHorseInventory
+ *  net.minecraft.inventory.ContainerMerchant
+ *  net.minecraft.inventory.ContainerRepair
+ *  net.minecraft.inventory.ContainerShulkerBox
  *  net.minecraft.inventory.EntityEquipmentSlot
  *  net.minecraft.inventory.IInventory
  *  net.minecraft.item.Item
@@ -49,21 +49,21 @@
  *  net.minecraft.network.datasync.DataParameter
  *  net.minecraft.network.datasync.EntityDataManager
  *  net.minecraft.network.play.client.CPacketAnimation
- *  net.minecraft.network.play.client.ChatMessageC2SPacket
+ *  net.minecraft.network.play.client.CPacketChatMessage
  *  net.minecraft.network.play.client.CPacketClientSettings
  *  net.minecraft.network.play.client.CPacketClientStatus
  *  net.minecraft.network.play.client.CPacketClientStatus$State
- *  net.minecraft.network.play.client.CloseHandledScreenC2SPacket
+ *  net.minecraft.network.play.client.CPacketCloseWindow
  *  net.minecraft.network.play.client.CPacketEntityAction
  *  net.minecraft.network.play.client.CPacketEntityAction$Action
  *  net.minecraft.network.play.client.CPacketInput
- *  net.minecraft.network.play.client.PlayerMoveC2SPacket
- *  net.minecraft.network.play.client.PlayerMoveC2SPacket$Position
- *  net.minecraft.network.play.client.PlayerMoveC2SPacket$PositionRotation
- *  net.minecraft.network.play.client.PlayerMoveC2SPacket$Rotation
- *  net.minecraft.network.play.client.PlayerMoveC2SPacketAbilities
- *  net.minecraft.network.play.client.PlayerActionC2SPacket
- *  net.minecraft.network.play.client.PlayerActionC2SPacket$Action
+ *  net.minecraft.network.play.client.CPacketPlayer
+ *  net.minecraft.network.play.client.CPacketPlayer$Position
+ *  net.minecraft.network.play.client.CPacketPlayer$PositionRotation
+ *  net.minecraft.network.play.client.CPacketPlayer$Rotation
+ *  net.minecraft.network.play.client.CPacketPlayerAbilities
+ *  net.minecraft.network.play.client.CPacketPlayerDigging
+ *  net.minecraft.network.play.client.CPacketPlayerDigging$Action
  *  net.minecraft.network.play.client.CPacketRecipeInfo
  *  net.minecraft.network.play.client.CPacketVehicleMove
  *  net.minecraft.potion.Potion
@@ -76,9 +76,9 @@
  *  net.minecraft.tileentity.TileEntitySign
  *  net.minecraft.tileentity.TileEntityStructure
  *  net.minecraft.util.DamageSource
- *  net.minecraft.util.math.Direction
- *  net.minecraft.util.Hand
- *  net.minecraft.util.HandSide
+ *  net.minecraft.util.EnumFacing
+ *  net.minecraft.util.EnumHand
+ *  net.minecraft.util.EnumHandSide
  *  net.minecraft.util.MovementInput
  *  net.minecraft.util.SoundEvent
  *  net.minecraft.util.math.AxisAlignedBB
@@ -86,87 +86,96 @@
  *  net.minecraft.util.math.MathHelper
  *  net.minecraft.util.math.Vec2f
  *  net.minecraft.util.math.Vec3d
- *  net.minecraft.util.text.Text
+ *  net.minecraft.util.text.ITextComponent
  *  net.minecraft.world.GameType
  *  net.minecraft.world.IBlockAccess
  *  net.minecraft.world.IInteractionObject
  *  net.minecraft.world.World
  */
-package com.botclient;
+package neo.deobf;
 
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
-import com.botclient.Client;
-import com.botclient.PBot;
-import com.botclient.BotKeyState;
-import com.botclient.PBotMinecraft;
-import com.botclient.PBotNetHandlerPlayClient;
-import com.botclient.PBotPlayerController;
-import com.botclient.ScriptManager;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.network.PlayerListEntry;
+import neo.deobf.Client;
+import neo.deobf.PBot;
+import neo.deobf.BotKeyState;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.PBotNetHandlerPlayClient;
+import neo.deobf.PBotPlayerController;
+import neo.deobf.ScriptManager;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IJumpingMount;
-import net.minecraft.village.Merchant;
+import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.BoatEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.passive.HorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.AbstractHorse;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
-import net.minecraft.entity.player.PlayerInventory;
-// Removed: PlayerCapabilities replaced
-import net.minecraft.registry.Registries;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerBeacon;
-import net.minecraft.screen.ScreenHandlerBrewingStand;
-import net.minecraft.screen.ScreenHandlerChest;
-import net.minecraft.screen.ScreenHandlerDispenser;
-import net.minecraft.screen.ScreenHandlerEnchantment;
-import net.minecraft.screen.ScreenHandlerFurnace;
-import net.minecraft.screen.ScreenHandlerHopper;
-import net.minecraft.screen.ScreenHandlerHorseInventory;
-import net.minecraft.screen.ScreenHandlerMerchant;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.ScreenHandlerShulkerBox;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
+import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerBeacon;
+import net.minecraft.inventory.ContainerBrewingStand;
+import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.ContainerDispenser;
+import net.minecraft.inventory.ContainerEnchantment;
+import net.minecraft.inventory.ContainerFurnace;
+import net.minecraft.inventory.ContainerHopper;
+import net.minecraft.inventory.ContainerHorseInventory;
+import net.minecraft.inventory.ContainerMerchant;
+import net.minecraft.inventory.ContainerRepair;
+import net.minecraft.inventory.ContainerShulkerBox;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacketAbilities;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.network.play.client.CPacketAnimation;
+import net.minecraft.network.play.client.CPacketChatMessage;
+import net.minecraft.network.play.client.CPacketClientSettings;
+import net.minecraft.network.play.client.CPacketClientStatus;
+import net.minecraft.network.play.client.CPacketCloseWindow;
+import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketInput;
+import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerAbilities;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.network.play.client.CPacketRecipeInfo;
+import net.minecraft.network.play.client.CPacketVehicleMove;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.RecipeBook;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatisticsManager;
-// Removed: CommandBlockBaseLogic changed in 1.21.4
-// Removed: TileEntity not used directly in 1.21.4
-// Removed: TileEntity not used directly in 1.21.4
-// Removed: TileEntity not used directly in 1.21.4
+import net.minecraft.tileentity.CommandBlockBaseLogic;
+import net.minecraft.tileentity.TileEntityCommandBlock;
+import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.tileentity.TileEntityStructure;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.Box;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.text.Text;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameType;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
@@ -174,7 +183,7 @@ import net.minecraft.world.World;
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class PBotPlayer
-extends PlayerEntity {
+extends EntityPlayer {
     public float prevTimeInPortal;
     public double lastReportedPosZ;
     public float renderArmYaw;
@@ -192,7 +201,7 @@ extends PlayerEntity {
     public boolean autoJumpEnabled;
     public int sprintToggleTimer;
     public int horseJumpPowerCounter;
-    public Hand activeHand;
+    public EnumHand activeHand;
     public final Set<EnumPlayerModelParts> setModelParts = Sets.newHashSet((Object[])EnumPlayerModelParts.values());
     public final RecipeBook recipeBook;
     public int autoJumpTime;
@@ -307,7 +316,7 @@ extends PlayerEntity {
     }
 
     public void openGuiHorseInventory(AbstractHorse horse, IInventory inventoryIn) {
-        this.openContainer = (Container)new ContainerHorseInventory((IInventory)PBotPlayer.getInventory10(this), inventoryIn, horse, (PlayerEntity)this);
+        this.openContainer = (Container)new ContainerHorseInventory((IInventory)PBotPlayer.getInventory10(this), inventoryIn, horse, (EntityPlayer)this);
     }
 
     private static MovementInput getMovementInput3(PBotPlayer instance) {
@@ -350,7 +359,7 @@ extends PlayerEntity {
             for (EnumPlayerModelParts enumplayermodelparts : (this.setModelParts)) {
                 i |= enumplayermodelparts.getPartMask();
             }
-            (this.pbot).sendPacket((Packet)new CPacketClientSettings("en_us", 4, (PlayerEntity.EnumChatVisibility.FULL), true, i, (HandSide.RIGHT)));
+            (this.pbot).sendPacket((Packet)new CPacketClientSettings("en_us", 4, (EntityPlayer.EnumChatVisibility.FULL), true, i, (EnumHandSide.RIGHT)));
         }
     }
 
@@ -381,10 +390,10 @@ extends PlayerEntity {
             float f13 = (float)((vec3d13.x) * (vec3d12.x) + (vec3d13.z) * (vec3d12.z));
             if (f13 >= -0.150000036f) {
                 BlockPos blockpos = new BlockPos((this.posX), (this.getEntityBoundingBox().maxY), (this.posZ));
-                BlockState iblockstate = (this.world).getBlockState(blockpos);
+                IBlockState iblockstate = (this.world).getBlockState(blockpos);
                 if (iblockstate.getCollisionBoundingBox((IBlockAccess)(this.world), blockpos) == null) {
                     blockpos = blockpos.up();
-                    BlockState iblockstate1 = (this.world).getBlockState(blockpos);
+                    IBlockState iblockstate1 = (this.world).getBlockState(blockpos);
                     if (iblockstate1.getCollisionBoundingBox((IBlockAccess)(this.world), blockpos) == null) {
                         float f14;
                         float f7 = 1.20000005f;
@@ -417,14 +426,14 @@ extends PlayerEntity {
                             int i = 1;
                             while (!((float)i >= f7)) {
                                 BlockPos blockpos2 = blockpos1.up(i);
-                                BlockState iblockstate2 = (this.world).getBlockState(blockpos2);
+                                IBlockState iblockstate2 = (this.world).getBlockState(blockpos2);
                                 AxisAlignedBB axisalignedbb1 = iblockstate2.getCollisionBoundingBox((IBlockAccess)(this.world), blockpos2);
                                 if (axisalignedbb1 != null && (double)(f11 = (float)(axisalignedbb1.maxY) + (float)blockpos2.getY()) - (this.getEntityBoundingBox().minY) > (double)f7) {
                                     return;
                                 }
                                 if (i > (1)) {
                                     blockpos = blockpos.up();
-                                    BlockState iblockstate3 = (this.world).getBlockState(blockpos);
+                                    IBlockState iblockstate3 = (this.world).getBlockState(blockpos);
                                     if (iblockstate3.getCollisionBoundingBox((IBlockAccess)(this.world), blockpos) != null) {
                                         return;
                                     }
@@ -562,7 +571,7 @@ extends PlayerEntity {
     }
 
     public void closeScreen() {
-        (this.connection).sendPacket((Packet)new CloseHandledScreenC2SPacket((PBotPlayer.getOpenContainer(this).windowId)));
+        (this.connection).sendPacket((Packet)new CPacketCloseWindow((PBotPlayer.getOpenContainer(this).windowId)));
         this.closeScreenAndDropStack();
     }
 
@@ -580,8 +589,8 @@ extends PlayerEntity {
 
     @Nullable
     public EntityItem dropItem(boolean dropAll) {
-        PlayerActionC2SPacket.Action cpacketplayerdigging$action = dropAll ? (PlayerActionC2SPacket.Action.DROP_ALL_ITEMS) : (PlayerActionC2SPacket.Action.DROP_ITEM);
-        (this.connection).sendPacket((Packet)new PlayerActionC2SPacket(cpacketplayerdigging$action, (BlockPos.ORIGIN), (Direction.DOWN)));
+        CPacketPlayerDigging.Action cpacketplayerdigging$action = dropAll ? (CPacketPlayerDigging.Action.DROP_ALL_ITEMS) : (CPacketPlayerDigging.Action.DROP_ITEM);
+        (this.connection).sendPacket((Packet)new CPacketPlayerDigging(cpacketplayerdigging$action, (BlockPos.ORIGIN), (EnumFacing.DOWN)));
         return null;
     }
 
@@ -597,7 +606,7 @@ extends PlayerEntity {
         if ((this.world).isBlockLoaded(new BlockPos((this.posX), 0.0, (this.posZ)))) {
             super.onUpdate();
             if (this.isRiding()) {
-                (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket.Rotation((this.rotationYaw), (this.rotationPitch), (this.onGround)));
+                (this.connection).sendPacket((Packet)new CPacketPlayer.Rotation((this.rotationYaw), (this.rotationPitch), (this.onGround)));
                 (this.connection).sendPacket((Packet)new CPacketInput((this.moveStrafing), (this.moveVertical), (PBotPlayer.getMovementInput(this).jump), (PBotPlayer.getMovementInput35(this).sneak)));
                 Entity entity = this.getLowestRidingEntity();
                 if (entity != this && entity.canPassengerSteer()) {
@@ -618,7 +627,7 @@ extends PlayerEntity {
     }
 
     public void sendChatMessage(String message) {
-        (this.connection).sendPacket((Packet)new ChatMessageC2SPacket(message));
+        (this.connection).sendPacket((Packet)new CPacketChatMessage(message));
     }
 
     public boolean isAutoJumpEnabled() {
@@ -725,7 +734,7 @@ extends PlayerEntity {
         return instance.inventory;
     }
 
-    private static void setActiveHand(PBotPlayer instance, Hand enumHand) {
+    private static void setActiveHand(PBotPlayer instance, EnumHand enumHand) {
         instance.activeHand = enumHand;
     }
 
@@ -761,7 +770,7 @@ extends PlayerEntity {
         return instance.timeInPortal;
     }
 
-    public void swingArm(Hand hand) {
+    public void swingArm(EnumHand hand) {
         super.swingArm(hand);
         (this.connection).sendPacket((Packet)new CPacketAnimation(hand));
     }
@@ -930,14 +939,14 @@ extends PlayerEntity {
     }
 
     public void sendPlayerAbilities() {
-        (this.connection).sendPacket((Packet)new PlayerMoveC2SPacketAbilities((this.capabilities)));
+        (this.connection).sendPacket((Packet)new CPacketPlayerAbilities((this.capabilities)));
     }
 
     public void sendHorseInventory() {
         (this.connection).sendPacket((Packet)new CPacketEntityAction((Entity)this, (CPacketEntityAction.Action.OPEN_INVENTORY)));
     }
 
-    private static Hand getActiveHand(PBotPlayer instance) {
+    private static EnumHand getActiveHand(PBotPlayer instance) {
         return instance.activeHand;
     }
 
@@ -971,7 +980,7 @@ extends PlayerEntity {
     }
 
     public PBotPlayer(PBot pbot) {
-        super((World)pbot.world, pbot.getPlayHandler().getGameProfile());
+        super((World)pbot.getWorld(), pbot.getPlayHandler().getGameProfile());
         this.permissionLevel = 0;
         this.autoJumpEnabled = 1;
         this.pbot = pbot;
@@ -1066,7 +1075,7 @@ extends PlayerEntity {
         return instance.rotationPitch;
     }
 
-    public void setActiveHand(Hand hand) {
+    public void setActiveHand(EnumHand hand) {
         ItemStack itemstack = this.getHeldItem(hand);
         if (!itemstack.isEmpty() && !this.isHandActive()) {
             super.setActiveHand(hand);
@@ -1079,7 +1088,7 @@ extends PlayerEntity {
         return instance.capabilities;
     }
 
-    public void sendStatusMessage(Text chatComponent, boolean actionBar) {
+    public void sendStatusMessage(ITextComponent chatComponent, boolean actionBar) {
         if (actionBar) {
             // empty if block
         }
@@ -1108,7 +1117,7 @@ extends PlayerEntity {
     public void onEnchantmentCritical(Entity entityHit) {
     }
 
-    public void openBook(ItemStack stack, Hand hand) {
+    public void openBook(ItemStack stack, EnumHand hand) {
         Item item = stack.getItem();
         if (item == (Items.WRITABLE_BOOK)) {
             // empty if block
@@ -1119,7 +1128,7 @@ extends PlayerEntity {
         return instance.movementInput;
     }
 
-    public void sendMessage(Text component) {
+    public void sendMessage(ITextComponent component) {
     }
 
     private static PBotMinecraft getMc3(PBotPlayer instance) {
@@ -1169,7 +1178,7 @@ extends PlayerEntity {
             if ("minecraft:enchanting_table".equals(s)) {
                 this.openContainer = (Container)new ContainerEnchantment(PBotPlayer.getInventory11(this), PBotPlayer.getWorld15(this));
             } else if ("minecraft:anvil".equals(s)) {
-                this.openContainer = (Container)new ContainerRepair(PBotPlayer.getInventory(this), PBotPlayer.getWorld11(this), (PlayerEntity)this);
+                this.openContainer = (Container)new ContainerRepair(PBotPlayer.getInventory(this), PBotPlayer.getWorld11(this), (EntityPlayer)this);
             }
         }
     }
@@ -1222,9 +1231,9 @@ extends PlayerEntity {
         String s;
         String string = s = chestInventory instanceof IInteractionObject ? ((IInteractionObject)chestInventory).getGuiID() : "minecraft:container";
         if ("minecraft:chest".equals(s)) {
-            this.openContainer = (Container)new ContainerChest((IInventory)PBotPlayer.getInventory12(this), chestInventory, (PlayerEntity)this);
+            this.openContainer = (Container)new ContainerChest((IInventory)PBotPlayer.getInventory12(this), chestInventory, (EntityPlayer)this);
         } else if ("minecraft:hopper".equals(s)) {
-            this.openContainer = (Container)new ContainerHopper(PBotPlayer.getInventory4(this), chestInventory, (PlayerEntity)this);
+            this.openContainer = (Container)new ContainerHopper(PBotPlayer.getInventory4(this), chestInventory, (EntityPlayer)this);
         } else if ("minecraft:furnace".equals(s)) {
             this.openContainer = (Container)new ContainerFurnace(PBotPlayer.getInventory6(this), chestInventory);
         } else if ("minecraft:brewing_stand".equals(s)) {
@@ -1233,9 +1242,9 @@ extends PlayerEntity {
             this.openContainer = (Container)new ContainerBeacon((IInventory)PBotPlayer.getInventory2(this), chestInventory);
         } else if (!"minecraft:dispenser".equals(s) && !"minecraft:dropper".equals(s)) {
             if ("minecraft:shulker_box".equals(s)) {
-                this.openContainer = (Container)new ContainerShulkerBox(PBotPlayer.getInventory3(this), chestInventory, (PlayerEntity)this);
+                this.openContainer = (Container)new ContainerShulkerBox(PBotPlayer.getInventory3(this), chestInventory, (EntityPlayer)this);
             } else {
-                this.openContainer = (Container)new ContainerChest((IInventory)PBotPlayer.getInventory13(this), chestInventory, (PlayerEntity)this);
+                this.openContainer = (Container)new ContainerChest((IInventory)PBotPlayer.getInventory13(this), chestInventory, (EntityPlayer)this);
             }
         } else {
             this.openContainer = (Container)new ContainerDispenser((IInventory)PBotPlayer.getInventory5(this), chestInventory);
@@ -1325,7 +1334,7 @@ extends PlayerEntity {
         this.serverBrand = brand;
     }
 
-    public Hand getActiveHand() {
+    public EnumHand getActiveHand() {
         return (this.activeHand);
     }
 
@@ -1378,16 +1387,16 @@ extends PlayerEntity {
             int flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 0.00089999999999999998 || (this.positionUpdateTicks) >= (20) ? 1 : 0;
             int n = flag3 = d3 != 0.0 || d4 != 0.0 ? 1 : 0;
             if (this.isRiding()) {
-                (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket.PositionRotation((this.motionX), -999.0, (this.motionZ), (this.rotationYaw), (this.rotationPitch), (this.onGround)));
+                (this.connection).sendPacket((Packet)new CPacketPlayer.PositionRotation((this.motionX), -999.0, (this.motionZ), (this.rotationYaw), (this.rotationPitch), (this.onGround)));
                 flag2 = 0;
             } else if (flag2 != 0 && flag3 != 0) {
-                (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket.PositionRotation((this.posX), (this.posY), (this.posZ), (this.rotationYaw), (this.rotationPitch), (this.onGround)));
+                (this.connection).sendPacket((Packet)new CPacketPlayer.PositionRotation((this.posX), (this.posY), (this.posZ), (this.rotationYaw), (this.rotationPitch), (this.onGround)));
             } else if (flag2 != 0) {
-                (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket.Position((this.posX), (this.posY), (this.posZ), (this.onGround)));
+                (this.connection).sendPacket((Packet)new CPacketPlayer.Position((this.posX), (this.posY), (this.posZ), (this.onGround)));
             } else if (flag3 != 0) {
-                (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket.Rotation((this.rotationYaw), (this.rotationPitch), (this.onGround)));
+                (this.connection).sendPacket((Packet)new CPacketPlayer.Rotation((this.rotationYaw), (this.rotationPitch), (this.onGround)));
             } else if ((this.prevOnGround) != (this.onGround)) {
-                (this.connection).sendPacket((Packet)new PlayerMoveC2SPacket((this.onGround)));
+                (this.connection).sendPacket((Packet)new CPacketPlayer((this.onGround)));
             }
             if (flag2 != 0) {
                 this.lastReportedPosX = PBotPlayer.getPosX13(this);
@@ -1411,9 +1420,9 @@ extends PlayerEntity {
     public void notifyDataManagerChange(DataParameter<?> key) {
         super.notifyDataManagerChange(key);
         if ((HAND_STATES).equals(key)) {
-            Hand enumhand;
+            EnumHand enumhand;
             int flag = ((Byte)(this.dataManager).get((HAND_STATES)) & (1)) > 0 ? 1 : 0;
-            Hand enumHand = enumhand = ((Byte)(this.dataManager).get((HAND_STATES)) & (2)) > 0 ? (Hand.OFF_HAND) : (Hand.MAIN_HAND);
+            EnumHand enumHand = enumhand = ((Byte)(this.dataManager).get((HAND_STATES)) & (2)) > 0 ? (EnumHand.OFF_HAND) : (EnumHand.MAIN_HAND);
             if (flag != 0 && !(this.handActive)) {
                 this.setActiveHand(enumhand);
             } else if (flag == 0 && (this.handActive)) {
@@ -1462,3 +1471,4 @@ extends PlayerEntity {
     }
 
 }
+

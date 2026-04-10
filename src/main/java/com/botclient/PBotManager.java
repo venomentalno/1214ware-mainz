@@ -7,12 +7,12 @@
  *  neo.deobf.NickManager
  *  neo.deobf.ProxyManager
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CaptchaManager;
-import com.botclient.BotTickExecutor;
-import com.botclient.NickManager;
-import com.botclient.ProxyManager;
+import neo.deobf.CaptchaManager;
+import neo.deobf.BotTickExecutor;
+import neo.deobf.NickManager;
+import neo.deobf.ProxyManager;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

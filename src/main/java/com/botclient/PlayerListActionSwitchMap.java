@@ -4,8 +4,9 @@
  * Could not load the following classes:
  *  net.minecraft.network.play.server.SPacketPlayerListItem$Action
  */
-package com.botclient;
+package neo.deobf;
 
+import net.minecraft.network.play.server.SPacketPlayerListItem;
 
 /*
  * Exception performing whole class analysis ignored.

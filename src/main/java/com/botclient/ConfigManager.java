@@ -8,7 +8,7 @@
  *  net.minecraft.client.Minecraft
  *  org.apache.commons.io.FileUtils
  */
-package com.botclient;
+package neo.deobf;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -18,8 +18,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Objects;
-import com.botclient.ConfigSerializer;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.ConfigSerializer;
+import net.minecraft.client.Minecraft;
 import org.apache.commons.io.FileUtils;
 
 /*
@@ -41,7 +41,7 @@ public final class ConfigManager {
 
     public void saveConfig(String name) {
         try {
-            FileUtils.writeByteArrayToFile((File)new File((MinecraftClient.getInstance().gameDir), "/NeoWare/configs/" + name + ".cfg"), (byte[])ConfigSerializer.save().toString().getBytes((StandardCharsets.UTF_8)));
+            FileUtils.writeByteArrayToFile((File)new File((Minecraft.getMinecraft().gameDir), "/NeoWare/configs/" + name + ".cfg"), (byte[])ConfigSerializer.save().toString().getBytes((StandardCharsets.UTF_8)));
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public final class ConfigManager {
 
     public void loadConfig(String name) {
         try {
-            ConfigSerializer.load((JsonObject)new JsonParser().parse(Objects.requireNonNull(ConfigManager.readUsingFiles(new File((MinecraftClient.getInstance().gameDir), "/NeoWare/configs/" + name + ".cfg")))).getAsJsonObject());
+            ConfigSerializer.load((JsonObject)new JsonParser().parse(Objects.requireNonNull(ConfigManager.readUsingFiles(new File((Minecraft.getMinecraft().gameDir), "/NeoWare/configs/" + name + ".cfg")))).getAsJsonObject());
         }
         catch (Exception e) {
             e.printStackTrace();

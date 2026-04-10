@@ -3,17 +3,17 @@
  * 
  * Could not load the following classes:
  *  neo.deobf.Event
- *  net.minecraft.entity.player.PlayerEntity
+ *  net.minecraft.entity.player.EntityPlayer
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.Event;
-import net.minecraft.entity.player.PlayerEntity;
+import neo.deobf.Event;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class NameTagRenderEvent
 implements Event {
     public boolean canceled;
-    public PlayerEntity player;
+    public EntityPlayer player;
     public Runnable callback;
 
     public boolean isCanceled() {
@@ -24,16 +24,16 @@ implements Event {
         t.canceled = value;
     }
 
-    public NameTagRenderEvent(PlayerEntity player, Runnable callback) {
+    public NameTagRenderEvent(EntityPlayer player, Runnable callback) {
         this.player = player;
         this.callback = callback;
     }
 
-    public PlayerEntity getPlayer() {
+    public EntityPlayer getPlayer() {
         return (this.player);
     }
 
-    private static PlayerEntity getPlayer(NameTagRenderEvent instance) {
+    private static EntityPlayer getPlayer(NameTagRenderEvent instance) {
         return instance.player;
     }
 

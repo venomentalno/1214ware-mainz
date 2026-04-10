@@ -4,7 +4,7 @@
  * Could not load the following classes:
  *  neo.deobf.NotificationType
  *  neo.deobf.AnimationState
- *  neo.deobf.TextRendererEx
+ *  neo.deobf.FontRendererEx
  *  neo.deobf.FontRegistry
  *  neo.deobf.GlowUtils
  *  neo.deobf.DrawUtils
@@ -12,18 +12,18 @@
  *  net.minecraft.client.gui.ScaledResolution
  *  net.minecraft.util.ResourceLocation
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
-import com.botclient.NotificationType;
-import com.botclient.AnimationState;
-import com.botclient.TextRendererEx;
-import com.botclient.FontRegistry;
-import com.botclient.GlowUtils;
-import com.botclient.DrawUtils;
-import com.botclient.RoundedUtils;
-import net.minecraft.client.util.Window;
-import net.minecraft.util.Identifier;
+import neo.deobf.NotificationType;
+import neo.deobf.AnimationState;
+import neo.deobf.FontRendererEx;
+import neo.deobf.FontRegistry;
+import neo.deobf.GlowUtils;
+import neo.deobf.DrawUtils;
+import neo.deobf.RoundedUtils;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.ResourceLocation;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -60,11 +60,11 @@ public class NotificationEntry {
         GlowUtils.drawGlow((float)((float)((double)w - (double)(this.width + 29.0f) * anim - 2.0)), (float)((float)h + yOffset - 2.0f), (float)(this.width + 27.0f), (float)21.0f, (int)(6), (Color)new Color(12, 12, 12, 150));
         RoundedUtils.drawRound((float)((float)((double)w - (double)(this.width + 29.0f) * anim - 2.0)), (float)((float)h + yOffset - 2.0f), (float)(this.width + 27.0f), (float)21.0f, (float)2.0f, (Color)new Color(12, 12, 12, 170));
         if (this.type == NotificationType.ERROR) {
-            DrawUtils.drawImage((ResourceLocation)new Identifier(NotificationEntry.mxtieDDnrj("Ж›ЖђЖљЖ‚Ж”Ж‡ЖђЗљЖњЖЖ”Ж’ЖђЖ†ЗљЖ›ЖљЖЃЖњЖ“ЖЊЗљЖђЖ‡Ж‡ЖљЖ‡З›Ж…Ж›Ж’")), (float)((float)((double)w - (double)(this.width + 29.0f) * anim)), (float)((float)h + yOffset + 2.0f), (float)15.0f, (float)15.0f, (Color)new Color(255, 255, 255));
+            DrawUtils.drawImage((ResourceLocation)new ResourceLocation(NotificationEntry.mxtieDDnrj("Ж›ЖђЖљЖ‚Ж”Ж‡ЖђЗљЖњЖЖ”Ж’ЖђЖ†ЗљЖ›ЖљЖЃЖњЖ“ЖЊЗљЖђЖ‡Ж‡ЖљЖ‡З›Ж…Ж›Ж’")), (float)((float)((double)w - (double)(this.width + 29.0f) * anim)), (float)((float)h + yOffset + 2.0f), (float)15.0f, (float)15.0f, (Color)new Color(255, 255, 255));
         } else if (this.type == NotificationType.INFO) {
-            DrawUtils.drawImage((ResourceLocation)new Identifier(NotificationEntry.mxtieDDnrj("Ж›ЖђЖљЖ‚Ж”Ж‡ЖђЗљЖњЖЖ”Ж’ЖђЖ†ЗљЖ›ЖљЖЃЖњЖ“ЖЊЗљЖњЖ›Ж“ЖљЗ›Ж…Ж›Ж’")), (float)((float)((double)w - (double)(this.width + 29.0f) * anim)), (float)((float)h + yOffset + 2.0f), (float)15.0f, (float)15.0f, (Color)new Color(255, 255, 255));
+            DrawUtils.drawImage((ResourceLocation)new ResourceLocation(NotificationEntry.mxtieDDnrj("Ж›ЖђЖљЖ‚Ж”Ж‡ЖђЗљЖњЖЖ”Ж’ЖђЖ†ЗљЖ›ЖљЖЃЖњЖ“ЖЊЗљЖњЖ›Ж“ЖљЗ›Ж…Ж›Ж’")), (float)((float)((double)w - (double)(this.width + 29.0f) * anim)), (float)((float)h + yOffset + 2.0f), (float)15.0f, (float)15.0f, (Color)new Color(255, 255, 255));
         } else if (this.type == NotificationType.SUCCESS) {
-            DrawUtils.drawImage((ResourceLocation)new Identifier(NotificationEntry.mxtieDDnrj("Ж›ЖђЖљЖ‚Ж”Ж‡ЖђЗљЖњЖЖ”Ж’ЖђЖ†ЗљЖ›ЖљЖЃЖњЖ“ЖЊЗљЖ†ЖЂЖ–Ж–ЖђЖ†Ж†З›Ж…Ж›Ж’")), (float)((float)((double)w - (double)(this.width + 29.0f) * anim)), (float)((float)h + yOffset + 2.0f), (float)15.0f, (float)15.0f, (Color)new Color(255, 255, 255));
+            DrawUtils.drawImage((ResourceLocation)new ResourceLocation(NotificationEntry.mxtieDDnrj("Ж›ЖђЖљЖ‚Ж”Ж‡ЖђЗљЖњЖЖ”Ж’ЖђЖ†ЗљЖ›ЖљЖЃЖњЖ“ЖЊЗљЖ†ЖЂЖ–Ж–ЖђЖ†Ж†З›Ж…Ж›Ж’")), (float)((float)((double)w - (double)(this.width + 29.0f) * anim)), (float)((float)h + yOffset + 2.0f), (float)15.0f, (float)15.0f, (Color)new Color(255, 255, 255));
         }
         FontRegistry.mnstb_14.drawString(this.text, (float)((double)w - (double)(this.width + 29.0f) * anim + 20.0), (float)h + yOffset + 12.0f, new Color(255, 255, 255).getRGB());
         FontRegistry.mnstb_14.drawString(this.title, (float)((double)w - (double)(this.width + 29.0f) * anim + 20.0), (float)h + yOffset + 4.0f, new Color(255, 255, 255).getRGB());

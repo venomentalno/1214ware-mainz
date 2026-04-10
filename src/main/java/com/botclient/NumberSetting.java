@@ -4,10 +4,10 @@
  * Could not load the following classes:
  *  neo.deobf.Setting
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.function.Supplier;
-import com.botclient.Setting;
+import neo.deobf.Setting;
 
 public class NumberSetting
 extends Setting {

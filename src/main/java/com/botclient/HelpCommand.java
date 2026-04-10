@@ -9,14 +9,14 @@
  *  neo.deobf.CommandManager
  *  neo.deobf.CommandChatListener
  */
-package com.botclient;
+package neo.deobf;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.botclient.CommandInfo;
-import com.botclient.Command;
-import com.botclient.Client;
-import com.botclient.CommandManager;
-import com.botclient.CommandChatListener;
+import neo.deobf.CommandInfo;
+import neo.deobf.Command;
+import neo.deobf.Client;
+import neo.deobf.CommandManager;
+import neo.deobf.CommandChatListener;
 
 @CommandInfo(name="help", description="Help")
 public class HelpCommand

@@ -5,10 +5,10 @@
  *  neo.deobf.Event
  *  net.minecraft.client.gui.ScaledResolution
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.Event;
-import net.minecraft.client.util.Window;
+import neo.deobf.Event;
+import net.minecraft.client.gui.ScaledResolution;
 
 public class Render2DEvent
 implements Event {

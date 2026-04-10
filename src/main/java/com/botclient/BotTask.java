@@ -9,14 +9,14 @@
  *  neo.deobf.BotDebugModule
  *  neo.deobf.ChatUtils
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.BooleanSetting;
-import com.botclient.PBot;
-import com.botclient.PBotMinecraft;
-import com.botclient.BotController;
-import com.botclient.BotDebugModule;
-import com.botclient.ChatUtils;
+import neo.deobf.BooleanSetting;
+import neo.deobf.PBot;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.BotController;
+import neo.deobf.BotDebugModule;
+import neo.deobf.ChatUtils;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

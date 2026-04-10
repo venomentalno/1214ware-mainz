@@ -5,10 +5,10 @@
  *  neo.deobf.CancellableEvent
  *  neo.deobf.Event
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
-import com.botclient.Event;
+import neo.deobf.CancellableEvent;
+import neo.deobf.Event;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

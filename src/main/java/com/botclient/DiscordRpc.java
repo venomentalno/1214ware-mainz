@@ -11,16 +11,16 @@
  *  neo.deobf.DiscordRpcThread
  *  neo.deobf.DiscordRpcButton
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.Client;
-import com.botclient.DiscordEventHandlersBuilder;
-import com.botclient.DiscordEventHandlers;
-import com.botclient.DiscordRichPresenceBuilder;
-import com.botclient.DiscordRpcLibrary;
-import com.botclient.DiscordUser;
-import com.botclient.DiscordRpcThread;
-import com.botclient.DiscordRpcButton;
+import neo.deobf.Client;
+import neo.deobf.DiscordEventHandlersBuilder;
+import neo.deobf.DiscordEventHandlers;
+import neo.deobf.DiscordRichPresenceBuilder;
+import neo.deobf.DiscordRpcLibrary;
+import neo.deobf.DiscordUser;
+import neo.deobf.DiscordRpcThread;
+import neo.deobf.DiscordRpcButton;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

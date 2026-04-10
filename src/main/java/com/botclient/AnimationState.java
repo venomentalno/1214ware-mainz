@@ -5,9 +5,9 @@
  *  net.minecraft.client.Minecraft
  *  net.minecraft.util.math.MathHelper
  */
-package com.botclient;
+package neo.deobf;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.MathHelper;
 
 /*
@@ -68,11 +68,11 @@ public class AnimationState {
     }
 
     public double getDrop() {
-        return this.dropAnimation((this.prevAnimationState) + ((this.animationState) - (this.prevAnimationState)) * (double)MinecraftClient.getInstance().getRenderPartialTicks());
+        return this.dropAnimation((this.prevAnimationState) + ((this.animationState) - (this.prevAnimationState)) * (double)Minecraft.getMinecraft().getRenderPartialTicks());
     }
 
     public double get() {
-        return this.createAnimation((this.prevAnimationState) + ((this.animationState) - (this.prevAnimationState)) * (double)MinecraftClient.getInstance().getRenderPartialTicks());
+        return this.createAnimation((this.prevAnimationState) + ((this.animationState) - (this.prevAnimationState)) * (double)Minecraft.getMinecraft().getRenderPartialTicks());
     }
 
 }

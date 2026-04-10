@@ -9,18 +9,18 @@
  *  neo.deobf.ServerAddressUtils
  *  net.minecraft.client.Minecraft
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.net.InetSocketAddress;
-import com.botclient.CommandInfo;
-import com.botclient.Command;
-import com.botclient.CommandChatListener;
-import com.botclient.ChatUtils;
-import com.botclient.ServerAddressUtils;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.CommandInfo;
+import neo.deobf.Command;
+import neo.deobf.CommandChatListener;
+import neo.deobf.ChatUtils;
+import neo.deobf.ServerAddressUtils;
+import net.minecraft.client.Minecraft;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

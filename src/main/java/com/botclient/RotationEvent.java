@@ -4,9 +4,9 @@
  * Could not load the following classes:
  *  neo.deobf.CancellableEvent
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
+import neo.deobf.CancellableEvent;
 
 public class RotationEvent
 extends CancellableEvent {

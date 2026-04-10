@@ -17,30 +17,29 @@
  *  neo.deobf.ConfigManager
  *  neo.deobf.EventBus
  *  net.minecraft.client.Minecraft
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.util.text.TextFormatting
  */
-package com.botclient;
+package neo.deobf;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.botclient.TextSetting;
-import com.botclient.Setting;
-import com.botclient.Client;
-import com.botclient.ModuleCategory;
-import com.botclient.BooleanSetting;
-import com.botclient.ColorSetting;
-import com.botclient.ModeSetting;
-import com.botclient.NumberSetting;
-import com.botclient.NotificationType;
-import com.botclient.NotificationsModule;
-import com.botclient.ConfigManager;
-import com.botclient.EventBus;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import neo.deobf.TextSetting;
+import neo.deobf.Setting;
+import neo.deobf.Client;
+import neo.deobf.ModuleCategory;
+import neo.deobf.BooleanSetting;
+import neo.deobf.ColorSetting;
+import neo.deobf.ModeSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.NotificationType;
+import neo.deobf.NotificationsModule;
+import neo.deobf.ConfigManager;
+import neo.deobf.EventBus;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -50,7 +49,7 @@ public class Module {
     public String suffix;
     public final ModuleCategory moduleCategory;
     public final String moduleName;
-    public static MinecraftClient mc;
+    public static Minecraft mc;
     public boolean moduleState;
     public int moduleKey;
     public boolean opened = 1;
@@ -65,7 +64,7 @@ public class Module {
     }
 
     static {
-        mc = MinecraftClient.getInstance();
+        mc = Minecraft.getMinecraft();
         String[] stringArray = new String[6];
         stringArray[0] = "ClickGui";
         stringArray[1] = "DiscordRPC";
@@ -167,7 +166,7 @@ public void load(JsonObject object) {
             exception.printStackTrace();
         }
         if (Arrays.stream((noDebugModules)).noneMatch((this.moduleName)::equals) && !(this.moduleCategory).equals((Object)(ModuleCategory.Themes))) {
-            NotificationsModule.notify((String)"Module Debug", (String)((this.moduleName) + " was " + (Formatting.RED) + "disabled!"), (NotificationType)(NotificationType.SUCCESS), (int)(4));
+            NotificationsModule.notify((String)"Module Debug", (String)((this.moduleName) + " was " + (TextFormatting.RED) + "disabled!"), (NotificationType)(NotificationType.SUCCESS), (int)(4));
         }
         EventBus.unregister((Object)this);
     }
@@ -226,7 +225,7 @@ public void load(JsonObject object) {
             exception.printStackTrace();
         }
         if (Arrays.stream((noDebugModules)).noneMatch((this.moduleName)::equals) && !(this.moduleCategory).equals((Object)(ModuleCategory.Themes))) {
-            NotificationsModule.notify((String)"Module Debug", (String)((this.moduleName) + " was " + (Formatting.GREEN) + "enabled!"), (NotificationType)(NotificationType.SUCCESS), (int)(4));
+            NotificationsModule.notify((String)"Module Debug", (String)((this.moduleName) + " was " + (TextFormatting.GREEN) + "enabled!"), (NotificationType)(NotificationType.SUCCESS), (int)(4));
         }
         EventBus.register((Object)this);
     }

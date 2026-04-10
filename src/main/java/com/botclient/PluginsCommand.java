@@ -8,26 +8,27 @@
  *  neo.deobf.ChatUtils
  *  neo.deobf.ThreadUtils
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.entity.PlayerEntitySP
+ *  net.minecraft.client.entity.EntityPlayerSP
  *  net.minecraft.client.multiplayer.ServerData
  *  net.minecraft.client.network.NetHandlerPlayClient
  *  net.minecraft.network.Packet
  *  net.minecraft.network.play.client.CPacketTabComplete
  *  org.apache.commons.lang3.StringUtils
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.Objects;
-import com.botclient.CommandInfo;
-import com.botclient.Command;
-import com.botclient.CommandChatListener;
-import com.botclient.ChatUtils;
-import com.botclient.ThreadUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import neo.deobf.CommandInfo;
+import neo.deobf.Command;
+import neo.deobf.CommandChatListener;
+import neo.deobf.ChatUtils;
+import neo.deobf.ThreadUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketTabComplete;
 import org.apache.commons.lang3.StringUtils;
 
 /*
@@ -41,15 +42,15 @@ extends Command {
     public final char[] alphabet;
     public static StringBuilder plugins;
 
-    private static PlayerEntitySP getPlayer2() {
+    private static EntityPlayerSP getPlayer2() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer3() {
+    private static EntityPlayerSP getPlayer3() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer4() {
+    private static EntityPlayerSP getPlayer4() {
         return Minecraft.player;
     }
 
@@ -76,7 +77,7 @@ extends Command {
                 for (int i = 0; i < n; ++i) {
                     char s = cArray[i];
                     (PluginsCommand.getPlayer4().connection).sendPacket((Packet)new CPacketTabComplete("/" + s, (Minecraft.player).getPosition(), false));
-                    if (s == (114) && (Objects.requireNonNull(MinecraftClient.getInstance().getCurrentServerData()).serverIP).toLowerCase().contains("reallyworld")) {
+                    if (s == (114) && (Objects.requireNonNull(Minecraft.getMinecraft().getCurrentServerData()).serverIP).toLowerCase().contains("reallyworld")) {
                         ThreadUtils.sleep((long)200L);
                         (PluginsCommand.getPlayer2().connection).sendPacket((Packet)new CPacketTabComplete("/rw", (Minecraft.player).getPosition(), false));
                         ThreadUtils.sleep((long)200L);
@@ -104,7 +105,7 @@ extends Command {
         }).start();
     }
 
-    private static PlayerEntitySP getPlayer7() {
+    private static EntityPlayerSP getPlayer7() {
         return Minecraft.player;
     }
 
@@ -157,11 +158,11 @@ extends Command {
         this.alphabet = cArray;
     }
 
-    private static PlayerEntitySP getPlayer10() {
+    private static EntityPlayerSP getPlayer10() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer11() {
+    private static EntityPlayerSP getPlayer11() {
         return Minecraft.player;
     }
 
@@ -169,11 +170,11 @@ extends Command {
         ChatUtils.formatMsg((String)((CommandChatListener.PREFIX) + "plugins - Получить список плагинов сервера."));
     }
 
-    private static PlayerEntitySP getPlayer13() {
+    private static EntityPlayerSP getPlayer13() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer14() {
+    private static EntityPlayerSP getPlayer14() {
         return Minecraft.player;
     }
 

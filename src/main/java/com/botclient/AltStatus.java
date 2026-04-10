@@ -1,12 +1,12 @@
-package com.botclient;
+package neo.deobf;
 
-import net.minecraft.util.Formatting;
+import net.minecraft.util.text.TextFormatting;
 
 public enum AltStatus {
-    Working(Formatting.GREEN + "Working"),
-    Banned(Formatting.RED + "Banned"),
-    Unchecked(Formatting.YELLOW + "Unchecked"),
-    NotWorking(Formatting.RED + "Not Working");
+    Working(TextFormatting.GREEN + "Working"),
+    Banned(TextFormatting.RED + "Banned"),
+    Unchecked(TextFormatting.YELLOW + "Unchecked"),
+    NotWorking(TextFormatting.RED + "Not Working");
 
     public final String formatted;
 

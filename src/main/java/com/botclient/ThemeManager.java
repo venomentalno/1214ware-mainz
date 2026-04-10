@@ -4,11 +4,11 @@
  * Could not load the following classes:
  *  neo.deobf.Theme
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import com.botclient.Theme;
+import neo.deobf.Theme;
 
 public class ThemeManager {
     public ArrayList<Theme> themes = new ArrayList();

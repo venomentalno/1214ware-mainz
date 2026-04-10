@@ -12,45 +12,46 @@
  *  neo.deobf.MovementUtils
  *  neo.deobf.PacketReceiveEvent
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.network.OtherClientPlayerEntity
- *  net.minecraft.client.entity.PlayerEntitySP
- *  net.minecraft.client.multiplayer.ClientWorld
+ *  net.minecraft.client.entity.EntityOtherPlayerMP
+ *  net.minecraft.client.entity.EntityPlayerSP
+ *  net.minecraft.client.multiplayer.WorldClient
  *  net.minecraft.client.network.NetHandlerPlayClient
  *  net.minecraft.client.settings.GameSettings
  *  net.minecraft.client.settings.KeyBinding
  *  net.minecraft.entity.Entity
  *  net.minecraft.entity.player.InventoryPlayer
  *  net.minecraft.entity.player.PlayerCapabilities
- *  net.minecraft.screen.ScreenHandler
+ *  net.minecraft.inventory.Container
  *  net.minecraft.network.Packet
- *  net.minecraft.network.play.client.PlayerMoveC2SPacket$Position
+ *  net.minecraft.network.play.client.CPacketPlayer$Position
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.world.World
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.UpdateEvent;
-import com.botclient.Render2DEvent;
-import com.botclient.EventTarget;
-import com.botclient.Setting;
-import com.botclient.ModuleCategory;
-import com.botclient.NumberSetting;
-import com.botclient.Module;
-import com.botclient.MovementUtils;
-import com.botclient.PacketReceiveEvent;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.OtherClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
+import neo.deobf.UpdateEvent;
+import neo.deobf.Render2DEvent;
+import neo.deobf.EventTarget;
+import neo.deobf.Setting;
+import neo.deobf.ModuleCategory;
+import neo.deobf.NumberSetting;
+import neo.deobf.Module;
+import neo.deobf.MovementUtils;
+import neo.deobf.PacketReceiveEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerInventory;
-// Removed: PlayerCapabilities replaced
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.util.math.Box;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
+import net.minecraft.inventory.Container;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 /*
@@ -63,7 +64,7 @@ extends Module {
     public double y;
     public double x;
 
-    private static float getRotationYawHead(PlayerEntitySP entityPlayerSP) {
+    private static float getRotationYawHead(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.rotationYawHead;
     }
 
@@ -71,7 +72,7 @@ extends Module {
     public void onScreen(Render2DEvent e) {
     }
 
-    private static PlayerEntitySP getPlayer() {
+    private static EntityPlayerSP getPlayer() {
         return Minecraft.player;
     }
 @EventTarget
@@ -81,11 +82,11 @@ extends Module {
         }
     }
 
-    private static PlayerEntitySP getPlayer2() {
+    private static EntityPlayerSP getPlayer2() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer3() {
+    private static EntityPlayerSP getPlayer3() {
         return Minecraft.player;
     }
 
@@ -96,19 +97,19 @@ extends Module {
         this.addSetting(settings);
     }
 
-    private static double getPosX(PlayerEntitySP entityPlayerSP) {
+    private static double getPosX(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.posX;
     }
 
-    private static double getPosY(PlayerEntitySP entityPlayerSP) {
+    private static double getPosY(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.posY;
     }
 
-    private static PlayerEntitySP getPlayer4() {
+    private static EntityPlayerSP getPlayer4() {
         return Minecraft.player;
     }
 
-    private static PlayerCapabilities getCapabilities(PlayerEntitySP entityPlayerSP) {
+    private static PlayerCapabilities getCapabilities(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.capabilities;
     }
 
@@ -120,7 +121,7 @@ extends Module {
         this.x = FreeCamModule.getPosX(FreeCamModule.getPlayer18());
         this.y = FreeCamModule.getPosY(FreeCamModule.getPlayer11());
         this.z = FreeCamModule.getPosZ2(FreeCamModule.getPlayer16());
-        ClientWorld worldClient = ((mc).world);
+        WorldClient worldClient = ((mc).world);
         EntityOtherPlayerMP ent = new EntityOtherPlayerMP((World)worldClient, (Minecraft.player).getGameProfile());
         ent.inventory = FreeCamModule.getInventory(FreeCamModule.getPlayer20());
         ent.inventoryContainer = FreeCamModule.getInventoryContainer(FreeCamModule.getPlayer10());
@@ -129,12 +130,12 @@ extends Module {
         double d2 = (FreeCamModule.getPlayer6().getEntityBoundingBox().minY);
         double d3 = (this.z);
         float f = (FreeCamModule.getPlayer13().rotationYaw);
-        ent.setPositionAndRotation(d, d2, d3, f, (FreeCamModule.player.rotationPitch));
+        ent.setPositionAndRotation(d, d2, d3, f, (FreeCamModule.getPlayer().rotationPitch));
         ent.rotationYawHead = FreeCamModule.getRotationYawHead(FreeCamModule.getPlayer3());
         ((mc).world).addEntityToWorld(-1, (Entity)ent);
     }
 
-    private static PlayerEntitySP getPlayer5() {
+    private static EntityPlayerSP getPlayer5() {
         return Minecraft.player;
     }
 
@@ -154,7 +155,7 @@ extends Module {
         MovementUtils.setSpeed((double)(FreeCamModule.getSpeed2(this).value));
     }
 
-    private static PlayerEntitySP getPlayer6() {
+    private static EntityPlayerSP getPlayer6() {
         return Minecraft.player;
     }
 
@@ -162,19 +163,19 @@ extends Module {
         return instance.speed;
     }
 
-    private static PlayerEntitySP getPlayer8() {
+    private static EntityPlayerSP getPlayer8() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer9() {
+    private static EntityPlayerSP getPlayer9() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer10() {
+    private static EntityPlayerSP getPlayer10() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer11() {
+    private static EntityPlayerSP getPlayer11() {
         return Minecraft.player;
     }
 
@@ -186,11 +187,11 @@ extends Module {
         return gameSettings.keyBindSneak;
     }
 
-    private static PlayerEntitySP getPlayer12() {
+    private static EntityPlayerSP getPlayer12() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer13() {
+    private static EntityPlayerSP getPlayer13() {
         return Minecraft.player;
     }
 
@@ -198,31 +199,31 @@ extends Module {
         return instance.value;
     }
 
-    private static PlayerEntitySP getPlayer14() {
+    private static EntityPlayerSP getPlayer14() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer15() {
+    private static EntityPlayerSP getPlayer15() {
         return Minecraft.player;
     }
 
-    private static double getPosZ2(PlayerEntitySP entityPlayerSP) {
+    private static double getPosZ2(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.posZ;
     }
 
-    private static PlayerEntitySP getPlayer16() {
+    private static EntityPlayerSP getPlayer16() {
         return Minecraft.player;
     }
 
-    private static Container getInventoryContainer(PlayerEntitySP entityPlayerSP) {
+    private static Container getInventoryContainer(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.inventoryContainer;
     }
 
-    private static InventoryPlayer getInventory(PlayerEntitySP entityPlayerSP) {
+    private static InventoryPlayer getInventory(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.inventory;
     }
 
-    private static PlayerEntitySP getPlayer18() {
+    private static EntityPlayerSP getPlayer18() {
         return Minecraft.player;
     }
 
@@ -234,19 +235,19 @@ extends Module {
         return instance.value;
     }
 
-    private static PlayerEntitySP getPlayer20() {
+    private static EntityPlayerSP getPlayer20() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer21() {
+    private static EntityPlayerSP getPlayer21() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer22() {
+    private static EntityPlayerSP getPlayer22() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer23() {
+    private static EntityPlayerSP getPlayer23() {
         return Minecraft.player;
     }
 
@@ -258,7 +259,7 @@ extends Module {
         return instance.speed;
     }
 
-    private static PlayerEntitySP getPlayer25() {
+    private static EntityPlayerSP getPlayer25() {
         return Minecraft.player;
     }
 
@@ -269,7 +270,7 @@ extends Module {
         double d = (FreeCamModule.getPlayer21().posX);
         double d2 = (FreeCamModule.getPlayer4().posY) + 0.01;
         double d3 = (FreeCamModule.getPlayer25().posZ);
-        netHandlerPlayClient.sendPacket((Packet)new PlayerMoveC2SPacket.Position(d, d2, d3, (FreeCamModule.getPlayer5().onGround)));
+        netHandlerPlayClient.sendPacket((Packet)new CPacketPlayer.Position(d, d2, d3, (FreeCamModule.getPlayer5().onGround)));
         FreeCamModule.getCapabilities(FreeCamModule.getPlayer9()).isFlying = false;
         FreeCamModule.getPlayer8().noClip = false;
         ((mc).world).removeEntityFromWorld(-1);

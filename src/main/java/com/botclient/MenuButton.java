@@ -3,17 +3,17 @@
  * 
  * Could not load the following classes:
  *  neo.deobf.AnimationUtils
- *  neo.deobf.TextRendererEx
+ *  neo.deobf.FontRendererEx
  *  neo.deobf.FontRegistry
  *  neo.deobf.RoundedUtils
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
-import com.botclient.AnimationUtils;
-import com.botclient.TextRendererEx;
-import com.botclient.FontRegistry;
-import com.botclient.RoundedUtils;
+import neo.deobf.AnimationUtils;
+import neo.deobf.FontRendererEx;
+import neo.deobf.FontRegistry;
+import neo.deobf.RoundedUtils;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

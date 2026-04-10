@@ -6,11 +6,11 @@
  *  io.netty.util.concurrent.GenericFutureListener
  *  net.minecraft.network.Packet
  */
-package com.botclient;
+package neo.deobf;
 
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 
 /*
  * Exception performing whole class analysis ignored.

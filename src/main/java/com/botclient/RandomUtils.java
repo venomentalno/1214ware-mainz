@@ -4,10 +4,10 @@
  * Could not load the following classes:
  *  neo.deobf.MinecraftContext
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.Random;
-import com.botclient.MinecraftContext;
+import neo.deobf.MinecraftContext;
 
 public class RandomUtils
 implements MinecraftContext {

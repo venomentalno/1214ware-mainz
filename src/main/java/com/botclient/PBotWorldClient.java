@@ -15,7 +15,7 @@
  *  neo.deobf.BotSettingsModule
  *  neo.deobf.ChatUtils
  *  neo.deobf.CachedChunkProvider
- *  net.minecraft.block.state.BlockState
+ *  net.minecraft.block.state.IBlockState
  *  net.minecraft.client.multiplayer.ChunkProviderClient
  *  net.minecraft.entity.Entity
  *  net.minecraft.network.Packet
@@ -25,8 +25,8 @@
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.util.math.BlockPos
  *  net.minecraft.util.math.MathHelper
- *  net.minecraft.util.text.Text
- *  net.minecraft.util.text.LiteralTextContent
+ *  net.minecraft.util.text.ITextComponent
+ *  net.minecraft.util.text.TextComponentString
  *  net.minecraft.world.DimensionType
  *  net.minecraft.world.EnumDifficulty
  *  net.minecraft.world.World
@@ -39,7 +39,7 @@
  *  net.minecraft.world.storage.WorldInfo
  *  org.jetbrains.annotations.NotNull
  */
-package com.botclient;
+package neo.deobf;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
@@ -48,27 +48,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nullable;
-import com.botclient.BooleanSetting;
-import com.botclient.NumberSetting;
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.PBotNetHandlerPlayClient;
-import com.botclient.BotDebugModule;
-import com.botclient.BotSettingsModule;
-import com.botclient.ChatUtils;
-import com.botclient.CachedChunkProvider;
-import net.minecraft.block.BlockState;
+import neo.deobf.BooleanSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.PBotNetHandlerPlayClient;
+import neo.deobf.BotDebugModule;
+import neo.deobf.BotSettingsModule;
+import neo.deobf.ChatUtils;
+import neo.deobf.CachedChunkProvider;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.network.packet.Packet;
-// Removed: import net.minecraft.profiler.Profiler;
+import net.minecraft.network.Packet;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.IntHashMap;
-import net.minecraft.util.math.Box;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.text.Text;
-import net.minecraft.text.Text;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -84,7 +84,7 @@ import org.jetbrains.annotations.NotNull;
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
-class PBotClientWorld
+public class PBotWorldClient
 extends World {
     public final Set<Entity> entitySpawnQueue;
     public static ChunkProviderClient clientChunkProvider;
@@ -101,7 +101,7 @@ extends World {
         }
     }
 
-    public PBotClientWorld(PBot bot, PBotNetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
+    public PBotWorldClient(PBot bot, PBotNetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn) {
         super((ISaveHandler)new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById((int)dimension).createDimension(), profilerIn, true);
         this.entitySpawnQueue = Sets.newHashSet();
         this.pbot = bot;
@@ -175,7 +175,7 @@ extends World {
     @NotNull
     public Chunk getChunk(int chunkX, int chunkZ) {
         Chunk chunk = (clientChunkProvider).provideChunk(chunkX, chunkZ);
-        chunk.setWorld((World)(this.pbot).world);
+        chunk.setWorld((World)(this.pbot).getWorld());
         chunk.resetRelightChecks();
         return chunk;
     }
@@ -191,11 +191,11 @@ extends World {
     @NotNull
     protected IChunkProvider createChunkProvider() {
         CachedChunkProvider.createChunkProvider((World)this);
-        if ((float)(PBotClientWorld.getPbot4(this).worldId) > (PBotClientWorld.getCacheAfter2().value) && (PBotClientWorld.getChunkCache().value)) {
+        if ((float)(PBotWorldClient.getPbot4(this).worldId) > (PBotWorldClient.getCacheAfter2().value) && (PBotWorldClient.getChunkCache().value)) {
             ChatUtils.formatMsg((String)("??? &d&l" + (this.pbot).getNickname() + " &f&l??????????? ???????????? ???."));
         }
         if ((clientChunkProvider) == null) {
-            clientChunkProvider = (float)(PBotClientWorld.getPbot5(this).worldId) > (PBotClientWorld.getCacheAfter().value) ? CachedChunkProvider.getChunkProvider() : new ChunkProviderClient((World)this);
+            clientChunkProvider = (float)(PBotWorldClient.getPbot5(this).worldId) > (PBotWorldClient.getCacheAfter().value) ? CachedChunkProvider.getChunkProvider() : new ChunkProviderClient((World)this);
         }
         return (clientChunkProvider);
     }
@@ -237,11 +237,11 @@ extends World {
     protected void updateWeather() {
     }
 
-    public void invalidateRegionAndSetBlock(BlockPos pos, BlockState state) {
+    public void invalidateRegionAndSetBlock(BlockPos pos, IBlockState state) {
         super.setBlockState(pos, state, 3);
     }
 
-    private static PBot getPbot4(PBotClientWorld instance) {
+    private static PBot getPbot4(PBotWorldClient instance) {
         return instance.pbot;
     }
 
@@ -262,17 +262,17 @@ extends World {
 
     @Nullable
     public Entity getEntityByID(int id) {
-        if ((this.pbot).isOnline() && (PBotClientWorld.getPbot6(this).player).getEntityId() == id) {
-            return (PBotClientWorld.getPbot7(this).player);
+        if ((this.pbot).isOnline() && (PBotWorldClient.getPbot6(this).player).getEntityId() == id) {
+            return (PBotWorldClient.getPbot7(this).player);
         }
         return super.getEntityByID(id);
     }
 
     public void sendQuittingDisconnectingPacket() {
-        (this.connection).getNetworkManager().closeChannel((Text)new LiteralTextContent("Quitting"));
+        (this.connection).getNetworkManager().closeChannel((ITextComponent)new TextComponentString("Quitting"));
     }
 
-    private static PBot getPbot5(PBotClientWorld instance) {
+    private static PBot getPbot5(PBotWorldClient instance) {
         return instance.pbot;
     }
 
@@ -299,7 +299,7 @@ extends World {
         (this.entitiesById).addKey(entityID, (Object)entityToSpawn);
     }
 
-    private static PBot getPbot6(PBotClientWorld instance) {
+    private static PBot getPbot6(PBotWorldClient instance) {
         return instance.pbot;
     }
 
@@ -312,7 +312,7 @@ extends World {
         return BotSettingsModule.cacheAfter;
     }
 
-    private static void setWorldScoreboard(PBotClientWorld instance, Scoreboard scoreboard) {
+    private static void setWorldScoreboard(PBotWorldClient instance, Scoreboard scoreboard) {
         instance.worldScoreboard = scoreboard;
     }
 
@@ -327,7 +327,7 @@ extends World {
         }
     }
 
-    private static PBot getPbot7(PBotClientWorld instance) {
+    private static PBot getPbot7(PBotWorldClient instance) {
         return instance.pbot;
     }
 }

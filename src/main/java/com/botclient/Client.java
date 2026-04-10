@@ -22,29 +22,29 @@
  *  neo.deobf.DiscordRpc
  *  neo.deobf.TickRateTracker
  */
-package com.botclient;
+package neo.deobf;
 
 import de.florianmichael.viamcp.ViaMCP;
 import java.io.IOException;
 import java.io.PrintStream;
-import com.botclient.ProxySettingsScreen;
-import com.botclient.SplashProgressRenderer;
-import com.botclient.PBotManager;
-import com.botclient.CommandManager;
-import com.botclient.ModuleManager;
-import com.botclient.ThemeManager;
-import com.botclient.FileManager;
-import com.botclient.ClickGuiScreen;
-import com.botclient.Module;
-import com.botclient.WebSolverModule;
-import com.botclient.HudModule;
-import com.botclient.ScriptManager;
-import com.botclient.TranslationMapRu;
-import com.botclient.SeleniumManager;
-import com.botclient.ConfigManager;
-import com.botclient.Theme;
-import com.botclient.DiscordRpc;
-import com.botclient.TickRateTracker;
+import neo.deobf.ProxySettingsScreen;
+import neo.deobf.SplashProgressRenderer;
+import neo.deobf.PBotManager;
+import neo.deobf.CommandManager;
+import neo.deobf.ModuleManager;
+import neo.deobf.ThemeManager;
+import neo.deobf.FileManager;
+import neo.deobf.ClickGuiScreen;
+import neo.deobf.Module;
+import neo.deobf.WebSolverModule;
+import neo.deobf.HudModule;
+import neo.deobf.ScriptManager;
+import neo.deobf.TranslationMapRu;
+import neo.deobf.SeleniumManager;
+import neo.deobf.ConfigManager;
+import neo.deobf.Theme;
+import neo.deobf.DiscordRpc;
+import neo.deobf.TickRateTracker;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

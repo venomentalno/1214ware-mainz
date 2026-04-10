@@ -4,7 +4,7 @@
  * Could not load the following classes:
  *  com.sun.jna.Callback
  */
-package com.botclient;
+package neo.deobf;
 
 import com.sun.jna.Callback;
 

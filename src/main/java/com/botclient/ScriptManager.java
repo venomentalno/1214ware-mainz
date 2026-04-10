@@ -9,7 +9,7 @@
  *  neo.deobf.ChatUtils
  *  net.minecraft.client.Minecraft
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,12 +18,12 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import com.botclient.Client;
-import com.botclient.BooleanSetting;
-import com.botclient.BotDebugModule;
-import com.botclient.BotRenderUtils;
-import com.botclient.ChatUtils;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.Client;
+import neo.deobf.BooleanSetting;
+import neo.deobf.BotDebugModule;
+import neo.deobf.BotRenderUtils;
+import neo.deobf.ChatUtils;
+import net.minecraft.client.Minecraft;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -99,7 +99,7 @@ public class ScriptManager {
             try {
                 this.engine = ScriptManager.getManager(this).getEngineByName("js");
                 (this.engine).put("ScriptAPI", new BotRenderUtils());
-                FileReader reader = new FileReader(new File((MinecraftClient.getInstance().gameDir), "/NeoWare/scripts/" + fileName + ".js"));
+                FileReader reader = new FileReader(new File((Minecraft.getMinecraft().gameDir), "/NeoWare/scripts/" + fileName + ".js"));
                 (this.engine).eval(reader);
                 (Client.getInstance().pBotsScriptManager).invokeMethod("onLoad", new Object[0]);
             }

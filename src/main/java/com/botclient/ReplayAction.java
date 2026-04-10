@@ -4,9 +4,9 @@
  * Could not load the following classes:
  *  neo.deobf.ReplayActionType
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.ReplayActionType;
+import neo.deobf.ReplayActionType;
 
 /*
  * Exception performing whole class analysis ignored.

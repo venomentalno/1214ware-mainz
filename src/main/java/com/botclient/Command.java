@@ -6,11 +6,11 @@
  *  neo.deobf.ChatUtils
  *  neo.deobf.MinecraftContext
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CommandInfo;
-import com.botclient.ChatUtils;
-import com.botclient.MinecraftContext;
+import neo.deobf.CommandInfo;
+import neo.deobf.ChatUtils;
+import neo.deobf.MinecraftContext;
 
 public abstract class Command
 implements MinecraftContext {

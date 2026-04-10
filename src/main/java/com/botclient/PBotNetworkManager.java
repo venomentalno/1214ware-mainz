@@ -39,16 +39,16 @@
  *  net.minecraft.network.Packet
  *  net.minecraft.network.ThreadQuickExitException
  *  net.minecraft.util.ITickable
- *  net.minecraft.util.text.Text
+ *  net.minecraft.util.text.ITextComponent
  *  net.minecraft.util.text.TextComponentTranslation
  *  org.apache.commons.lang3.Validate
  *  org.apache.logging.log4j.LogManager
  *  org.apache.logging.log4j.Logger
  */
-package com.botclient;
+package neo.deobf;
 
 import com.google.common.collect.Queues;
-// Removed: CompressionReorderEvent - ViaLoadingBase not available in this form for 1.21.4
+import de.florianmichael.vialoadingbase.netty.event.CompressionReorderEvent;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -67,25 +67,28 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.TimeoutException;
 import io.netty.util.AttributeKey;
-import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import java.net.InetAddress;
 import java.util.Queue;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import com.botclient.BooleanSetting;
-import com.botclient.PBot;
-import com.botclient.QueuedPacketTask;
-import com.botclient.ProxyChannelInitializer;
-import com.botclient.OutboundPacketEntry;
-import com.botclient.BotDebugModule;
-import com.botclient.ChatUtils;
-import com.botclient.ProxyInfo;
-import net.minecraft.network.listener.PacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.text.Text;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.text.Texts;
+import javax.annotation.Nullable;
+import neo.deobf.BooleanSetting;
+import neo.deobf.PBot;
+import neo.deobf.QueuedPacketTask;
+import neo.deobf.ProxyChannelInitializer;
+import neo.deobf.OutboundPacketEntry;
+import neo.deobf.BotDebugModule;
+import neo.deobf.ChatUtils;
+import neo.deobf.ProxyInfo;
+import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.NettyCompressionDecoder;
+import net.minecraft.network.NettyCompressionEncoder;
+import net.minecraft.network.Packet;
+import net.minecraft.network.ThreadQuickExitException;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,17 +99,17 @@ import org.apache.logging.log4j.Logger;
 public class PBotNetworkManager
 extends SimpleChannelInboundHandler<Packet<?>> {
     public static final EventLoopGroup group;
-    public PacketListener packetListener;
+    public INetHandler packetListener;
     public Channel channel;
     public final Queue<OutboundPacketEntry> outboundPacketsQueue = Queues.newConcurrentLinkedQueue();
     public static final Logger LOGGER;
-    public static final AttributeKey<Integer> PROTOCOL_ATTRIBUTE_KEY;
-    public Text terminationReason;
+    public static final AttributeKey<EnumConnectionState> PROTOCOL_ATTRIBUTE_KEY;
+    public ITextComponent terminationReason;
     public final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     public final PBot pbot;
     public static final Class<? extends Channel> channelClass;
 
-    public Text getExitMessage() {
+    public ITextComponent getExitMessage() {
         return (this.terminationReason);
     }
 
@@ -142,24 +145,26 @@ extends SimpleChannelInboundHandler<Packet<?>> {
             if (this.getExitMessage() != null) {
                 this.getNetHandler().onDisconnect(this.getExitMessage());
             } else if (this.getNetHandler() != null) {
-                this.getNetHandler().onDisconnect(Text.translatable("multiplayer.disconnect.generic"));
+                this.getNetHandler().onDisconnect((ITextComponent)new TextComponentTranslation("multiplayer.disconnect.generic", new Object[0]));
             }
         }
     }
 
     public void processReceivedPackets() {
         this.flushOutboundQueue();
-        // Removed: ITickable interface no longer exists in 1.21.4
+        if ((this.packetListener) instanceof ITickable) {
+            ((ITickable)(this.packetListener)).update();
+        }
         if ((this.channel) != null) {
             (this.channel).flush();
         }
     }
 
     public void channelInactive(ChannelHandlerContext p_channelInactive_1_) {
-        this.closeChannel(Text.translatable("disconnect.endOfStream"));
+        this.closeChannel((ITextComponent)new TextComponentTranslation("disconnect.endOfStream", new Object[0]));
     }
 
-    public void closeChannel(Text message) {
+    public void closeChannel(ITextComponent message) {
         if ((this.channel) != null && (this.channel).isOpen()) {
             (this.channel).close();
             this.terminationReason = message;
@@ -170,14 +175,14 @@ extends SimpleChannelInboundHandler<Packet<?>> {
         super.channelActive(p_channelActive_1_);
         this.p_channelActive_1_.channel() = p_channelActive_1_.channel();
         try {
-            this.setConnectionState(2); // HANDSHAKING state ID
+            this.setConnectionState((EnumConnectionState.HANDSHAKING));
         }
         catch (Throwable throwable) {
             (LOGGER).fatal((Object)throwable);
         }
     }
 
-    public void setConnectionState(int newState) {
+    public void setConnectionState(EnumConnectionState newState) {
         (this.channel).attr((PROTOCOL_ATTRIBUTE_KEY)).set((Object)newState);
         (this.channel).config().setAutoRead(true);
         (LOGGER).debug("Enabled auto read");
@@ -194,11 +199,11 @@ extends SimpleChannelInboundHandler<Packet<?>> {
         channelClass = Epoll.isAvailable() ? EpollSocketChannel.class : NioSocketChannel.class;
     }
 
-    public PacketListener getNetHandler() {
+    public INetHandler getNetHandler() {
         return (this.packetListener);
     }
 
-    public void setNetHandler(PacketListener handler) {
+    public void setNetHandler(INetHandler handler) {
         Validate.notNull((Object)handler, (String)"packetListener", (Object[])new Object[0]);
         (LOGGER).debug("Set listener of {} to {}", (Object)this, (Object)handler);
         this.packetListener = handler;
@@ -207,10 +212,10 @@ extends SimpleChannelInboundHandler<Packet<?>> {
     protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet<?> p_channelRead0_2_) {
         if ((this.channel).isOpen()) {
             try {
-                p_channelRead0_2_.apply((PacketListener)this.packetListener);
+                p_channelRead0_2_.processPacket((this.packetListener));
             }
-            catch (Exception exception) {
-                // Removed: ThreadQuickExitException no longer exists
+            catch (ThreadQuickExitException threadQuickExitException) {
+                // empty catch block
             }
         }
     }
@@ -222,10 +227,9 @@ private static BooleanSetting getInternalErrors() {
         return BotDebugModule.internalErrors;
     }
 
-    private void dispatchPacket(Packet<?> inPacket, @Nullable GenericFutureListener<? extends Future<? super Void>>[] futureListeners) {
-        // Removed: EnumConnectionState logic - simplified for 1.21.4
-        Integer enumconnectionstate = 2; // Default to HANDSHAKING
-        Integer enumconnectionstate1 = (Integer)(this.channel).attr((PROTOCOL_ATTRIBUTE_KEY)).get();
+    private void dispatchPacket(Packet<?> inPacket, @Nullable GenericFutureListener[] futureListeners) {
+        EnumConnectionState enumconnectionstate = EnumConnectionState.getFromPacket(inPacket);
+        EnumConnectionState enumconnectionstate1 = (EnumConnectionState)(this.channel).attr((PROTOCOL_ATTRIBUTE_KEY)).get();
         if (enumconnectionstate1 != enumconnectionstate) {
             (LOGGER).debug("Disabled auto read");
             (this.channel).config().setAutoRead(false);
@@ -306,7 +310,7 @@ private static BooleanSetting getInternalErrors() {
             textcomponenttranslation = new TextComponentTranslation("disconnect.genericReason", objectArray);
         }
         (LOGGER).debug(textcomponenttranslation.getUnformattedText(), p_exceptionCaught_2_);
-        this.closeChannel((Text)textcomponenttranslation);
+        this.closeChannel((ITextComponent)textcomponenttranslation);
     }
 
 }

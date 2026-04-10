@@ -4,9 +4,9 @@
  * Could not load the following classes:
  *  neo.deobf.Event
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.Event;
+import neo.deobf.Event;
 
 public class Render3DEvent
 implements Event {

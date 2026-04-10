@@ -6,22 +6,22 @@
  *  neo.deobf.PathBlockType
  *  neo.deobf.BlockUtils
  *  net.minecraft.block.Block
- *  net.minecraft.block.state.BlockState
+ *  net.minecraft.block.state.IBlockState
  *  net.minecraft.util.math.BlockPos
  *  net.minecraft.world.IBlockAccess
  *  net.minecraft.world.World
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.vecmath.Vector3i;
-import com.botclient.PathBlockType;
-import com.botclient.BlockUtils;
+import neo.deobf.PathBlockType;
+import neo.deobf.BlockUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 /*
@@ -106,7 +106,7 @@ public class PathBlockUtils {
     }
 
     public static boolean isTopSolid(BlockPos pos, World world) {
-        BlockState state = BlockUtils.getBlockStateByPos((World)world, (BlockPos)pos);
+        IBlockState state = BlockUtils.getBlockStateByPos((World)world, (BlockPos)pos);
         if (state == null) {
             return false;
         }
@@ -114,7 +114,7 @@ public class PathBlockUtils {
     }
 
     public static boolean isTopSolid(Vector3i pos, World world) {
-        BlockState state = BlockUtils.getBlockStateByPos((World)world, (BlockPos)BlockUtils.vec3i_toBlockPos((Vector3i)pos));
+        IBlockState state = BlockUtils.getBlockStateByPos((World)world, (BlockPos)BlockUtils.vec3i_toBlockPos((Vector3i)pos));
         if (state == null) {
             return false;
         }

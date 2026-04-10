@@ -11,28 +11,28 @@
  *  net.minecraft.network.EnumConnectionState
  *  net.minecraft.network.INetHandler
  *  net.minecraft.network.login.INetHandlerLoginClient
- *  net.minecraft.network.login.server.DisconnectS2CPacket
+ *  net.minecraft.network.login.server.SPacketDisconnect
  *  net.minecraft.network.login.server.SPacketEnableCompression
  *  net.minecraft.network.login.server.SPacketEncryptionRequest
  *  net.minecraft.network.login.server.SPacketLoginSuccess
- *  net.minecraft.util.text.Text
+ *  net.minecraft.util.text.ITextComponent
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.BooleanSetting;
-import com.botclient.PBot;
-import com.botclient.PBotNetHandlerPlayClient;
-import com.botclient.PBotNetworkManager;
-import com.botclient.BotDebugModule;
-import com.botclient.ChatUtils;
-// Removed: EnumConnectionState not in 1.21.4
-import net.minecraft.network.listener.PacketListener;
+import neo.deobf.BooleanSetting;
+import neo.deobf.PBot;
+import neo.deobf.PBotNetHandlerPlayClient;
+import neo.deobf.PBotNetworkManager;
+import neo.deobf.BotDebugModule;
+import neo.deobf.ChatUtils;
+import net.minecraft.network.EnumConnectionState;
+import net.minecraft.network.INetHandler;
 import net.minecraft.network.login.INetHandlerLoginClient;
-import net.minecraft.network.login.server.DisconnectS2CPacket;
+import net.minecraft.network.login.server.SPacketDisconnect;
 import net.minecraft.network.login.server.SPacketEnableCompression;
 import net.minecraft.network.login.server.SPacketEncryptionRequest;
 import net.minecraft.network.login.server.SPacketLoginSuccess;
-import net.minecraft.text.Text;
+import net.minecraft.util.text.ITextComponent;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -52,7 +52,7 @@ public PBotStatFileWriter(PBotNetworkManager networkManagerIn, PBot pbot) {
         this.pbot = pbot;
     }
 
-    public void onDisconnect(Text reason) {
+    public void onDisconnect(ITextComponent reason) {
     }
 
     private static BooleanSetting getDisconnect() {
@@ -75,7 +75,7 @@ public PBotStatFileWriter(PBotNetworkManager networkManagerIn, PBot pbot) {
         }
     }
 
-    public void handleDisconnect(DisconnectS2CPacket packetIn) {
+    public void handleDisconnect(SPacketDisconnect packetIn) {
         if ((PBotStatFileWriter.getDisconnect2().value)) {
             ChatUtils.formatMsg((String)("Отключение &d&l" + (this.pbot).getNickname() + "&f&l " + packetIn.getReason().getFormattedText()));
         }

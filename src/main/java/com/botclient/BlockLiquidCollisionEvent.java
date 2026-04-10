@@ -8,12 +8,12 @@
  *  net.minecraft.util.math.AxisAlignedBB
  *  net.minecraft.util.math.BlockPos
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
+import neo.deobf.CancellableEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.util.math.Box;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
 /*

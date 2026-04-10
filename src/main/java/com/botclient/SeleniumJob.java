@@ -4,9 +4,9 @@
  * Could not load the following classes:
  *  neo.deobf.ProxyInfo
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.ProxyInfo;
+import neo.deobf.ProxyInfo;
 
 public class SeleniumJob {
     public String botName;

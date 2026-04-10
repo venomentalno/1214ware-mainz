@@ -21,9 +21,9 @@
  *  neo.deobf.EventBus
  *  neo.deobf.ChatMessageEvent
  *  net.minecraft.client.Minecraft
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.util.text.TextFormatting
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -37,26 +37,26 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.FileAttribute;
 import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import com.botclient.Render2DEvent;
-import com.botclient.EventTarget;
-import com.botclient.Client;
-import com.botclient.PBotManager;
-import com.botclient.BooleanSetting;
-import com.botclient.ModeSetting;
-import com.botclient.NumberSetting;
-import com.botclient.CommandChatListener;
-import com.botclient.PBot;
-import com.botclient.CaptchaManagerModule;
-import com.botclient.NotificationType;
-import com.botclient.NotificationsModule;
-import com.botclient.ScriptManager;
-import com.botclient.CaptchaPacket;
-import com.botclient.CaptchaSolver;
-import com.botclient.DrawUtils;
-import com.botclient.EventBus;
-import com.botclient.ChatMessageEvent;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Formatting;
+import neo.deobf.Render2DEvent;
+import neo.deobf.EventTarget;
+import neo.deobf.Client;
+import neo.deobf.PBotManager;
+import neo.deobf.BooleanSetting;
+import neo.deobf.ModeSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.CommandChatListener;
+import neo.deobf.PBot;
+import neo.deobf.CaptchaManagerModule;
+import neo.deobf.NotificationType;
+import neo.deobf.NotificationsModule;
+import neo.deobf.ScriptManager;
+import neo.deobf.CaptchaPacket;
+import neo.deobf.CaptchaSolver;
+import neo.deobf.DrawUtils;
+import neo.deobf.EventBus;
+import neo.deobf.ChatMessageEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -106,7 +106,7 @@ extends CaptchaSolver {
         if ((CaptchaManager.getManualHelper().value) && (this.captchaHelper).containsKey(hash)) {
             String answer = (String)(this.captchaHelper).get(hash);
             botCaptcha.sendAnswer(answer);
-            NotificationsModule.notify((String)"ManualHelper", (String)((TextFormat.GREEN) + "Бот " + botCaptcha.getPBot().getNickname() + " Ответ " + answer), (NotificationType)(NotificationType.SUCCESS), (int)(4));
+            NotificationsModule.notify((String)"ManualHelper", (String)((TextFormatting.GREEN) + "Бот " + botCaptcha.getPBot().getNickname() + " Ответ " + answer), (NotificationType)(NotificationType.SUCCESS), (int)(4));
             return;
         }
         Object[] objectArray = new Object[2];
@@ -167,8 +167,8 @@ extends CaptchaSolver {
 
     public void saveHelper() {
         try {
-            Files.createDirectories(Paths.get((MinecraftClient.getInstance().gameDir) + "/NeoWare/ManualHelper/saved", new String[0]), new FileAttribute[0]);
-            try (PrintWriter pw = new PrintWriter(new FileWriter((MinecraftClient.getInstance().gameDir) + "/NeoWare/ManualHelper/data.txt"));){
+            Files.createDirectories(Paths.get((Minecraft.getMinecraft().gameDir) + "/NeoWare/ManualHelper/saved", new String[0]), new FileAttribute[0]);
+            try (PrintWriter pw = new PrintWriter(new FileWriter((Minecraft.getMinecraft().gameDir) + "/NeoWare/ManualHelper/data.txt"));){
                 (this.captchaHelper).forEach((k, v) -> pw.println(k + ":" + v));
             }
         }
@@ -183,8 +183,8 @@ extends CaptchaSolver {
 
     public void loadHelper() {
         try {
-            Files.createDirectories(Paths.get((MinecraftClient.getInstance().gameDir) + "/NeoWare/ManualHelper/saved", new String[0]), new FileAttribute[0]);
-            try (BufferedReader br = new BufferedReader(new FileReader((MinecraftClient.getInstance().gameDir) + "/NeoWare/ManualHelper/data.txt"));){
+            Files.createDirectories(Paths.get((Minecraft.getMinecraft().gameDir) + "/NeoWare/ManualHelper/saved", new String[0]), new FileAttribute[0]);
+            try (BufferedReader br = new BufferedReader(new FileReader((Minecraft.getMinecraft().gameDir) + "/NeoWare/ManualHelper/data.txt"));){
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] parts = line.split(":", 2);

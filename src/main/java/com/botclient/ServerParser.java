@@ -10,13 +10,13 @@
  *  org.jsoup.nodes.Element
  *  org.jsoup.select.Elements
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.PrintStream;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-import com.botclient.RandomUtils;
+import neo.deobf.RandomUtils;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.ServerPinger;
 import org.jsoup.Jsoup;

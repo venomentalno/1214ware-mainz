@@ -8,21 +8,21 @@
  *  neo.deobf.BlockUtils
  *  neo.deobf.PlaceholderFormatter
  *  net.minecraft.inventory.ClickType
- *  net.minecraft.util.math.Direction
+ *  net.minecraft.util.EnumFacing
  *  net.minecraft.util.math.BlockPos
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.CopyOnWriteArrayList;
-import com.botclient.PBot;
-import com.botclient.TranslationMapRu;
-import com.botclient.ChatUtils;
-import com.botclient.BlockUtils;
-import com.botclient.PlaceholderFormatter;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.util.math.Direction;
+import neo.deobf.PBot;
+import neo.deobf.TranslationMapRu;
+import neo.deobf.ChatUtils;
+import neo.deobf.BlockUtils;
+import neo.deobf.PlaceholderFormatter;
+import net.minecraft.inventory.ClickType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class BotRenderUtils {
@@ -79,8 +79,8 @@ public class BotRenderUtils {
         return PlaceholderFormatter.format((String)message);
     }
 
-    public Direction getDirection(String name) {
-        return Direction.byName((String)name);
+    public EnumFacing getEnumFacing(String name) {
+        return EnumFacing.byName((String)name);
     }
 
     public Color getColor(BufferedImage img, int x, int y) {

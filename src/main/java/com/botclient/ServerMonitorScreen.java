@@ -8,13 +8,13 @@
  *  neo.deobf.ServerParser
  *  neo.deobf.ClickGuiScreen
  *  neo.deobf.PBot
- *  neo.deobf.TextRendererEx
+ *  neo.deobf.FontRendererEx
  *  neo.deobf.FontRegistry
  *  neo.deobf.ShaderProgram
  *  neo.deobf.DrawUtils
  *  neo.deobf.RoundedUtils
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.gui.ButtonWidget
+ *  net.minecraft.client.gui.GuiButton
  *  net.minecraft.client.gui.GuiScreen
  *  net.minecraft.client.gui.ScaledResolution
  *  net.minecraft.client.multiplayer.ServerData
@@ -25,7 +25,7 @@
  *  org.lwjgl.opengl.GL11
  *  org.lwjgl.opengl.GL20
  */
-package com.botclient;
+package neo.deobf;
 
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.viamcp.gui.GuiProtocolSelector;
@@ -33,32 +33,32 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
-import com.botclient.MainMenuScreen;
-import com.botclient.ServerParser;
-import com.botclient.ClickGuiScreen;
-import com.botclient.PBot;
-import com.botclient.TextRendererEx;
-import com.botclient.FontRegistry;
-import com.botclient.ShaderProgram;
-import com.botclient.DrawUtils;
-import com.botclient.RoundedUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.Window;
+import neo.deobf.MainMenuScreen;
+import neo.deobf.ServerParser;
+import neo.deobf.ClickGuiScreen;
+import neo.deobf.PBot;
+import neo.deobf.FontRendererEx;
+import neo.deobf.FontRegistry;
+import neo.deobf.ShaderProgram;
+import neo.deobf.DrawUtils;
+import neo.deobf.RoundedUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.ServerPinger;
-import net.minecraft.client.render.RenderSystem;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.render.RenderSystem;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class ServerMonitorScreen
-extends Screen {
+extends GuiScreen {
     public final GuiScreen parentScreen;
 
     public void onGuiClosed() {
@@ -66,7 +66,7 @@ extends Screen {
         (ServerParser.serverPinger).clearPendingNetworks();
     }
 
-    protected void actionPerformed(ButtonWidget button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         if ((button.id) == 0) {
             (this.mc).displayGuiScreen((this.parentScreen));
         } else if ((button.id) == (1)) {
@@ -81,17 +81,17 @@ extends Screen {
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        Window window = MinecraftClient.getInstance().getWindow();
-        (MainMenuScreen.backgroundShader).useShader(window.getScaledWidth(), window.getScaledHeight(), (float)mouseX, (float)mouseY, (float)(System.currentTimeMillis() - (MainMenuScreen.time)) / 1500.0f);
-        RenderSystem.glBegin((int)(7));
-        RenderSystem.glVertex2f((float)-1.00000048f, (float)-1.0f);
-        RenderSystem.glVertex2f((float)-1.00000024f, (float)1.0f);
-        RenderSystem.glVertex2f((float)1.0f, (float)1.0f);
-        RenderSystem.glVertex2f((float)1.0f, (float)-1.00000024f);
-        RenderSystem.glEnd();
+        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        (MainMenuScreen.backgroundShader).useShader(sr.getScaledWidth(), sr.getScaledHeight(), (float)mouseX, (float)mouseY, (float)(System.currentTimeMillis() - (MainMenuScreen.time)) / 1500.0f);
+        GL11.glBegin((int)(7));
+        GL11.glVertex2f((float)-1.00000048f, (float)-1.0f);
+        GL11.glVertex2f((float)-1.00000024f, (float)1.0f);
+        GL11.glVertex2f((float)1.0f, (float)1.0f);
+        GL11.glVertex2f((float)1.0f, (float)-1.00000024f);
+        GL11.glEnd();
         GL20.glUseProgram((int)(0));
-        RenderSystem.disableCull();
-        RenderSystem.pushMatrix();
+        GlStateManager.disableCull();
+        GlStateManager.pushMatrix();
         float panelWidth = 440.0f;
         float panelHeight = 280.0f;
         RoundedUtils.drawGradientRound((float)((float)(sr.getScaledWidth() / (2)) - panelWidth / 2.0f), (float)((float)(sr.getScaledHeight() / (2)) - panelHeight / 2.0f), (float)panelWidth, (float)panelHeight, (float)8.0f, (Color)ClickGuiScreen.getC((int)(0)), (Color)ClickGuiScreen.getC((int)(250)), (Color)ClickGuiScreen.getC((int)(750)), (Color)ClickGuiScreen.getC((int)(1000)));
@@ -111,7 +111,7 @@ extends Screen {
             if ((serverData.iconRender) != null) {
                 DrawUtils.renderImage((BufferedImage)(serverData.iconRender), (int)((int)(elementX + 5.0f)), (int)((int)(elementY + 12.0f)), (int)(20), (int)(20));
             } else {
-                DrawUtils.drawImage((ResourceLocation)new Identifier("textures/misc/unknown_server.png"), (float)((int)(elementX + 5.0f)), (float)((int)(elementY + 12.0f)), (float)20.0f, (float)20.0f, (Color)new Color(255, 255, 255));
+                DrawUtils.drawImage((ResourceLocation)new ResourceLocation("textures/misc/unknown_server.png"), (float)((int)(elementX + 5.0f)), (float)((int)(elementY + 12.0f)), (float)20.0f, (float)20.0f, (Color)new Color(255, 255, 255));
             }
             if ((offsetX += 110) > (330)) {
                 offsetX = 0;
@@ -120,7 +120,7 @@ extends Screen {
             if (offsetY < (200)) continue;
             break;
         }
-        RenderSystem.popMatrix();
+        GlStateManager.popMatrix();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

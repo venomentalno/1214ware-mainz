@@ -9,29 +9,29 @@
  *  neo.deobf.DiscordRpc
  *  neo.deobf.ThreadUtils
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.entity.PlayerEntitySP
+ *  net.minecraft.client.entity.EntityPlayerSP
  *  net.minecraft.client.gui.GuiScreen
  *  org.apache.commons.codec.digest.DigestUtils
  *  org.json.JSONObject
  *  org.jsoup.Connection
  *  org.jsoup.Jsoup
  */
-package com.botclient;
+package neo.deobf;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.CRC32;
-import com.botclient.ModuleCategory;
-import com.botclient.ClickGuiScreen;
-import com.botclient.DiscordUser;
-import com.botclient.MinecraftContext;
-import com.botclient.DiscordRpc;
-import com.botclient.ThreadUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.gui.screen.Screen;
+import neo.deobf.ModuleCategory;
+import neo.deobf.ClickGuiScreen;
+import neo.deobf.DiscordUser;
+import neo.deobf.MinecraftContext;
+import neo.deobf.DiscordRpc;
+import neo.deobf.ThreadUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.GuiScreen;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.jsoup.Connection;
@@ -77,7 +77,7 @@ implements MinecraftContext {
         running = true;
         (threadPool).submit(() -> {
             while (true) {
-                if ((MinecraftClient.getInstance().currentScreen) instanceof ClickGuiScreen && (ClickGuiScreen.selectedCategory).equals((Object)(ModuleCategory.Chat))) {
+                if ((Minecraft.getMinecraft().currentScreen) instanceof ClickGuiScreen && (ClickGuiScreen.selectedCategory).equals((Object)(ModuleCategory.Chat))) {
                     BackendApi.updateChat();
                 }
                 ThreadUtils.sleep((long)5000L);

@@ -6,10 +6,10 @@
  *  neo.deobf.Event
  *  net.minecraft.block.Block
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
-import com.botclient.Event;
+import neo.deobf.CancellableEvent;
+import neo.deobf.Event;
 import net.minecraft.block.Block;
 
 /*

@@ -7,12 +7,12 @@
  *  neo.deobf.CommandChatListener
  *  neo.deobf.ChatUtils
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CommandInfo;
-import com.botclient.Command;
-import com.botclient.CommandChatListener;
-import com.botclient.ChatUtils;
+import neo.deobf.CommandInfo;
+import neo.deobf.Command;
+import neo.deobf.CommandChatListener;
+import neo.deobf.ChatUtils;
 
 @CommandInfo(name="setprefix", description="Установка префикса в командах")
 public class SetPrefixCommand

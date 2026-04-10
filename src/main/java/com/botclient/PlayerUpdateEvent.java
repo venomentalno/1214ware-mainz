@@ -6,9 +6,10 @@
  *  net.minecraft.network.play.server.SPacketPlayerListItem$Action
  *  net.minecraft.network.play.server.SPacketPlayerListItem$AddPlayerData
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
+import neo.deobf.CancellableEvent;
+import net.minecraft.network.play.server.SPacketPlayerListItem;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

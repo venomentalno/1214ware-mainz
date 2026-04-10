@@ -3,26 +3,26 @@
  * 
  * Could not load the following classes:
  *  neo.deobf.Event
- *  net.minecraft.util.HandSide
+ *  net.minecraft.util.EnumHandSide
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.Event;
-import net.minecraft.util.HandSide;
+import neo.deobf.Event;
+import net.minecraft.util.EnumHandSide;
 
 public class HandSideRenderEvent
 implements Event {
-    public final HandSide enumHandSide;
+    public final EnumHandSide enumHandSide;
 
-    public HandSideRenderEvent(HandSide enumHandSide) {
+    public HandSideRenderEvent(EnumHandSide enumHandSide) {
         this.enumHandSide = enumHandSide;
     }
 
-    public HandSide getHandSide() {
+    public EnumHandSide getEnumHandSide() {
         return (this.enumHandSide);
     }
 
-    private static HandSide getHandSide(HandSideRenderEvent instance) {
+    private static EnumHandSide getEnumHandSide(HandSideRenderEvent instance) {
         return instance.enumHandSide;
     }
 }

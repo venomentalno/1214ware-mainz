@@ -6,20 +6,20 @@
  *  neo.deobf.AbstractPathScanner
  *  neo.deobf.PathBlockUtils
  *  neo.deobf.PathNode
- *  net.minecraft.entity.player.PlayerEntity
+ *  net.minecraft.entity.player.EntityPlayer
  *  net.minecraft.world.World
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.vecmath.Vector3i;
-import com.botclient.AbstractPathScanner;
-import com.botclient.PathBlockUtils;
-import com.botclient.PathNode;
-import net.minecraft.entity.player.PlayerEntity;
+import neo.deobf.AbstractPathScanner;
+import neo.deobf.PathBlockUtils;
+import neo.deobf.PathNode;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 /*
@@ -274,7 +274,7 @@ extends AbstractPathScanner {
         return instance.pos;
     }
 
-    public boolean onUpdate(PlayerEntity player) {
+    public boolean onUpdate(EntityPlayer player) {
         return false;
     }
 

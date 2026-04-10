@@ -7,12 +7,12 @@
  *  neo.deobf.BooleanSetting
  *  neo.deobf.Module
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.Setting;
-import com.botclient.ModuleCategory;
-import com.botclient.BooleanSetting;
-import com.botclient.Module;
+import neo.deobf.Setting;
+import neo.deobf.ModuleCategory;
+import neo.deobf.BooleanSetting;
+import neo.deobf.Module;
 
 public class NoPushModule
 extends Module {

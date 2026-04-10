@@ -8,23 +8,23 @@
  *  neo.deobf.BlockUtils
  *  neo.deobf.MillisTimer
  *  neo.deobf.ThreadUtils
- *  net.minecraft.entity.projectile.FishHookEntity
+ *  net.minecraft.entity.projectile.EntityFishHook
  *  net.minecraft.init.Items
  *  net.minecraft.item.Item
  *  net.minecraft.item.ItemFishingRod
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.BotTask;
-import com.botclient.BlockUtils;
-import com.botclient.MillisTimer;
-import com.botclient.ThreadUtils;
-import net.minecraft.entity.projectile.FishHookEntity;
-import net.minecraft.registry.Registries;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.BotTask;
+import neo.deobf.BlockUtils;
+import neo.deobf.MillisTimer;
+import neo.deobf.ThreadUtils;
+import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.FishingRodItem;
+import net.minecraft.item.ItemFishingRod;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

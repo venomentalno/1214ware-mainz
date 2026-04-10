@@ -1,7 +1,7 @@
 /*
  * Decompiled with CFR 0.152.
  */
-package com.botclient;
+package neo.deobf;
 
 public class BotKeyState {
     public boolean keyBindBack;

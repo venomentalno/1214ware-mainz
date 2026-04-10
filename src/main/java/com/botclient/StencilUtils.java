@@ -7,18 +7,18 @@
  *  org.lwjgl.opengl.EXTFramebufferObject
  *  org.lwjgl.opengl.GL11
  */
-package com.botclient;
+package neo.deobf;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.shader.Framebuffer;
 import org.lwjgl.opengl.EXTFramebufferObject;
-import net.minecraft.client.render.RenderSystem;
+import org.lwjgl.opengl.GL11;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class StencilUtils {
-    public static Minecraft mc = MinecraftClient.getInstance();
+    public static Minecraft mc = Minecraft.getMinecraft();
 
     public static void setupFBO(Framebuffer framebuffer) {
         EXTFramebufferObject.glDeleteRenderbuffersEXT((int)(framebuffer.depthBuffer));
@@ -32,11 +32,11 @@ public class StencilUtils {
     public static void initStencilToWrite() {
         (mc).getFramebuffer().bindFramebuffer(false);
         StencilUtils.checkSetupFBO((mc).getFramebuffer());
-        RenderSystem.glClear((int)(1024));
-        RenderSystem.glEnable((int)(2960));
-        RenderSystem.glStencilFunc((int)(519), (int)(1), (int)(1));
-        RenderSystem.glStencilOp((int)(7681), (int)(7681), (int)(7681));
-        RenderSystem.glColorMask(false, false, false, false);
+        GL11.glClear((int)(1024));
+        GL11.glEnable((int)(2960));
+        GL11.glStencilFunc((int)(519), (int)(1), (int)(1));
+        GL11.glStencilOp((int)(7681), (int)(7681), (int)(7681));
+        GL11.glColorMask(false, false, false, false);
     }
 
     public static void checkSetupFBO(Framebuffer framebuffer) {
@@ -47,13 +47,13 @@ public class StencilUtils {
     }
 
     public static void uninitStencilBuffer() {
-        RenderSystem.glDisable((int)(2960));
+        GL11.glDisable((int)(2960));
     }
 
     public static void readStencilBuffer(int ref) {
-        RenderSystem.glColorMask(true, true, true, true);
-        RenderSystem.glStencilFunc((int)(514), (int)ref, (int)(1));
-        RenderSystem.glStencilOp((int)(7680), (int)(7680), (int)(7680));
+        GL11.glColorMask(true, true, true, true);
+        GL11.glStencilFunc((int)(514), (int)ref, (int)(1));
+        GL11.glStencilOp((int)(7680), (int)(7680), (int)(7680));
     }
 }
 

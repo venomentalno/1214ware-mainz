@@ -1,8 +1,8 @@
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.util.ArrayList;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +34,7 @@ public class FigurePatternRegistry {
             if (isUrl) {
                 content = Jsoup.connect(name).ignoreContentType(true).get().text();
             } else {
-                File file = new File(MinecraftClient.getInstance().gameDir, "/NeoWare/figures/" + name + ".json");
+                File file = new File(Minecraft.getMinecraft().gameDir, "/NeoWare/figures/" + name + ".json");
                 content = FileReadUtils.readUsingFiles(file);
             }
             if (content == null) {

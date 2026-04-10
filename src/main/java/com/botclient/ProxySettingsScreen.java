@@ -7,17 +7,17 @@
  *  neo.deobf.ProxyType
  *  neo.deobf.ProxyInfo
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.gui.TextRenderer
- *  net.minecraft.client.gui.ButtonWidget
+ *  net.minecraft.client.gui.FontRenderer
+ *  net.minecraft.client.gui.GuiButton
  *  net.minecraft.client.gui.GuiMultiplayer
  *  net.minecraft.client.gui.GuiScreen
- *  net.minecraft.client.gui.TextFieldWidget
+ *  net.minecraft.client.gui.GuiTextField
  *  net.minecraft.client.renderer.GlStateManager
  *  org.apache.commons.io.FileUtils
  *  org.json.JSONObject
  *  org.lwjgl.input.Keyboard
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,41 +26,41 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
-import com.botclient.MainMenuScreen;
-import com.botclient.PBotManager;
-import com.botclient.ProxyType;
-import com.botclient.ProxyInfo;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import neo.deobf.MainMenuScreen;
+import neo.deobf.PBotManager;
+import neo.deobf.ProxyType;
+import neo.deobf.ProxyInfo;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMultiplayer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.render.RenderSystem;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.GlStateManager;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
-import net.minecraft.client.util.InputUtil;
+import org.lwjgl.input.Keyboard;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class ProxySettingsScreen
-extends Screen {
-    public TextFieldWidget passwordField;
+extends GuiScreen {
+    public GuiTextField passwordField;
     private final int offset = 20;
     public static int type = 3;
-    public TextFieldWidget proxyField;
+    public GuiTextField proxyField;
     public static String username;
     public static String proxy;
-    public final Minecraft mc = MinecraftClient.getInstance();
+    public final Minecraft mc = Minecraft.getMinecraft();
     public static String password;
-    public TextFieldWidget usernameField;
+    public GuiTextField usernameField;
 
     private static int getWidth(ProxySettingsScreen instance) {
         return instance.width;
     }
 
-    private static TextFieldWidget getPasswordField(ProxySettingsScreen instance) {
+    private static GuiTextField getPasswordField(ProxySettingsScreen instance) {
         return instance.passwordField;
     }
 
@@ -71,14 +71,14 @@ extends Screen {
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
         if (keyCode == (28)) {
-            this.actionPerformed((ButtonWidget)(this.buttonList).get(1));
+            this.actionPerformed((GuiButton)(this.buttonList).get(1));
         }
         (this.proxyField).textboxKeyTyped(typedChar, keyCode);
         (this.usernameField).textboxKeyTyped(typedChar, keyCode);
         (this.passwordField).textboxKeyTyped(typedChar, keyCode);
     }
 
-    protected void actionPerformed(ButtonWidget button) throws IOException {
+    protected void actionPerformed(GuiButton button) throws IOException {
         ProxyInfo proxyInfo;
         if ((button.id) == 0) {
             String fieldText = ProxySettingsScreen.keepNumbersAndColonOnly((this.proxyField).getText());
@@ -139,13 +139,13 @@ extends Screen {
         return (ProxyType.NO_PROXY);
     }
 
-    private static TextRenderer getTextRenderer(ProxySettingsScreen instance) {
+    private static FontRenderer getFontRenderer(ProxySettingsScreen instance) {
         return instance.fontRenderer;
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        RenderSystem.scale((float)1.0f, (float)1.0f, (float)1.0f);
+        GlStateManager.scale((float)1.0f, (float)1.0f, (float)1.0f);
         this.drawString((this.fontRenderer), "§6Current Type: §6§l" + ProxySettingsScreen.getCurrentType() + " §8- §7IP:Port", (this.width) / (2) - (110), (this.height) / (2) - (20) - (10), -1);
         (this.proxyField).drawTextBox();
         if ((type) == (1)) {
@@ -165,20 +165,20 @@ extends Screen {
 
     public void initGui() {
         Keyboard.enableRepeatEvents(true);
-        (this.buttonList).add(new ButtonWidget(0, (this.width) / (2) - (100), (this.height) - (50), 200, 20, "Done"));
-        (this.buttonList).add(new ButtonWidget(1, (this.width) / (2) + (50), (this.height) / (2) + (10) - (20), 30, 20, "Reset"));
-        (this.buttonList).add(new ButtonWidget(3, (this.width) / (2) + (80), (this.height) / (2) + (10) - (20), 30, 20, "Type"));
-        (this.buttonList).add(new ButtonWidget(4, (this.width) / (2) + (50), (this.height) / (2) + (35) - (20), 63, 20, "Free Proxy"));
-        this.proxyField = new TextFieldWidget(2, ProxySettingsScreen.getTextRenderer5(this), ProxySettingsScreen.getWidth4(this) / (2) - (110), ProxySettingsScreen.getHeight2(this) / (2) + (10) - (20), 220, 20);
+        (this.buttonList).add(new GuiButton(0, (this.width) / (2) - (100), (this.height) - (50), 200, 20, "Done"));
+        (this.buttonList).add(new GuiButton(1, (this.width) / (2) + (50), (this.height) / (2) + (10) - (20), 30, 20, "Reset"));
+        (this.buttonList).add(new GuiButton(3, (this.width) / (2) + (80), (this.height) / (2) + (10) - (20), 30, 20, "Type"));
+        (this.buttonList).add(new GuiButton(4, (this.width) / (2) + (50), (this.height) / (2) + (35) - (20), 63, 20, "Free Proxy"));
+        this.proxyField = new GuiTextField(2, ProxySettingsScreen.getFontRenderer5(this), ProxySettingsScreen.getWidth4(this) / (2) - (110), ProxySettingsScreen.getHeight2(this) / (2) + (10) - (20), 220, 20);
         (this.proxyField).setMaxStringLength(22);
         (this.proxyField).setFocused(true);
         (this.proxyField).setText((proxy));
-        this.usernameField = new TextFieldWidget(2, ProxySettingsScreen.getTextRenderer(this), ProxySettingsScreen.getWidth(this) / (2) - (110), ProxySettingsScreen.getHeight4(this) / (2) + (10) + (50) - (20), 220, 20);
+        this.usernameField = new GuiTextField(2, ProxySettingsScreen.getFontRenderer(this), ProxySettingsScreen.getWidth(this) / (2) - (110), ProxySettingsScreen.getHeight4(this) / (2) + (10) + (50) - (20), 220, 20);
         (this.usernameField).setMaxStringLength(22);
         (this.usernameField).setFocused(false);
         (this.usernameField).setText((username));
         (this.usernameField).setVisible(((type) == (1) ? 1 : 0) != 0);
-        this.passwordField = new TextFieldWidget(2, ProxySettingsScreen.getTextRenderer2(this), ProxySettingsScreen.getWidth9(this) / (2) - (110), ProxySettingsScreen.getHeight9(this) / (2) + (10) + (90) - (20), 220, 20);
+        this.passwordField = new GuiTextField(2, ProxySettingsScreen.getFontRenderer2(this), ProxySettingsScreen.getWidth9(this) / (2) - (110), ProxySettingsScreen.getHeight9(this) / (2) + (10) + (90) - (20), 220, 20);
         (this.passwordField).setMaxStringLength(22);
         (this.passwordField).setFocused(false);
         (this.passwordField).setText((password));
@@ -201,7 +201,7 @@ extends Screen {
 
     public static void loadConfig() {
         try {
-            JSONObject config = new JSONObject(Objects.requireNonNull(ProxySettingsScreen.readUsingFiles(new File((MinecraftClient.getInstance().gameDir), "/NeoWare/mcproxy.json"))));
+            JSONObject config = new JSONObject(Objects.requireNonNull(ProxySettingsScreen.readUsingFiles(new File((Minecraft.getMinecraft().gameDir), "/NeoWare/mcproxy.json"))));
             type = ProxySettingsScreen.getIdByType(ProxyType.getType((String)config.getString("type")));
             proxy = config.getString("host");
             username = config.getString("username");
@@ -216,7 +216,7 @@ extends Screen {
         return instance.width;
     }
 
-    private static TextRenderer getTextRenderer2(ProxySettingsScreen instance) {
+    private static FontRenderer getFontRenderer2(ProxySettingsScreen instance) {
         return instance.fontRenderer;
     }
 
@@ -244,7 +244,7 @@ extends Screen {
         return instance.height;
     }
 
-    private static TextRenderer getTextRenderer5(ProxySettingsScreen instance) {
+    private static FontRenderer getFontRenderer5(ProxySettingsScreen instance) {
         return instance.fontRenderer;
     }
 
@@ -255,7 +255,7 @@ extends Screen {
             proxySetting.put("host", (Object)(proxy));
             proxySetting.put("username", (Object)(username));
             proxySetting.put("password", (Object)(password));
-            FileUtils.writeByteArrayToFile((File)new File((MinecraftClient.getInstance().gameDir), "/NeoWare/mcproxy.json"), (byte[])proxySetting.toString().getBytes((StandardCharsets.UTF_8)));
+            FileUtils.writeByteArrayToFile((File)new File((Minecraft.getMinecraft().gameDir), "/NeoWare/mcproxy.json"), (byte[])proxySetting.toString().getBytes((StandardCharsets.UTF_8)));
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -5,9 +5,9 @@
  *  neo.deobf.CancellableEvent
  *  net.minecraft.entity.Entity
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
+import neo.deobf.CancellableEvent;
 import net.minecraft.entity.Entity;
 
 public class AttackTargetEvent

@@ -11,18 +11,18 @@
  *  net.minecraft.client.Minecraft
  *  org.apache.commons.io.FileUtils
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import com.botclient.NumberSetting;
-import com.botclient.WebSolverModule;
-import com.botclient.SeleniumJob;
-import com.botclient.SeleniumWorker;
-import com.botclient.RandomUtils;
-import com.botclient.ThreadUtils;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.NumberSetting;
+import neo.deobf.WebSolverModule;
+import neo.deobf.SeleniumJob;
+import neo.deobf.SeleniumWorker;
+import neo.deobf.RandomUtils;
+import neo.deobf.ThreadUtils;
+import net.minecraft.client.Minecraft;
 import org.apache.commons.io.FileUtils;
 
 public class SeleniumManager {
@@ -30,7 +30,7 @@ public class SeleniumManager {
 
     public void clearCache() {
         try {
-            File path = new File((MinecraftClient.getInstance().gameDir), "/NeoWare/Chrome/");
+            File path = new File((Minecraft.getMinecraft().gameDir), "/NeoWare/Chrome/");
             FileUtils.deleteDirectory((File)path);
             if (!path.exists()) {
                 path.mkdirs();

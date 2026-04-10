@@ -4,9 +4,9 @@
  * Could not load the following classes:
  *  neo.deobf.AltStatus
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.AltStatus;
+import neo.deobf.AltStatus;
 
 public class AltAccount {
     public String password;

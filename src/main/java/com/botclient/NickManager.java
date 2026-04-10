@@ -8,7 +8,7 @@
  *  neo.deobf.ChatUtils
  *  net.minecraft.client.Minecraft
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -16,12 +16,12 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
-import com.botclient.ModeSetting;
-import com.botclient.BotSettingsModule;
-import com.botclient.ChatUtils;
-import com.botclient.PlaceholderFormatter;
-import com.botclient.RandomUtils;
-import net.minecraft.client.MinecraftClient;
+import neo.deobf.ModeSetting;
+import neo.deobf.BotSettingsModule;
+import neo.deobf.ChatUtils;
+import neo.deobf.PlaceholderFormatter;
+import neo.deobf.RandomUtils;
+import net.minecraft.client.Minecraft;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -62,7 +62,7 @@ public class NickManager {
 
     public void loadNicks() {
         (this.nickList).clear();
-        File nickFile = new File((MinecraftClient.getInstance().gameDir), "/NeoWare/nicks/nicks.txt");
+        File nickFile = new File((Minecraft.getMinecraft().gameDir), "/NeoWare/nicks/nicks.txt");
         this.createFile(nickFile.toPath());
         try {
             for (String nick : Files.readAllLines(nickFile.toPath())) {

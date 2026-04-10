@@ -17,23 +17,23 @@
  *  neo.deobf.ThreadUtils
  *  net.minecraft.inventory.ClickType
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
-import com.botclient.Client;
-import com.botclient.ModuleManager;
-import com.botclient.ReplayAction;
-import com.botclient.ReplayActionType;
-import com.botclient.ActionRecorderModule;
-import com.botclient.ModeSetting;
-import com.botclient.NumberSetting;
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.BotKeyState;
-import com.botclient.PBotMinecraft;
-import com.botclient.RandomUtils;
-import com.botclient.ThreadUtils;
-import net.minecraft.screen.slot.SlotActionType;
+import neo.deobf.Client;
+import neo.deobf.ModuleManager;
+import neo.deobf.ReplayAction;
+import neo.deobf.ReplayActionType;
+import neo.deobf.ActionRecorderModule;
+import neo.deobf.ModeSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.BotKeyState;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.RandomUtils;
+import neo.deobf.ThreadUtils;
+import net.minecraft.inventory.ClickType;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

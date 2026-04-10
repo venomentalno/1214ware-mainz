@@ -5,10 +5,10 @@
  *  com.sun.jna.Callback
  *  neo.deobf.DiscordUser
  */
-package com.botclient;
+package neo.deobf;
 
 import com.sun.jna.Callback;
-import com.botclient.DiscordUser;
+import neo.deobf.DiscordUser;
 
 public interface DiscordJoinRequestCallback
 extends Callback {

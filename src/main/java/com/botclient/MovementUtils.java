@@ -4,29 +4,29 @@
  * Could not load the following classes:
  *  neo.deobf.MinecraftContext
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.entity.PlayerEntitySP
- *  net.minecraft.client.multiplayer.ClientWorld
+ *  net.minecraft.client.entity.EntityPlayerSP
+ *  net.minecraft.client.multiplayer.WorldClient
  *  net.minecraft.client.settings.GameSettings
  *  net.minecraft.client.settings.KeyBinding
  *  net.minecraft.entity.Entity
  *  net.minecraft.util.MovementInput
  *  net.minecraft.util.math.AxisAlignedBB
- *  net.minecraft.util.math.HitResult
- *  net.minecraft.util.math.HitResult$Type
+ *  net.minecraft.util.math.RayTraceResult
+ *  net.minecraft.util.math.RayTraceResult$Type
  *  net.minecraft.util.math.Vec3d
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.MinecraftContext;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.KeyBinding;
+import neo.deobf.MinecraftContext;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MovementInput;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 
 /*
@@ -35,7 +35,7 @@ import net.minecraft.util.math.Vec3d;
 public class MovementUtils
 implements MinecraftContext {
 
-    private static PlayerEntitySP getPlayer() {
+    private static EntityPlayerSP getPlayer() {
         return Minecraft.player;
     }
 
@@ -43,27 +43,27 @@ implements MinecraftContext {
         return Minecraft.gameSettings;
     }
 
-    private static MovementInput getMovementInput(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer5() {
+    private static EntityPlayerSP getPlayer5() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput2(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput2(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static MovementInput getMovementInput3(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput3(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer7() {
+    private static EntityPlayerSP getPlayer7() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer8() {
+    private static EntityPlayerSP getPlayer8() {
         return Minecraft.player;
     }
 
@@ -86,7 +86,7 @@ implements MinecraftContext {
         return n != 0;
     }
 
-    private static PlayerEntitySP getPlayer9() {
+    private static EntityPlayerSP getPlayer9() {
         return Minecraft.player;
     }
 
@@ -104,7 +104,7 @@ implements MinecraftContext {
         return (float)Math.sqrt(d2 + d3 * (MovementUtils.getPlayer44().motionZ));
     }
 
-    private static PlayerEntitySP getPlayer10() {
+    private static EntityPlayerSP getPlayer10() {
         return Minecraft.player;
     }
 
@@ -134,11 +134,11 @@ implements MinecraftContext {
         }
     }
 
-    private static PlayerEntitySP getPlayer11() {
+    private static EntityPlayerSP getPlayer11() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer12() {
+    private static EntityPlayerSP getPlayer12() {
         return Minecraft.player;
     }
 
@@ -171,63 +171,63 @@ implements MinecraftContext {
         return dArray;
     }
 
-    private static MovementInput getMovementInput4(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput4(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer13() {
+    private static EntityPlayerSP getPlayer13() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer14() {
+    private static EntityPlayerSP getPlayer14() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer15() {
+    private static EntityPlayerSP getPlayer15() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer16() {
+    private static EntityPlayerSP getPlayer16() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer17() {
+    private static EntityPlayerSP getPlayer17() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer18() {
+    private static EntityPlayerSP getPlayer18() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer19() {
+    private static EntityPlayerSP getPlayer19() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer20() {
+    private static EntityPlayerSP getPlayer20() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer21() {
+    private static EntityPlayerSP getPlayer21() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer22() {
+    private static EntityPlayerSP getPlayer22() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput5(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput5(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer23() {
+    private static EntityPlayerSP getPlayer23() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer24() {
+    private static EntityPlayerSP getPlayer24() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput6(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput6(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -261,27 +261,27 @@ implements MinecraftContext {
         return (float)Math.toRadians(rotationYaw);
     }
 
-    private static PlayerEntitySP getPlayer25() {
+    private static EntityPlayerSP getPlayer25() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer26() {
+    private static EntityPlayerSP getPlayer26() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput7(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput7(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer27() {
+    private static EntityPlayerSP getPlayer27() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer28() {
+    private static EntityPlayerSP getPlayer28() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput8(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput8(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -291,7 +291,7 @@ implements MinecraftContext {
         float f2 = (MovementUtils.getPlayer8().rotationYaw);
         if (f == 0.0f && f1 == 0.0f) {
             MovementUtils.getPlayer19().motionX = 0.0;
-            MovementUtils.player.motionZ = 0.0;
+            MovementUtils.getPlayer().motionZ = 0.0;
         } else if (f != 0.0f) {
             if (f1 >= 1.0f) {
                 f2 += (float)(f > 0.0f ? -35 : 35);
@@ -312,19 +312,19 @@ implements MinecraftContext {
         MovementUtils.getPlayer21().motionZ = (double)f * speed * d1 - (double)f1 * speed * d0;
     }
 
-    private static PlayerEntitySP getPlayer29() {
+    private static EntityPlayerSP getPlayer29() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput9(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput9(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer30() {
+    private static EntityPlayerSP getPlayer30() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer31() {
+    private static EntityPlayerSP getPlayer31() {
         return Minecraft.player;
     }
 
@@ -343,63 +343,63 @@ implements MinecraftContext {
         return n != 0;
     }
 
-    private static PlayerEntitySP getPlayer32() {
+    private static EntityPlayerSP getPlayer32() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput10(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput10(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer33() {
+    private static EntityPlayerSP getPlayer33() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer34() {
+    private static EntityPlayerSP getPlayer34() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer35() {
+    private static EntityPlayerSP getPlayer35() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer36() {
+    private static EntityPlayerSP getPlayer36() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput11(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput11(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer37() {
+    private static EntityPlayerSP getPlayer37() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer38() {
+    private static EntityPlayerSP getPlayer38() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer39() {
+    private static EntityPlayerSP getPlayer39() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer40() {
+    private static EntityPlayerSP getPlayer40() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer41() {
+    private static EntityPlayerSP getPlayer41() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer43() {
+    private static EntityPlayerSP getPlayer43() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer44() {
+    private static EntityPlayerSP getPlayer44() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer45() {
+    private static EntityPlayerSP getPlayer45() {
         return Minecraft.player;
     }
 
@@ -412,31 +412,31 @@ implements MinecraftContext {
         double d6 = (MovementUtils.getPlayer22().posY);
         double d7 = d6 + (!(MovementUtils.getPlayer57().onGround) ? 1.5 : 2.5);
         AxisAlignedBB axisAlignedBB = new AxisAlignedBB(d, d3, d4, d5, d7, (MovementUtils.getPlayer10().posZ) - 0.29999999999999999);
-        ClientWorld worldClient = ((mc).world);
+        WorldClient worldClient = ((mc).world);
         return (!worldClient.getCollisionBoxes((Entity)(Minecraft.player), axisAlignedBB).isEmpty() ? 1 : 0) != 0;
     }
 
-    private static PlayerEntitySP getPlayer46() {
+    private static EntityPlayerSP getPlayer46() {
         return Minecraft.player;
     }
 
     public static boolean isUnderBedrock() {
         if ((MovementUtils.getPlayer41().posY) <= 3.0) {
-            ClientWorld worldClient = ((mc).world);
+            WorldClient worldClient = ((mc).world);
             Vec3d vec3d = (Minecraft.player).getPositionVector();
             double d = (MovementUtils.getPlayer33().posX);
             double d2 = 0.0;
-            HitResult trace = worldClient.rayTraceBlocks(vec3d, new Vec3d(d, d2, (MovementUtils.getPlayer56().posZ)), false, false, false);
-            return (trace == null || (trace.typeOfHit) != (HitResult.Type.BLOCK) ? 1 : 0) != 0;
+            RayTraceResult trace = worldClient.rayTraceBlocks(vec3d, new Vec3d(d, d2, (MovementUtils.getPlayer56().posZ)), false, false, false);
+            return (trace == null || (trace.typeOfHit) != (RayTraceResult.Type.BLOCK) ? 1 : 0) != 0;
         }
         return false;
     }
 
-    private static PlayerEntitySP getPlayer48() {
+    private static EntityPlayerSP getPlayer48() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer49() {
+    private static EntityPlayerSP getPlayer49() {
         return Minecraft.player;
     }
 
@@ -449,23 +449,23 @@ implements MinecraftContext {
         MovementUtils.getPlayer59().motionZ = Math.cos(yaw) * (double)speed;
     }
 
-    private static PlayerEntitySP getPlayer50() {
+    private static EntityPlayerSP getPlayer50() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer51() {
+    private static EntityPlayerSP getPlayer51() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer52() {
+    private static EntityPlayerSP getPlayer52() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput12(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput12(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer53() {
+    private static EntityPlayerSP getPlayer53() {
         return Minecraft.player;
     }
 
@@ -478,7 +478,7 @@ implements MinecraftContext {
         double d6 = (MovementUtils.getPlayer31().posY);
         double d7 = d6 + (!(MovementUtils.getPlayer48().onGround) ? 1.5 : 2.5);
         AxisAlignedBB bb = new AxisAlignedBB(d, d3, d4, d5, d7, (MovementUtils.getPlayer23().posZ) - 0.29999999999999999);
-        ClientWorld worldClient = ((mc).world);
+        WorldClient worldClient = ((mc).world);
         return worldClient.getCollisionBoxes((Entity)(Minecraft.player), bb).isEmpty();
     }
 
@@ -489,15 +489,15 @@ implements MinecraftContext {
         MovementUtils.strafe(MovementUtils.getSpeed());
     }
 
-    private static PlayerEntitySP getPlayer54() {
+    private static EntityPlayerSP getPlayer54() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer55() {
+    private static EntityPlayerSP getPlayer55() {
         return Minecraft.player;
     }
 
-    private static MovementInput getMovementInput13(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput13(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
@@ -508,39 +508,39 @@ implements MinecraftContext {
         return (float)Math.sqrt(d2 + d3 * (MovementUtils.getPlayer49().motionZ));
     }
 
-    private static MovementInput getMovementInput14(PlayerEntitySP entityPlayerSP) {
+    private static MovementInput getMovementInput14(EntityPlayerSP entityPlayerSP) {
         return entityPlayerSP.movementInput;
     }
 
-    private static PlayerEntitySP getPlayer56() {
+    private static EntityPlayerSP getPlayer56() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer57() {
+    private static EntityPlayerSP getPlayer57() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer58() {
+    private static EntityPlayerSP getPlayer58() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer59() {
+    private static EntityPlayerSP getPlayer59() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer60() {
+    private static EntityPlayerSP getPlayer60() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer61() {
+    private static EntityPlayerSP getPlayer61() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer62() {
+    private static EntityPlayerSP getPlayer62() {
         return Minecraft.player;
     }
 
-    private static PlayerEntitySP getPlayer63() {
+    private static EntityPlayerSP getPlayer63() {
         return Minecraft.player;
     }
 

@@ -14,22 +14,22 @@
  *  neo.deobf.SetPrefixCommand
  *  neo.deobf.EventBus
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.botclient.Command;
-import com.botclient.CommandChatListener;
-import com.botclient.BotsCommand;
-import com.botclient.ChatUtils;
-import com.botclient.ConfigCommand;
-import com.botclient.CrashCommand;
-import com.botclient.GetIPCommand;
-import com.botclient.HelpCommand;
-import com.botclient.PluginsCommand;
-import com.botclient.SetPrefixCommand;
-import com.botclient.EventBus;
+import neo.deobf.Command;
+import neo.deobf.CommandChatListener;
+import neo.deobf.BotsCommand;
+import neo.deobf.ChatUtils;
+import neo.deobf.ConfigCommand;
+import neo.deobf.CrashCommand;
+import neo.deobf.GetIPCommand;
+import neo.deobf.HelpCommand;
+import neo.deobf.PluginsCommand;
+import neo.deobf.SetPrefixCommand;
+import neo.deobf.EventBus;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

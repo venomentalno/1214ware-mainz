@@ -5,15 +5,16 @@
  *  net.minecraft.client.Minecraft
  *  net.minecraft.client.gui.ScaledResolution
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.Random;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Window;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 
 public interface MinecraftContext {
-    public static final Minecraft mc = MinecraftClient.getInstance();
+    public static final Minecraft mc = Minecraft.getMinecraft();
     public static final Random random = new Random();
+    public static final ScaledResolution sr = new ScaledResolution(mc);
 }
 
 

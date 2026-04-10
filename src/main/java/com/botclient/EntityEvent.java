@@ -7,11 +7,11 @@
  *  neo.deobf.Event
  *  net.minecraft.entity.Entity
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.EventStage;
-import com.botclient.CancellableEvent;
-import com.botclient.Event;
+import neo.deobf.EventStage;
+import neo.deobf.CancellableEvent;
+import neo.deobf.Event;
 import net.minecraft.entity.Entity;
 
 public class EntityEvent

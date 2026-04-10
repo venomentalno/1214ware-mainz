@@ -11,16 +11,16 @@
  *  neo.deobf.BotBaritoneModule
  *  neo.deobf.PathFinder
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.BooleanSetting;
-import com.botclient.PBot;
-import com.botclient.PBotPlayer;
-import com.botclient.BotKeyState;
-import com.botclient.PBotMinecraft;
-import com.botclient.BotTask;
-import com.botclient.BotBaritoneModule;
-import com.botclient.PathFinder;
+import neo.deobf.BooleanSetting;
+import neo.deobf.PBot;
+import neo.deobf.PBotPlayer;
+import neo.deobf.BotKeyState;
+import neo.deobf.PBotMinecraft;
+import neo.deobf.BotTask;
+import neo.deobf.BotBaritoneModule;
+import neo.deobf.PathFinder;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

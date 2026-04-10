@@ -7,19 +7,19 @@
  *  neo.deobf.RandomUtils
  *  neo.deobf.RandomProvocationPool
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.network.PlayerListEntry
+ *  net.minecraft.client.network.NetworkPlayerInfo
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-import com.botclient.PBot;
-import com.botclient.MinecraftContext;
-import com.botclient.RandomUtils;
-import com.botclient.RandomProvocationPool;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.PlayerListEntry;
+import neo.deobf.PBot;
+import neo.deobf.MinecraftContext;
+import neo.deobf.RandomUtils;
+import neo.deobf.RandomProvocationPool;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

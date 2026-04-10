@@ -1,4 +1,4 @@
-package com.botclient;
+package neo.deobf;
 
 public enum PacketEventState {
     PRE,

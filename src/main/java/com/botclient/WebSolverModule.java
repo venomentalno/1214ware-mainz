@@ -12,18 +12,18 @@
  *  neo.deobf.Module
  *  neo.deobf.ChatUtils
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.File;
-import com.botclient.TextSetting;
-import com.botclient.Setting;
-import com.botclient.ModuleCategory;
-import com.botclient.BooleanSetting;
-import com.botclient.InfoSetting;
-import com.botclient.ModeSetting;
-import com.botclient.NumberSetting;
-import com.botclient.Module;
-import com.botclient.ChatUtils;
+import neo.deobf.TextSetting;
+import neo.deobf.Setting;
+import neo.deobf.ModuleCategory;
+import neo.deobf.BooleanSetting;
+import neo.deobf.InfoSetting;
+import neo.deobf.ModeSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.Module;
+import neo.deobf.ChatUtils;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true

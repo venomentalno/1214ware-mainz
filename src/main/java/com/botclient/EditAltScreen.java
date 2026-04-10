@@ -8,39 +8,39 @@
  *  neo.deobf.GuiPasswordField
  *  neo.deobf.DrawUtils
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.gui.TextRenderer
- *  net.minecraft.client.gui.ButtonWidget
+ *  net.minecraft.client.gui.FontRenderer
+ *  net.minecraft.client.gui.GuiButton
  *  net.minecraft.client.gui.GuiScreen
- *  net.minecraft.client.gui.TextFieldWidget
+ *  net.minecraft.client.gui.GuiTextField
  *  net.minecraft.client.gui.ScaledResolution
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.util.text.TextFormatting
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
-import com.botclient.AltAccount;
-import com.botclient.NeoButton;
-import com.botclient.AltManagerScreen;
-import com.botclient.GuiPasswordField;
-import com.botclient.DrawUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.Window;
-import net.minecraft.util.Formatting;
+import neo.deobf.AltAccount;
+import neo.deobf.NeoButton;
+import neo.deobf.AltManagerScreen;
+import neo.deobf.GuiPasswordField;
+import neo.deobf.DrawUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.text.TextFormatting;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public class EditAltScreen
-extends Screen {
-    public String status = TextFormat.GRAY + "Waiting...";
+extends GuiScreen {
+    public String status = TextFormatting.GRAY + "Waiting...";
     public final AltManagerScreen manager;
-    public TextFieldWidget nameField;
+    public GuiTextField nameField;
     public GuiPasswordField pwField;
 
     private static Minecraft getMc(EditAltScreen instance) {
@@ -86,7 +86,7 @@ extends Screen {
         return instance.width;
     }
 
-    public void actionPerformed(ButtonWidget button) {
+    public void actionPerformed(GuiButton button) {
         switch ((button.id)) {
             case 0: {
                 (EditAltScreen.getManager(this).selectedAlt).setMask((this.nameField).getText());
@@ -112,12 +112,12 @@ extends Screen {
         return instance.mc;
     }
 
-    private static TextRenderer getTextRenderer(Minecraft minecraft) {
+    private static FontRenderer getFontRenderer(Minecraft minecraft) {
         return minecraft.fontRenderer;
     }
 
     public void drawScreen(int par1, int par2, float par3) {
-        Window window = this.mc.getWindow();
+        ScaledResolution sr = new ScaledResolution((this.mc));
         DrawUtils.drawRect((float)0.0f, (float)0.0f, (float)(this.width), (float)(this.height), (Color)new Color(17, 17, 17, 255));
         (EditAltScreen.getMc6(this).fontRenderer).drawStringWithShadow("Edit Alt", (float)(this.width) / 2.0f, 10.0f, -1);
         (EditAltScreen.getMc7(this).fontRenderer).drawStringWithShadow((this.status), (float)(this.width) / 2.0f, 20.0f, -1);
@@ -135,8 +135,8 @@ extends Screen {
     public void initGui() {
         (this.buttonList).add(new NeoButton(0, (this.width) / (2) - (100), (this.height) / (4) + (92) + (12), "Edit"));
         (this.buttonList).add(new NeoButton(1, (this.width) / (2) - (100), (this.height) / (4) + (116) + (12), "Cancel"));
-        this.nameField = new TextFieldWidget(EditAltScreen.getEventButton(this), EditAltScreen.getTextRenderer6(EditAltScreen.getMc(this)), EditAltScreen.getWidth(this) / (2) - (100), 60, 200, 20);
-        this.pwField = new GuiPasswordField(EditAltScreen.getTextRenderer(EditAltScreen.getMc5(this)), EditAltScreen.getWidth3(this) / (2) - (100), 100, 200, 20);
+        this.nameField = new GuiTextField(EditAltScreen.getEventButton(this), EditAltScreen.getFontRenderer6(EditAltScreen.getMc(this)), EditAltScreen.getWidth(this) / (2) - (100), 60, 200, 20);
+        this.pwField = new GuiPasswordField(EditAltScreen.getFontRenderer(EditAltScreen.getMc5(this)), EditAltScreen.getWidth3(this) / (2) - (100), 100, 200, 20);
     }
 
 protected void keyTyped(char par1, int par2) {
@@ -147,11 +147,11 @@ protected void keyTyped(char par1, int par2) {
             (this.pwField).setFocused((!(this.pwField).isFocused() ? 1 : 0) != 0);
         }
         if (par1 == (13)) {
-            this.actionPerformed((ButtonWidget)(this.buttonList).get(0));
+            this.actionPerformed((GuiButton)(this.buttonList).get(0));
         }
     }
 
-    private static TextRenderer getTextRenderer6(Minecraft minecraft) {
+    private static FontRenderer getFontRenderer6(Minecraft minecraft) {
         return minecraft.fontRenderer;
     }
 

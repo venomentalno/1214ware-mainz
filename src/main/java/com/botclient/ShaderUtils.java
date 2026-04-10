@@ -12,7 +12,7 @@
  *  org.lwjgl.opengl.GL11
  *  org.lwjgl.opengl.GL20
  */
-package com.botclient;
+package neo.deobf;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -20,15 +20,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import com.botclient.MinecraftContext;
-import com.botclient.DrawUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Window;
-import net.minecraft.client.render.RenderSystem;
-import net.minecraft.client.render.OpenGlHelper;
+import neo.deobf.MinecraftContext;
+import neo.deobf.DrawUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.RenderSystem;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
 /*
@@ -64,8 +64,8 @@ public class ShaderUtils {
     }
 
     public static void renderColor(float force) {
-        RenderSystem.enableBlend();
-        RenderSystem.color((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
+        GlStateManager.enableBlend();
+        GlStateManager.color((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
         OpenGlHelper.glBlendFunc((int)(770), (int)(771), (int)(1), (int)(0));
         framebuffer = DrawUtils.createFrameBuffer((Framebuffer)(framebuffer));
         (framebuffer).framebufferClear();
@@ -82,8 +82,8 @@ public class ShaderUtils {
         DrawUtils.bindTexture((int)((framebuffer).framebufferTexture));
         ShaderUtils.drawQuads();
         (shader).unload();
-        RenderSystem.resetColor();
-        RenderSystem.bindTexture((int)(0));
+        GlStateManager.resetColor();
+        GlStateManager.bindTexture((int)(0));
     }
 
     public void setUniformf(String name, float ... args) {
@@ -121,18 +121,19 @@ public class ShaderUtils {
     }
 
     public static void drawQuads() {
-        float width = (float)mc.getWindow().getScaledWidth();
-        float height = (float)mc.getWindow().getScaledHeight();
-        RenderSystem.glBegin((int)(7));
-        RenderSystem.glTexCoord2f((float)0.0f, (float)1.0f);
-        RenderSystem.glVertex2f((float)0.0f, (float)0.0f);
-        RenderSystem.glTexCoord2f((float)0.0f, (float)0.0f);
-        RenderSystem.glVertex2f((float)0.0f, (float)height);
-        RenderSystem.glTexCoord2f((float)1.0f, (float)0.0f);
-        RenderSystem.glVertex2f((float)width, (float)height);
-        RenderSystem.glTexCoord2f((float)1.0f, (float)1.0f);
-        RenderSystem.glVertex2f((float)width, (float)0.0f);
-        RenderSystem.glEnd();
+        ScaledResolution sr = new ScaledResolution((MinecraftContext.mc));
+        float width = (float)sr.getScaledWidth_double();
+        float height = (float)sr.getScaledHeight_double();
+        GL11.glBegin((int)(7));
+        GL11.glTexCoord2f((float)0.0f, (float)1.0f);
+        GL11.glVertex2f((float)0.0f, (float)0.0f);
+        GL11.glTexCoord2f((float)0.0f, (float)0.0f);
+        GL11.glVertex2f((float)0.0f, (float)height);
+        GL11.glTexCoord2f((float)1.0f, (float)0.0f);
+        GL11.glVertex2f((float)width, (float)height);
+        GL11.glTexCoord2f((float)1.0f, (float)1.0f);
+        GL11.glVertex2f((float)width, (float)0.0f);
+        GL11.glEnd();
     }
 
     public static String readInputStream(InputStream inputStream) {
@@ -160,16 +161,16 @@ public class ShaderUtils {
     }
 
     public static void drawQuads(float x, float y, float width, float height) {
-        RenderSystem.glBegin((int)(7));
-        RenderSystem.glTexCoord2f((float)0.0f, (float)0.0f);
-        RenderSystem.glVertex2f((float)x, (float)y);
-        RenderSystem.glTexCoord2f((float)0.0f, (float)1.0f);
-        RenderSystem.glVertex2f((float)x, (float)(y + height));
-        RenderSystem.glTexCoord2f((float)1.0f, (float)1.0f);
-        RenderSystem.glVertex2f((float)(x + width), (float)(y + height));
-        RenderSystem.glTexCoord2f((float)1.0f, (float)0.0f);
-        RenderSystem.glVertex2f((float)(x + width), (float)y);
-        RenderSystem.glEnd();
+        GL11.glBegin((int)(7));
+        GL11.glTexCoord2f((float)0.0f, (float)0.0f);
+        GL11.glVertex2f((float)x, (float)y);
+        GL11.glTexCoord2f((float)0.0f, (float)1.0f);
+        GL11.glVertex2f((float)x, (float)(y + height));
+        GL11.glTexCoord2f((float)1.0f, (float)1.0f);
+        GL11.glVertex2f((float)(x + width), (float)(y + height));
+        GL11.glTexCoord2f((float)1.0f, (float)0.0f);
+        GL11.glVertex2f((float)(x + width), (float)y);
+        GL11.glEnd();
     }
 
 public void unload() {
@@ -201,11 +202,11 @@ public void unload() {
                     fragmentShaderID = this.createShader(new ByteArrayInputStream(this.roundedRectGradient.getBytes()), 35632);
                     break;
                 default:
-                    fragmentShaderID = this.createShader(MinecraftContext.mc.getResourceManager().getResource(new Identifier(fragmentShaderLoc)).getInputStream(), 35632);
+                    fragmentShaderID = this.createShader(MinecraftContext.mc.getResourceManager().getResource(new ResourceLocation(fragmentShaderLoc)).getInputStream(), 35632);
                     break;
             }
             GL20.glAttachShader(program, fragmentShaderID);
-            int vertexShaderID = this.createShader(MinecraftContext.mc.getResourceManager().getResource(new Identifier(vertexShaderLoc)).getInputStream(), 35633);
+            int vertexShaderID = this.createShader(MinecraftContext.mc.getResourceManager().getResource(new ResourceLocation(vertexShaderLoc)).getInputStream(), 35633);
             GL20.glAttachShader(program, vertexShaderID);
         }
         catch (IOException e) {

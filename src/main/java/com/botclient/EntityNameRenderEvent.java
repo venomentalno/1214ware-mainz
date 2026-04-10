@@ -3,12 +3,12 @@
  * 
  * Could not load the following classes:
  *  neo.deobf.CancellableEvent
- *  net.minecraft.entity.LivingEntity
+ *  net.minecraft.entity.EntityLivingBase
  */
-package com.botclient;
+package neo.deobf;
 
-import com.botclient.CancellableEvent;
-import net.minecraft.entity.LivingEntity;
+import neo.deobf.CancellableEvent;
+import net.minecraft.entity.EntityLivingBase;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -16,22 +16,22 @@ import net.minecraft.entity.LivingEntity;
 public class EntityNameRenderEvent
 extends CancellableEvent {
     public String renderedName;
-    public final LivingEntity entity;
+    public final EntityLivingBase entity;
 
     private static void setRenderedName(EntityNameRenderEvent u, String string) {
         u.renderedName = string;
     }
 
-    private static LivingEntity getEntity(EntityNameRenderEvent instance) {
+    private static EntityLivingBase getEntity(EntityNameRenderEvent instance) {
         return instance.entity;
     }
 
-    public EntityNameRenderEvent(LivingEntity entity, String renderedName) {
+    public EntityNameRenderEvent(EntityLivingBase entity, String renderedName) {
         this.entity = entity;
         this.renderedName = renderedName;
     }
 
-    public LivingEntity getEntity() {
+    public EntityLivingBase getEntity() {
         return (this.entity);
     }
 

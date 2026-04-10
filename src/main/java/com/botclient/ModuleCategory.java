@@ -1,4 +1,4 @@
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
 

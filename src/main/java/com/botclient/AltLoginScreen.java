@@ -8,44 +8,44 @@
  *  neo.deobf.GuiPasswordField
  *  neo.deobf.DrawUtils
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.gui.TextRenderer
- *  net.minecraft.client.gui.ButtonWidget
+ *  net.minecraft.client.gui.FontRenderer
+ *  net.minecraft.client.gui.GuiButton
  *  net.minecraft.client.gui.GuiScreen
- *  net.minecraft.client.gui.TextFieldWidget
- *  net.minecraft.util.text.Formatting
+ *  net.minecraft.client.gui.GuiTextField
+ *  net.minecraft.util.text.TextFormatting
  *  org.lwjgl.input.Keyboard
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
 import java.util.List;
-import com.botclient.AltAccount;
-import com.botclient.AltLoginThread;
-import com.botclient.NeoButton;
-import com.botclient.GuiPasswordField;
-import com.botclient.DrawUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.util.Formatting;
-import net.minecraft.client.util.InputUtil;
+import neo.deobf.AltAccount;
+import neo.deobf.AltLoginThread;
+import neo.deobf.NeoButton;
+import neo.deobf.GuiPasswordField;
+import neo.deobf.DrawUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.input.Keyboard;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
  */
 public final class AltLoginScreen
-extends Screen {
-    public TextFieldWidget username;
+extends GuiScreen {
+    public GuiTextField username;
     public GuiPasswordField password;
     public final GuiScreen previousScreen;
     public AltLoginThread thread;
 
-    private static TextRenderer getTextRenderer(Minecraft minecraft) {
+    private static FontRenderer getFontRenderer(Minecraft minecraft) {
         return minecraft.fontRenderer;
     }
 
@@ -74,7 +74,7 @@ extends Screen {
             }
         }
         if (character == (13)) {
-            this.actionPerformed((ButtonWidget)(this.buttonList).get(0));
+            this.actionPerformed((GuiButton)(this.buttonList).get(0));
         }
         (this.username).textboxKeyTyped(character, key);
         (this.password).textboxKeyTyped(character, key);
@@ -100,8 +100,8 @@ extends Screen {
         (this.buttonList).add(new NeoButton(0, (this.width) / (2) - (100), height1 + (72) + (12), "Login"));
         (this.buttonList).add(new NeoButton(1, (this.width) / (2) - (100), height1 + (72) + (12) + (24), "Back"));
         (this.buttonList).add(new NeoButton(2, (this.width) / (2) - (100), height1 + (72) + (12) - (24), "Import User:Pass"));
-        this.username = new TextFieldWidget(height1, AltLoginScreen.getTextRenderer5(AltLoginScreen.getMc3(this)), AltLoginScreen.getWidth7(this) / (2) - (100), 60, 200, 20);
-        this.password = new GuiPasswordField(AltLoginScreen.getTextRenderer(AltLoginScreen.getMc(this)), AltLoginScreen.getWidth6(this) / (2) - (100), 100, 200, 20);
+        this.username = new GuiTextField(height1, AltLoginScreen.getFontRenderer5(AltLoginScreen.getMc3(this)), AltLoginScreen.getWidth7(this) / (2) - (100), 60, 200, 20);
+        this.password = new GuiPasswordField(AltLoginScreen.getFontRenderer(AltLoginScreen.getMc(this)), AltLoginScreen.getWidth6(this) / (2) - (100), 100, 200, 20);
         (this.username).setFocused(true);
         Keyboard.enableRepeatEvents(true);
     }
@@ -114,13 +114,13 @@ extends Screen {
         DrawUtils.drawRect((float)0.0f, (float)0.0f, (float)(this.width), (float)(this.height), (Color)new Color(22, 22, 22, 255));
         (this.username).drawTextBox();
         (this.password).drawTextBox();
-        (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Alt Login", (float)(this.width) / 2.0f - 10.0f, 20.0f, -1);
-        (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow((this.thread) == null ? (TextFormat.GRAY) + "Alts..." : (this.thread).getStatus(), (float)(this.width) / 2.0f, 29.0f, -1);
+        (Minecraft.getMinecraft().fontRenderer).drawStringWithShadow("Alt Login", (float)(this.width) / 2.0f - 10.0f, 20.0f, -1);
+        (Minecraft.getMinecraft().fontRenderer).drawStringWithShadow((this.thread) == null ? (TextFormatting.GRAY) + "Alts..." : (this.thread).getStatus(), (float)(this.width) / 2.0f, 29.0f, -1);
         if ((this.username).getText().isEmpty() && !(this.username).isFocused()) {
-            (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Username / E-Mail", (float)((this.width) / (2) - (96)), 66.0f, -7829368);
+            (Minecraft.getMinecraft().fontRenderer).drawStringWithShadow("Username / E-Mail", (float)((this.width) / (2) - (96)), 66.0f, -7829368);
         }
         if ((this.password).getText().isEmpty() && !(this.password).isFocused()) {
-            (MinecraftClient.getInstance().fontRenderer).drawStringWithShadow("Password", (float)((this.width) / (2) - (96)), 106.0f, -7829368);
+            (Minecraft.getMinecraft().fontRenderer).drawStringWithShadow("Password", (float)((this.width) / (2) - (96)), 106.0f, -7829368);
         }
         super.drawScreen(x, y, z);
     }
@@ -129,7 +129,7 @@ extends Screen {
         return instance.width;
     }
 
-    protected void actionPerformed(ButtonWidget button) {
+    protected void actionPerformed(GuiButton button) {
         try {
             switch ((button.id)) {
                 case 0: {
@@ -156,7 +156,7 @@ extends Screen {
         }
     }
 
-    private static TextRenderer getTextRenderer5(Minecraft minecraft) {
+    private static FontRenderer getFontRenderer5(Minecraft minecraft) {
         return minecraft.fontRenderer;
     }
 

@@ -5,12 +5,12 @@
  *  neo.deobf.PBot
  *  neo.deobf.ThreadUtils
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import com.botclient.PBot;
-import com.botclient.ThreadUtils;
+import neo.deobf.PBot;
+import neo.deobf.ThreadUtils;
 
 public class BotTickExecutor {
     public static final ExecutorService threadPool = Executors.newCachedThreadPool();

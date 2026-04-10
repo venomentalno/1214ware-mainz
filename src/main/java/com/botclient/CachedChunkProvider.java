@@ -6,7 +6,7 @@
  *  net.minecraft.world.World
  *  org.jetbrains.annotations.NotNull
  */
-package com.botclient;
+package neo.deobf;
 
 import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.world.World;

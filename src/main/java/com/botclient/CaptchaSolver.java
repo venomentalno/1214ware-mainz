@@ -21,23 +21,23 @@
  *  org.jsoup.Jsoup
  *  org.jsoup.nodes.Document
  */
-package com.botclient;
+package neo.deobf;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import com.botclient.TextSetting;
-import com.botclient.BooleanSetting;
-import com.botclient.ModeSetting;
-import com.botclient.NumberSetting;
-import com.botclient.PBot;
-import com.botclient.CaptchaManagerModule;
-import com.botclient.ChatUtils;
-import com.botclient.BackendApi;
-import com.botclient.CaptchaPacket;
-import com.botclient.CaptchaSolverApi;
-import com.botclient.ImageUtils;
-import com.botclient.RandomUtils;
-import com.botclient.ThreadUtils;
+import neo.deobf.TextSetting;
+import neo.deobf.BooleanSetting;
+import neo.deobf.ModeSetting;
+import neo.deobf.NumberSetting;
+import neo.deobf.PBot;
+import neo.deobf.CaptchaManagerModule;
+import neo.deobf.ChatUtils;
+import neo.deobf.BackendApi;
+import neo.deobf.CaptchaPacket;
+import neo.deobf.CaptchaSolverApi;
+import neo.deobf.ImageUtils;
+import neo.deobf.RandomUtils;
+import neo.deobf.ThreadUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;

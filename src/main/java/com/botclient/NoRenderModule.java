@@ -9,29 +9,29 @@
  *  neo.deobf.BooleanSetting
  *  neo.deobf.Module
  *  net.minecraft.client.Minecraft
- *  net.minecraft.client.entity.PlayerEntitySP
- *  net.minecraft.client.multiplayer.ClientWorld
+ *  net.minecraft.client.entity.EntityPlayerSP
+ *  net.minecraft.client.multiplayer.WorldClient
  *  net.minecraft.entity.Entity
- *  net.minecraft.entity.ArmorStandEntity
+ *  net.minecraft.entity.item.EntityArmorStand
  *  net.minecraft.init.MobEffects
  *  net.minecraft.potion.Potion
  */
-package com.botclient;
+package neo.deobf;
 
 import java.util.List;
-import com.botclient.UpdateEvent;
-import com.botclient.EventTarget;
-import com.botclient.Setting;
-import com.botclient.ModuleCategory;
-import com.botclient.BooleanSetting;
-import com.botclient.Module;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
+import neo.deobf.UpdateEvent;
+import neo.deobf.EventTarget;
+import neo.deobf.Setting;
+import neo.deobf.ModuleCategory;
+import neo.deobf.BooleanSetting;
+import neo.deobf.Module;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ArmorStandEntity;
-import net.minecraft.registry.Registries;
-import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.Potion;
 
 /*
  * Illegal identifiers - consider using --renameillegalidents true
@@ -82,7 +82,7 @@ extends Module {
         }
     }
 
-    private static ClientWorld getWorld4(Minecraft minecraft) {
+    private static WorldClient getWorld4(Minecraft minecraft) {
         return minecraft.world;
     }
 
